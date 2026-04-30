@@ -2364,6 +2364,23 @@
     return result;
   };
 
+  // 自動翻譯例句成中文 — 用既有的 MyMemory → DeepL fallback,翻好寫回 cache 下次秒開
+  const translateExampleToZh = async (en) => {
+    if (!en) return "";
+    if (!myMemoryExhausted) {
+      try {
+        const mm = await callMyMemory(en, "en-US", "zh-TW");
+        if (isMyMemoryQuotaErr(mm.raw)) {
+          myMemoryExhausted = true;
+        } else if (mm.text) {
+          return mm.text;
+        }
+      } catch {}
+    }
+    try { return await callDeepLProxy(en, "en-US", "zh-TW"); }
+    catch { return ""; }
+  };
+
   // ---------- 單字大卡 modal ----------
   const wordModal = $("wordModal");
   const modalEmoji = $("modalEmoji");
@@ -2554,11 +2571,11 @@
 
   modalPracticeNormalBtn.addEventListener("click", () => {
     const t = modalPracticeText();
-    if (t) speakText(t, "en-US", 1.0);
+    if (t) speakText(t, "en-US", 0.85);
   });
   modalPracticeSlowBtn.addEventListener("click", () => {
     const t = modalPracticeText();
-    if (t) speakText(t, "en-US", 0.55);
+    if (t) speakText(t, "en-US", 0.5);
   });
 
   const openWordModal = async (w) => {
@@ -2600,13 +2617,27 @@
 
     modalExampleEn.classList.remove("loading");
     modalExampleEn.textContent = ex.en;
-    modalExampleZh.textContent = ex.zh || "";
     modalExampleSource.textContent =
       ex.source === "manual" ? "" :
       ex.source === "api" ? "(自動取得)" :
       "(範例句)";
     currentModalExample = ex.en;
     if (exampleToggleBtn) exampleToggleBtn.disabled = false;
+
+    // 中譯:有就直接顯示;沒有就 async 翻譯後寫回 cache
+    if (ex.zh) {
+      modalExampleZh.textContent = ex.zh;
+    } else {
+      modalExampleZh.textContent = "翻譯中...";
+      const zh = await translateExampleToZh(ex.en);
+      if (seq !== modalLoadSeq) return;
+      modalExampleZh.textContent = zh;
+      const cacheKey = w.word.toLowerCase();
+      if (exampleCache[cacheKey]) {
+        exampleCache[cacheKey].zh = zh;
+        saveExampleCache();
+      }
+    }
   };
 
   const closeWordModal = () => {
@@ -2629,11 +2660,11 @@
     if (!currentModalWord) return;
     speakText(currentModalWord, "en-US", rate);
   };
-  modalSpeakNormal.addEventListener("click", () => speakModalWord(1.0));
-  modalSpeakSlow.addEventListener("click", () => speakModalWord(0.55));
+  modalSpeakNormal.addEventListener("click", () => speakModalWord(0.85));
+  modalSpeakSlow.addEventListener("click", () => speakModalWord(0.5));
   modalExampleSpeak.addEventListener("click", () => {
     if (!currentModalExample) return;
-    speakText(currentModalExample, "en-US", 0.9);
+    speakText(currentModalExample, "en-US", 0.75);
   });
 
   // 初始
