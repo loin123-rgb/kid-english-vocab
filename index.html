@@ -899,6 +899,56 @@
     text-align: center;
   }
   .modal-write-prompt b { color: #fb923c; }
+  /* 聽寫模式開關 + 答案遮罩 */
+  .modal-dictation-toggle {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: 1px dashed var(--border);
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .modal-dictation-toggle:hover {
+    border-color: #fb923c;
+    color: #fb923c;
+  }
+  .modal-dictation-toggle.on {
+    background: rgba(251,146,60,0.15);
+    border-color: #fb923c;
+    border-style: solid;
+    color: #fb923c;
+    font-weight: 600;
+  }
+  .modal-dictation-toggle .dictation-hint {
+    color: var(--muted);
+    font-weight: 400;
+    margin-left: 4px;
+  }
+  .modal-dictation-toggle.on .dictation-hint { color: #fb923c; opacity: 0.7; }
+  /* 聽寫模式下的答案遮罩 */
+  .modal-card.dictation .modal-word {
+    color: var(--muted);
+    letter-spacing: 4px;
+    user-select: none;
+  }
+  .modal-card.dictation .modal-example-en {
+    color: var(--muted);
+    letter-spacing: 2px;
+    user-select: none;
+  }
+  .modal-card.dictation .modal-mn-explain {
+    /* 記憶法解釋有時會直接寫出英文字,聽寫時也遮 */
+    filter: blur(5px);
+    transition: filter 0.2s;
+  }
+  .modal-card.dictation .modal-mn-explain:hover {
+    filter: blur(0);
+  }
   .modal-spell-input {
     width: 100%;
     background: var(--panel-2);
@@ -1271,6 +1321,9 @@
           <button data-mode="scramble" type="button">拼圖</button>
         </div>
       </div>
+      <button id="modalDictationToggle" class="modal-dictation-toggle" type="button">
+        🎧 聽寫模式:關 <span class="dictation-hint">(打開後遮住答案,只能用聽的)</span>
+      </button>
       <div class="modal-write-prompt" id="modalWritePrompt"></div>
       <div class="modal-write-spell" id="modalWriteSpell">
         <input type="text" id="modalSpellInput" class="modal-spell-input"
@@ -2750,6 +2803,7 @@
   const modalWritePromptEl = $("modalWritePrompt");
   const modalWriteSpellEl = $("modalWriteSpell");
   const modalWriteScrambleEl = $("modalWriteScramble");
+  const modalDictationToggleBtn = $("modalDictationToggle");
   const modalSpellInput = $("modalSpellInput");
   const modalSpellCells = $("modalSpellCells");
   const modalSpellFeedback = $("modalSpellFeedback");
@@ -3045,8 +3099,9 @@
     if (yLow === tLow) {
       modalSpellFeedback.textContent = "✅ 拼對了!太厲害了 🎉";
       modalSpellFeedback.className = "modal-write-feedback success";
-      // 拼對唸一次給他聽
+      // 拼對唸一次給他聽 + 聽寫模式下揭曉答案
       speakText(target, "en-US", 0.85);
+      revealDictationAnswer();
     } else if (yLow.length === 0) {
       modalSpellFeedback.textContent = "";
       modalSpellFeedback.className = "modal-write-feedback";
@@ -3069,6 +3124,7 @@
     modalSpellInput.value = currentModalWord;
     spellHintCount = currentModalWord.length;
     renderSpellCells();
+    revealDictationAnswer();
   });
   modalSpellClearBtn.addEventListener("click", () => {
     modalSpellInput.value = "";
@@ -3175,6 +3231,7 @@
       modalScrambleFeedback.textContent = "✅ 拼對了!👏";
       modalScrambleFeedback.className = "modal-write-feedback success";
       speakText(target, "en-US", 0.85);
+      revealDictationAnswer();
       renderScramble();
     } else {
       modalScrambleFeedback.textContent = "❌ 還沒對,點答案區的字母可以拿回去重排";
@@ -3219,6 +3276,7 @@
     modalScrambleFeedback.textContent = "答案揭曉:" + target;
     modalScrambleFeedback.className = "modal-write-feedback hint";
     renderScramble();
+    revealDictationAnswer();
   });
 
   // 開新卡片時重設兩個書寫模式
@@ -3227,6 +3285,68 @@
     resetScramble();
     updateWritePrompt();
   };
+
+  // ===== 聽寫模式:遮住單字 + 例句英文 =====
+  const DICTATION_PREF_KEY = "vocab_dictation_mode_v1";
+  let dictationMode = false;
+  try { dictationMode = localStorage.getItem(DICTATION_PREF_KEY) === "1"; } catch {}
+
+  const applyDictationToCard = () => {
+    const card = wordModal.querySelector(".modal-card");
+    if (!card) return;
+    if (dictationMode) {
+      card.classList.add("dictation");
+      // 把上面的單字換成方塊;保留 emoji + 中文 + 詞性 + 年級當提示
+      if (currentModalWord) {
+        modalWord.textContent = currentModalWord
+          .split("")
+          .map((c) => (c === " " ? " " : "▢"))
+          .join("");
+      }
+      // 例句英文也換成方塊(保持中譯顯示)
+      if (currentModalExample) {
+        modalExampleEn.textContent = currentModalExample.replace(/[A-Za-z]/g, "▢");
+      }
+    } else {
+      card.classList.remove("dictation");
+      if (currentModalWord) modalWord.textContent = currentModalWord;
+      if (currentModalExample) modalExampleEn.textContent = currentModalExample;
+    }
+  };
+
+  const updateDictationToggleUI = () => {
+    if (dictationMode) {
+      modalDictationToggleBtn.classList.add("on");
+      modalDictationToggleBtn.innerHTML =
+        '🎧 聽寫模式:開 <span class="dictation-hint">(拼對了會自動揭曉答案)</span>';
+    } else {
+      modalDictationToggleBtn.classList.remove("on");
+      modalDictationToggleBtn.innerHTML =
+        '🎧 聽寫模式:關 <span class="dictation-hint">(打開後遮住答案,只能用聽的)</span>';
+    }
+  };
+
+  // 拼對 / 看答案時揭曉
+  const revealDictationAnswer = () => {
+    if (!dictationMode) return;
+    const card = wordModal.querySelector(".modal-card");
+    if (card) card.classList.remove("dictation");
+    if (currentModalWord) modalWord.textContent = currentModalWord;
+    if (currentModalExample) modalExampleEn.textContent = currentModalExample;
+  };
+
+  modalDictationToggleBtn.addEventListener("click", () => {
+    dictationMode = !dictationMode;
+    try { localStorage.setItem(DICTATION_PREF_KEY, dictationMode ? "1" : "0"); } catch {}
+    updateDictationToggleUI();
+    applyDictationToCard();
+    if (dictationMode && currentModalWord) {
+      // 剛打開 → 立刻唸一次給聽
+      speakText(currentModalWord, "en-US", 0.85);
+    }
+  });
+
+  updateDictationToggleUI();
 
   const openWordModal = async (w) => {
     const mn = (mnemonicsData.mnemonics || {})[w.word.toLowerCase()];
@@ -3264,18 +3384,27 @@
 
     wordModal.classList.add("show");
 
+    // 套用聽寫遮罩(基於使用者偏好);若 ON 自動唸一次
+    applyDictationToCard();
+    if (dictationMode) {
+      setTimeout(() => speakText(w.word, "en-US", 0.85), 200);
+    }
+
     // 防止連續開不同卡時舊 fetch 蓋到新卡
     const seq = ++modalLoadSeq;
     const ex = await getExampleFor(w.word, w.pos, mn ? mn.example : null);
     if (seq !== modalLoadSeq) return;
 
     modalExampleEn.classList.remove("loading");
-    modalExampleEn.textContent = ex.en;
+    currentModalExample = ex.en;
+    // 聽寫模式下例句也要遮(只顯示中文當提示)
+    modalExampleEn.textContent = dictationMode
+      ? ex.en.replace(/[A-Za-z]/g, "▢")
+      : ex.en;
     modalExampleSource.textContent =
       ex.source === "manual" ? "" :
       ex.source === "api" ? "(自動取得)" :
       "(範例句)";
-    currentModalExample = ex.en;
     if (exampleToggleBtn) exampleToggleBtn.disabled = false;
 
     // 中譯:有就直接顯示;沒有就 async 翻譯後寫回 cache
