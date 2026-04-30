@@ -2829,9 +2829,11 @@
     modalPracticeMode === "example" ? currentModalExample : currentModalWord;
 
   // 把目標文字渲染成可上色的 token (英文逐詞)
+  // 聽寫模式時字母遮成 ▢,但 dataset.text 保留原字以維持比對邏輯
   const renderModalTarget = (text) => {
     modalPracticeTargetEl.innerHTML = "";
     if (!text) return;
+    const masked = dictationMode && !dictationRevealedThisCard;
     const words = text.split(/(\s+)/).filter((s) => s.length > 0);
     words.forEach((w, i) => {
       const span = document.createElement("span");
@@ -2839,7 +2841,7 @@
       span.dataset.idx = i;
       span.dataset.compare = /[a-zA-Z]/.test(w) ? "1" : "0";
       span.dataset.text = w;
-      span.textContent = w;
+      span.textContent = masked ? w.replace(/[A-Za-z]/g, "▢") : w;
       modalPracticeTargetEl.appendChild(span);
     });
   };
@@ -3289,12 +3291,14 @@
   // ===== 聽寫模式:遮住單字 + 例句英文 =====
   const DICTATION_PREF_KEY = "vocab_dictation_mode_v1";
   let dictationMode = false;
+  let dictationRevealedThisCard = false; // 拼對 / 看答案後當前卡解鎖,但 dictationMode 設定不變
   try { dictationMode = localStorage.getItem(DICTATION_PREF_KEY) === "1"; } catch {}
 
   const applyDictationToCard = () => {
     const card = wordModal.querySelector(".modal-card");
     if (!card) return;
-    if (dictationMode) {
+    const active = dictationMode && !dictationRevealedThisCard;
+    if (active) {
       card.classList.add("dictation");
       // 把上面的單字換成方塊;保留 emoji + 中文 + 詞性 + 年級當提示
       if (currentModalWord) {
@@ -3312,6 +3316,8 @@
       if (currentModalWord) modalWord.textContent = currentModalWord;
       if (currentModalExample) modalExampleEn.textContent = currentModalExample;
     }
+    // 練習發音的目標也跟著遮 / 還原
+    renderModalTarget(modalPracticeText());
   };
 
   const updateDictationToggleUI = () => {
@@ -3329,14 +3335,13 @@
   // 拼對 / 看答案時揭曉
   const revealDictationAnswer = () => {
     if (!dictationMode) return;
-    const card = wordModal.querySelector(".modal-card");
-    if (card) card.classList.remove("dictation");
-    if (currentModalWord) modalWord.textContent = currentModalWord;
-    if (currentModalExample) modalExampleEn.textContent = currentModalExample;
+    dictationRevealedThisCard = true;
+    applyDictationToCard();
   };
 
   modalDictationToggleBtn.addEventListener("click", () => {
     dictationMode = !dictationMode;
+    dictationRevealedThisCard = false; // 切換時重新套用設定
     try { localStorage.setItem(DICTATION_PREF_KEY, dictationMode ? "1" : "0"); } catch {}
     updateDictationToggleUI();
     applyDictationToCard();
@@ -3354,6 +3359,7 @@
     currentModalExample = "";
     currentModalZh = (mn && mn.zh_override) || (w.zh || "").split(/[,;，；]/)[0].trim();
     currentModalEmoji = w.emoji || "";
+    dictationRevealedThisCard = false; // 新卡:重新套用聽寫設定
     modalEmoji.textContent = w.emoji || "📘";
     modalWord.textContent = w.word;
     modalZh.textContent = (mn && mn.zh_override) || w.zh || "";
@@ -3397,8 +3403,8 @@
 
     modalExampleEn.classList.remove("loading");
     currentModalExample = ex.en;
-    // 聽寫模式下例句也要遮(只顯示中文當提示)
-    modalExampleEn.textContent = dictationMode
+    // 聽寫模式下例句也要遮(只顯示中文當提示),已揭曉的卡不再遮
+    modalExampleEn.textContent = (dictationMode && !dictationRevealedThisCard)
       ? ex.en.replace(/[A-Za-z]/g, "▢")
       : ex.en;
     modalExampleSource.textContent =
