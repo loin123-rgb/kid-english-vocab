@@ -4,6 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>即時翻譯 小程式</title>
+<!-- mespeak.js (eSpeak NG WASM 移植) — 用來播 phonics 的單一字母音 (IPA),瀏覽器原生 TTS 給單字母只會唸字母名 -->
+<script src="https://cdn.jsdelivr.net/npm/mespeak/mespeak.full.js" defer></script>
 <style>
   :root {
     --bg: #0f172a;
@@ -600,6 +602,17 @@
     border-radius: 6px;
     line-height: 1.6;
   }
+  .phonics-engine-status {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+  }
+  .phonics-engine-status.ready { color: var(--ok); }
+  .phonics-engine-status.loading { color: #fb923c; }
+  .phonics-engine-status.failed { color: var(--danger); }
   .phonics-section { margin-bottom: 24px; }
   .phonics-h {
     font-size: 16px;
@@ -1369,9 +1382,9 @@
 
   <section class="tab-panel" id="tab-phonics">
     <div class="phonics-intro">
-      點任一張卡 → 唸出例字,小朋友從例字裡聽出該字母的音。<br>
-      下面的「怎麼唸」教嘴巴 / 舌頭怎麼擺,IPA 是國際音標(專業參考用)。<br>
-      <small style="color:var(--muted)">⚠️ 為什麼不直接唸單一字母音?電腦 TTS 給「a」會唸成字母名「ay」,不是 phonics 的 /æ/ 短音 — 所以這裡播例字會比較準。</small>
+      點任一張卡 → 唸出**單一字母音 + 例字**(跟 phonics 老師教法一樣:「a-a-a, apple」)。<br>
+      下面的「怎麼唸」是中文嘴形提示,IPA 是國際音標。<br>
+      <span class="phonics-engine-status" id="phonicsEngineStatus">⚪ phonics 引擎尚未啟動</span>
     </div>
     <div class="phonics-section">
       <h3 class="phonics-h">🔠 26 個字母音 (Letter Sounds)</h3>
@@ -2705,6 +2718,7 @@
       tabs.forEach((b) => b.classList.toggle("active", b === btn));
       panels.forEach((p) => p.classList.toggle("active", p.id === "tab-" + t));
       if (t === "vocab" && !vocabLoaded) loadVocab();
+      if (t === "phonics") initIpaEngine(); // lazy load 700KB,只在進到 phonics 才下載
     });
   });
 
@@ -3686,12 +3700,89 @@
     { letters: "str",example: "string",emoji: "🧵" },
   ];
 
-  const phonicsPlay = (cardEl, sayWhat) => {
+  // ===== Phonics 真音引擎 (mespeak.js / eSpeak NG) =====
+  // 為什麼:瀏覽器原生 TTS 看到「a」只會唸字母名「ay」,不是 phonics 的 /æ/ 短音。
+  // mespeak 走 IPA SSML 標籤可以精準唸隔離音,但載入要 ~700KB 一次性下載。
+  let _ipaEngineState = "idle"; // idle | loading | ready | failed
+  const setIpaStatus = () => {
+    const el = $("phonicsEngineStatus");
+    if (!el) return;
+    el.classList.remove("ready", "loading", "failed");
+    if (_ipaEngineState === "ready") {
+      el.classList.add("ready");
+      el.textContent = "✅ phonics 引擎就緒(可唸字母音)";
+    } else if (_ipaEngineState === "loading") {
+      el.classList.add("loading");
+      el.textContent = "🔄 載入 phonics 引擎中...(~700KB,只會載一次)";
+    } else if (_ipaEngineState === "failed") {
+      el.classList.add("failed");
+      el.textContent = "⚠️ phonics 引擎載入失敗,自動退回唸例字";
+    } else {
+      el.textContent = "⚪ phonics 引擎尚未啟動";
+    }
+  };
+  const initIpaEngine = () => {
+    if (_ipaEngineState !== "idle") return;
+    if (typeof window.meSpeak === "undefined") {
+      _ipaEngineState = "failed";
+      setIpaStatus();
+      return;
+    }
+    _ipaEngineState = "loading";
+    setIpaStatus();
+    try {
+      window.meSpeak.loadConfig("https://cdn.jsdelivr.net/npm/mespeak/src/mespeak_config.json");
+      window.meSpeak.loadVoice(
+        "https://cdn.jsdelivr.net/npm/mespeak/voices/en/en.json",
+        (success) => {
+          _ipaEngineState = success ? "ready" : "failed";
+          setIpaStatus();
+        }
+      );
+    } catch {
+      _ipaEngineState = "failed";
+      setIpaStatus();
+    }
+  };
+
+  // 從 "/æ/" 或 "/θ/ 或 /ð/" 取出第一個 IPA 字串給 mespeak 用
+  const stripIpaSlashes = (ipa) => {
+    if (!ipa) return "";
+    const m = ipa.match(/\/([^\/]+)\//);
+    return m ? m[1].trim() : "";
+  };
+
+  const speakViaMeSpeak = (ipa) => new Promise((resolve) => {
+    if (_ipaEngineState !== "ready") return resolve(false);
+    try {
+      const ssml = '<speak><phoneme alphabet="ipa" ph="' + ipa + '">x</phoneme></speak>';
+      window.meSpeak.speak(ssml, { ssml: true, amplitude: 100, speed: 110 }, () => resolve(true));
+    } catch { resolve(false); }
+  });
+
+  // 點 phonics 卡:可選播 IPA 後再唸例字(跟 phonics 老師教學節奏一樣)
+  const phonicsPlay = (cardEl, item) => {
     document.querySelectorAll(".phonics-card.playing").forEach((c) => c.classList.remove("playing"));
     cardEl.classList.add("playing");
-    speakText(sayWhat, "en-US", 0.8, {
-      onend: () => cardEl.classList.remove("playing"),
-    });
+
+    const exampleWord = item.example;
+    const ipa = stripIpaSlashes(item.ipa);
+
+    const playExample = () => {
+      speakText(exampleWord, "en-US", 0.8, {
+        onend: () => cardEl.classList.remove("playing"),
+      });
+    };
+
+    if (ipa && _ipaEngineState === "ready") {
+      // IPA → 短停頓 → 例字
+      speakViaMeSpeak(ipa).then((ok) => {
+        if (!ok) { playExample(); return; }
+        setTimeout(playExample, 250);
+      });
+    } else {
+      playExample();
+    }
   };
 
   const renderPhonicsCards = (containerEl, items, kind) => {
@@ -3724,7 +3815,7 @@
         noteLine;
 
       // 點任何位置 → 唸例字(TTS 沒辦法精準唸單一字母音,讓小朋友從例字裡聽出來)
-      card.addEventListener("click", () => phonicsPlay(card, it.example));
+      card.addEventListener("click", () => phonicsPlay(card, it));
 
       frag.appendChild(card);
     });
