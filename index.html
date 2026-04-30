@@ -849,6 +849,198 @@
     border-color: var(--danger);
     background: transparent;
   }
+  /* 書寫練習(拼字 / 拼圖) */
+  .modal-write {
+    background: linear-gradient(135deg, rgba(251,146,60,0.12), rgba(251,146,60,0.03));
+    border: 1px solid rgba(251,146,60,0.4);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    text-align: left;
+  }
+  .modal-write-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .modal-write-title {
+    font-size: 12px;
+    color: #fb923c;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .modal-write-toggle {
+    display: inline-flex;
+    gap: 4px;
+  }
+  .modal-write-toggle button {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .modal-write-toggle button.active {
+    background: #fb923c;
+    color: #1f1208;
+    border-color: #fb923c;
+    font-weight: 600;
+  }
+  .modal-write-prompt {
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .modal-write-prompt b { color: #fb923c; }
+  .modal-spell-input {
+    width: 100%;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 18px;
+    color: var(--text);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    letter-spacing: 2px;
+    box-sizing: border-box;
+  }
+  .modal-spell-input:focus {
+    outline: none;
+    border-color: #fb923c;
+  }
+  .modal-spell-cells {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    justify-content: center;
+  }
+  .modal-spell-cells .spell-cell {
+    width: 28px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    background: var(--panel-2);
+    font-family: ui-monospace, monospace;
+    color: var(--muted);
+  }
+  .modal-spell-cells .spell-cell.right {
+    background: rgba(34,197,94,0.2);
+    border-color: var(--ok);
+    color: var(--ok);
+  }
+  .modal-spell-cells .spell-cell.wrong {
+    background: rgba(239,68,68,0.2);
+    border-color: var(--danger);
+    color: var(--danger);
+  }
+  .modal-spell-cells .spell-cell.space {
+    width: 14px;
+    border-color: transparent;
+    background: transparent;
+  }
+  .modal-write-feedback {
+    font-size: 13px;
+    margin-bottom: 8px;
+    min-height: 20px;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .modal-write-feedback.success { color: var(--ok); font-weight: 600; }
+  .modal-write-feedback.wrong { color: var(--danger); }
+  .modal-write-feedback.hint { color: #fb923c; }
+  .modal-write-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .modal-write-actions button {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .modal-write-actions button:hover {
+    border-color: #fb923c;
+    color: #fb923c;
+  }
+  /* 拼圖 */
+  .modal-scramble-answer,
+  .modal-scramble-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 10px;
+    min-height: 44px;
+  }
+  .modal-scramble-pool {
+    border-top: 1px dashed var(--border);
+    padding-top: 10px;
+  }
+  .scramble-tile, .scramble-slot {
+    width: 36px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--panel-2);
+    color: var(--text);
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: ui-monospace, monospace;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: transform 0.1s;
+  }
+  .scramble-tile:hover {
+    border-color: #fb923c;
+    transform: translateY(-2px);
+  }
+  .scramble-slot.empty {
+    border-style: dashed;
+    color: var(--muted);
+    cursor: default;
+  }
+  .scramble-slot.filled {
+    border-color: #fb923c;
+    background: rgba(251,146,60,0.15);
+  }
+  .scramble-slot.filled:hover {
+    background: rgba(251,146,60,0.3);
+  }
+  .scramble-slot.correct {
+    border-color: var(--ok);
+    background: rgba(34,197,94,0.2);
+    color: var(--ok);
+    cursor: default;
+  }
+  .scramble-slot.space-marker {
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: default;
+    width: 12px;
+  }
   /* 自訂速度滑桿 */
   .modal-practice-rate {
     display: inline-flex;
@@ -1068,6 +1260,37 @@
           <input type="range" id="modalPracticeRateSlider" min="0.4" max="1.4" step="0.05" value="0.7" />
           <span class="modal-practice-rate-num" id="modalPracticeRateDisplay">0.70x</span>
           <button id="modalPracticeRatePlay" type="button" title="用自訂速度唸">▶</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-write" id="modalWrite">
+      <div class="modal-write-head">
+        <span class="modal-write-title">✏️ 書寫練習</span>
+        <div class="modal-write-toggle" id="modalWriteToggle">
+          <button class="active" data-mode="spell" type="button">拼字</button>
+          <button data-mode="scramble" type="button">拼圖</button>
+        </div>
+      </div>
+      <div class="modal-write-prompt" id="modalWritePrompt"></div>
+      <div class="modal-write-spell" id="modalWriteSpell">
+        <input type="text" id="modalSpellInput" class="modal-spell-input"
+               autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+               placeholder="這裡輸入..." />
+        <div class="modal-spell-cells" id="modalSpellCells"></div>
+        <div class="modal-write-feedback" id="modalSpellFeedback"></div>
+        <div class="modal-write-actions">
+          <button id="modalSpellHint" type="button">💡 提示</button>
+          <button id="modalSpellReveal" type="button">👀 看答案</button>
+          <button id="modalSpellClear" type="button">🔄 清空</button>
+        </div>
+      </div>
+      <div class="modal-write-scramble" id="modalWriteScramble" style="display:none">
+        <div class="modal-scramble-answer" id="modalScrambleAnswer"></div>
+        <div class="modal-scramble-pool" id="modalScramblePool"></div>
+        <div class="modal-write-feedback" id="modalScrambleFeedback"></div>
+        <div class="modal-write-actions">
+          <button id="modalScrambleShuffle" type="button">🔀 重洗</button>
+          <button id="modalScrambleReveal" type="button">👀 看答案</button>
         </div>
       </div>
     </div>
@@ -2392,7 +2615,7 @@
   );
 
   // ---------- 例句來源:手寫 → API → 模板 ----------
-  const EXAMPLE_CACHE_KEY = "vocab_examples_v1";
+  const EXAMPLE_CACHE_KEY = "vocab_examples_v2"; // v2: 加了難度過濾,舊的太難例句要重抓
   let exampleCache = null;
   const loadExampleCache = () => {
     if (exampleCache) return exampleCache;
@@ -2403,18 +2626,44 @@
   const saveExampleCache = () => {
     try { localStorage.setItem(EXAMPLE_CACHE_KEY, JSON.stringify(exampleCache)); } catch {}
   };
-  // 給沒抓到例句的字一個簡單的小朋友看得懂的範例句。pos 來自 vocab.json
-  const templateExample = (word, pos) => {
-    const w = word;
-    if (pos === "n") return `I can see the ${w}.`;
-    if (pos === "v" || pos === "vi" || pos === "vt") return `I like to ${w} every day.`;
-    if (pos === "adj") return `It is very ${w}.`;
-    if (pos === "adv") return `She does it ${w}.`;
-    if (pos === "prep") return `The book is ${w} the table.`;
-    if (pos === "conj") return `I like apples ${w} oranges.`;
-    if (pos === "片") return `Try to use "${w}" in a sentence today.`;
-    return `Today I learned the word "${w}".`;
+  // 模板例句:每個詞性多備幾組,用 word hash 挑一組 — 同字永遠拿到同句子,但全字庫看起來有變化
+  const TEMPLATE_POOLS = {
+    n:   [w => `I can see the ${w}.`, w => `Look at the ${w}!`, w => `This is my ${w}.`, w => `I have a ${w}.`],
+    v:   [w => `I like to ${w} every day.`, w => `Let's ${w} together.`, w => `She can ${w} fast.`, w => `We ${w} on Sunday.`],
+    vi:  [w => `I like to ${w} every day.`, w => `Let's ${w} together.`, w => `She can ${w} fast.`],
+    vt:  [w => `I like to ${w} it.`, w => `She wants to ${w} the cat.`, w => `Please ${w} the door.`],
+    adj: [w => `It is very ${w}.`, w => `The cat is so ${w}.`, w => `What a ${w} day!`, w => `I feel ${w} today.`],
+    adv: [w => `She runs ${w}.`, w => `He sings ${w}.`, w => `They smile ${w}.`],
+    prep:[w => `The book is ${w} the table.`, w => `Look ${w} the box.`],
+    conj:[w => `I like apples ${w} oranges.`, w => `It rains, ${w} we stay home.`],
+    "片":[w => `Try to use "${w}" today.`, w => `She often says "${w}".`],
   };
+  const hashStr = (s) => {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+    return Math.abs(h);
+  };
+  const templateExample = (word, pos) => {
+    const pool = TEMPLATE_POOLS[pos] || [w => `Today I learned the word "${w}".`];
+    return pool[hashStr(word) % pool.length](word);
+  };
+
+  // 字典 API 例句難度過濾:小朋友看不懂的(太長 / 平均字長太長 / 有古英文 / 標點太多)直接退回模板
+  const TOO_HARD_WORDS = /\b(thou|thee|thy|hath|doth|amid|amidst|wherein|whereof|valiant|spoils|hither|thither|forthwith|ere)\b/i;
+  const isKidFriendly = (sentence) => {
+    if (!sentence) return false;
+    if (sentence.length > 60) return false;
+    if (sentence.length < 10) return false;
+    if (TOO_HARD_WORDS.test(sentence)) return false;
+    // 多個逗號分號 = 子句太多 → 太複雜
+    if ((sentence.match(/[;,—]/g) || []).length >= 2) return false;
+    const words = sentence.replace(/[^a-zA-Z\s]/g, "").trim().split(/\s+/).filter(Boolean);
+    if (words.length > 10) return false;
+    const avgLen = words.reduce((s, w) => s + w.length, 0) / Math.max(1, words.length);
+    if (avgLen > 5.2) return false; // 平均字長 > 5.2 多半是文學/論文體
+    return true;
+  };
+
   const fetchExampleFromAPI = async (word) => {
     // dictionaryapi.dev 只支援單字,片語直接放棄
     if (/\s/.test(word)) return null;
@@ -2428,7 +2677,7 @@
       for (const entry of data) {
         for (const m of entry.meanings || []) {
           for (const d of m.definitions || []) {
-            if (d.example && d.example.length <= 120) return d.example;
+            if (d.example && isKidFriendly(d.example)) return d.example;
           }
         }
       }
@@ -2496,9 +2745,27 @@
   const modalPracticeRecordBtn = $("modalPracticeRecord");
   const modalPracticeNormalBtn = $("modalPracticeNormal");
   const modalPracticeSlowBtn = $("modalPracticeSlow");
+  // 書寫區
+  const modalWriteToggleEl = $("modalWriteToggle");
+  const modalWritePromptEl = $("modalWritePrompt");
+  const modalWriteSpellEl = $("modalWriteSpell");
+  const modalWriteScrambleEl = $("modalWriteScramble");
+  const modalSpellInput = $("modalSpellInput");
+  const modalSpellCells = $("modalSpellCells");
+  const modalSpellFeedback = $("modalSpellFeedback");
+  const modalSpellHintBtn = $("modalSpellHint");
+  const modalSpellRevealBtn = $("modalSpellReveal");
+  const modalSpellClearBtn = $("modalSpellClear");
+  const modalScrambleAnswerEl = $("modalScrambleAnswer");
+  const modalScramblePoolEl = $("modalScramblePool");
+  const modalScrambleFeedback = $("modalScrambleFeedback");
+  const modalScrambleShuffleBtn = $("modalScrambleShuffle");
+  const modalScrambleRevealBtn = $("modalScrambleReveal");
 
   let currentModalWord = "";
   let currentModalExample = "";
+  let currentModalZh = "";   // 書寫提示用
+  let currentModalEmoji = ""; // 書寫提示用
   let modalPracticeMode = "word"; // "word" | "example"
   let modalPracticeRecog = null;
   let modalPracticeActive = false;
@@ -2688,10 +2955,285 @@
     if (t) speakText(t, "en-US", parseFloat(modalPracticeRateSlider.value));
   });
 
+  // ===== 書寫練習(拼字 + 拼圖)=====
+  let writeMode = "spell"; // "spell" | "scramble"
+  let spellHintCount = 0;  // 已揭露幾個字母
+  let scrambleAnswerArr = [];  // {char,id} 或 null
+  let scramblePoolArr = [];    // {char,id}
+  let scrambleResolved = false; // 已拼對,鎖死
+
+  const updateWritePrompt = () => {
+    if (!currentModalWord) {
+      modalWritePromptEl.innerHTML = "";
+      return;
+    }
+    const emojiPart = currentModalEmoji ? currentModalEmoji + " " : "";
+    const zhPart = currentModalZh ? "「" + escapeHtml(currentModalZh) + "」" : "";
+    if (writeMode === "spell") {
+      const len = currentModalWord.replace(/\s/g, "").length;
+      modalWritePromptEl.innerHTML =
+        `${emojiPart}打出${zhPart}的英文 — 共 <b>${len}</b> 個字母`;
+    } else {
+      modalWritePromptEl.innerHTML =
+        `${emojiPart}排出${zhPart}的英文`;
+    }
+  };
+
+  const setWriteMode = (mode) => {
+    writeMode = mode;
+    modalWriteToggleEl.querySelectorAll("button").forEach((b) => {
+      b.classList.toggle("active", b.dataset.mode === mode);
+    });
+    if (mode === "spell") {
+      modalWriteSpellEl.style.display = "";
+      modalWriteScrambleEl.style.display = "none";
+    } else {
+      modalWriteSpellEl.style.display = "none";
+      modalWriteScrambleEl.style.display = "";
+    }
+    updateWritePrompt();
+  };
+  modalWriteToggleEl.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => setWriteMode(btn.dataset.mode));
+  });
+
+  // ----- 拼字模式 -----
+  const renderSpellCells = () => {
+    modalSpellCells.innerHTML = "";
+    const target = currentModalWord;
+    const typed = modalSpellInput.value;
+    if (!target) return;
+
+    // 找第一個錯字位置(空白用 typed 的空白配,大小寫不分)
+    const tLow = target.toLowerCase();
+    const yLow = typed.toLowerCase();
+    let firstMismatch = -1;
+    for (let i = 0; i < tLow.length; i++) {
+      if (yLow[i] === undefined) break;
+      if (yLow[i] !== tLow[i]) { firstMismatch = i; break; }
+    }
+
+    for (let i = 0; i < target.length; i++) {
+      const ch = target[i];
+      if (ch === " ") {
+        const sp = document.createElement("span");
+        sp.className = "spell-cell space";
+        sp.textContent = "·";
+        modalSpellCells.appendChild(sp);
+        continue;
+      }
+      const cell = document.createElement("span");
+      cell.className = "spell-cell";
+      if (yLow[i] === undefined) {
+        // 還沒打到這裡;但如果使用者用過提示就顯示出來
+        if (i < spellHintCount) { cell.classList.add("right"); cell.textContent = ch; }
+        else { cell.classList.add("empty"); cell.textContent = "_"; }
+      } else if (firstMismatch === i) {
+        cell.classList.add("wrong");
+        cell.textContent = typed[i] || "?";
+      } else if (firstMismatch !== -1 && i > firstMismatch) {
+        cell.classList.add("empty");
+        cell.textContent = "_";
+      } else {
+        cell.classList.add("right");
+        cell.textContent = ch;
+      }
+      modalSpellCells.appendChild(cell);
+    }
+
+    // 回饋
+    if (yLow === tLow) {
+      modalSpellFeedback.textContent = "✅ 拼對了!太厲害了 🎉";
+      modalSpellFeedback.className = "modal-write-feedback success";
+      // 拼對唸一次給他聽
+      speakText(target, "en-US", 0.85);
+    } else if (yLow.length === 0) {
+      modalSpellFeedback.textContent = "";
+      modalSpellFeedback.className = "modal-write-feedback";
+    } else if (firstMismatch !== -1) {
+      modalSpellFeedback.textContent = "❌ 第 " + (firstMismatch + 1) + " 個字母不對,改一下試試";
+      modalSpellFeedback.className = "modal-write-feedback wrong";
+    } else {
+      modalSpellFeedback.textContent = "👍 目前都對,繼續";
+      modalSpellFeedback.className = "modal-write-feedback hint";
+    }
+  };
+  modalSpellInput.addEventListener("input", renderSpellCells);
+  modalSpellHintBtn.addEventListener("click", () => {
+    if (!currentModalWord) return;
+    spellHintCount = Math.min(spellHintCount + 1, currentModalWord.length);
+    renderSpellCells();
+  });
+  modalSpellRevealBtn.addEventListener("click", () => {
+    if (!currentModalWord) return;
+    modalSpellInput.value = currentModalWord;
+    spellHintCount = currentModalWord.length;
+    renderSpellCells();
+  });
+  modalSpellClearBtn.addEventListener("click", () => {
+    modalSpellInput.value = "";
+    spellHintCount = 0;
+    renderSpellCells();
+    modalSpellInput.focus();
+  });
+
+  const resetSpell = () => {
+    modalSpellInput.value = "";
+    spellHintCount = 0;
+    renderSpellCells();
+  };
+
+  // ----- 拼圖模式 -----
+  const shuffle = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  const renderScramble = () => {
+    modalScrambleAnswerEl.innerHTML = "";
+    modalScramblePoolEl.innerHTML = "";
+
+    if (!currentModalWord) return;
+
+    // 答案區:每個位置一個 slot
+    const target = currentModalWord;
+    for (let i = 0; i < target.length; i++) {
+      if (target[i] === " ") {
+        const sp = document.createElement("span");
+        sp.className = "scramble-slot space-marker";
+        sp.textContent = "·";
+        modalScrambleAnswerEl.appendChild(sp);
+        continue;
+      }
+      const slot = document.createElement("button");
+      slot.type = "button";
+      const tile = scrambleAnswerArr[i];
+      if (tile) {
+        slot.className = "scramble-slot " + (scrambleResolved ? "correct" : "filled");
+        slot.textContent = tile.char;
+        if (!scrambleResolved) {
+          slot.addEventListener("click", () => {
+            // 退回 pool
+            scramblePoolArr.push(tile);
+            scrambleAnswerArr[i] = null;
+            renderScramble();
+          });
+        }
+      } else {
+        slot.className = "scramble-slot empty";
+        slot.textContent = "_";
+        slot.disabled = true;
+      }
+      modalScrambleAnswerEl.appendChild(slot);
+    }
+
+    // Pool 區
+    scramblePoolArr.forEach((tile, idx) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "scramble-tile";
+      btn.textContent = tile.char;
+      btn.addEventListener("click", () => {
+        if (scrambleResolved) return;
+        // 放到第一個空 slot(跳過空白位置)
+        for (let i = 0; i < target.length; i++) {
+          if (target[i] === " ") continue;
+          if (scrambleAnswerArr[i] === null) {
+            scrambleAnswerArr[i] = tile;
+            scramblePoolArr.splice(idx, 1);
+            renderScramble();
+            checkScrambleDone();
+            return;
+          }
+        }
+      });
+      modalScramblePoolEl.appendChild(btn);
+    });
+  };
+
+  const checkScrambleDone = () => {
+    const target = currentModalWord;
+    // 是否所有非空白位置都填了
+    for (let i = 0; i < target.length; i++) {
+      if (target[i] === " ") continue;
+      if (scrambleAnswerArr[i] === null) {
+        modalScrambleFeedback.textContent = "";
+        modalScrambleFeedback.className = "modal-write-feedback";
+        return;
+      }
+    }
+    // 全部填完,比對
+    let userStr = "";
+    for (let i = 0; i < target.length; i++) {
+      userStr += target[i] === " " ? " " : (scrambleAnswerArr[i].char);
+    }
+    if (userStr.toLowerCase() === target.toLowerCase()) {
+      scrambleResolved = true;
+      modalScrambleFeedback.textContent = "✅ 拼對了!👏";
+      modalScrambleFeedback.className = "modal-write-feedback success";
+      speakText(target, "en-US", 0.85);
+      renderScramble();
+    } else {
+      modalScrambleFeedback.textContent = "❌ 還沒對,點答案區的字母可以拿回去重排";
+      modalScrambleFeedback.className = "modal-write-feedback wrong";
+    }
+  };
+
+  const resetScramble = () => {
+    scrambleResolved = false;
+    modalScrambleFeedback.textContent = "";
+    modalScrambleFeedback.className = "modal-write-feedback";
+    if (!currentModalWord) {
+      scrambleAnswerArr = [];
+      scramblePoolArr = [];
+      renderScramble();
+      return;
+    }
+    const target = currentModalWord;
+    scrambleAnswerArr = new Array(target.length).fill(null);
+    // 把所有非空白字母進 pool 並打散
+    let id = 0;
+    const tiles = [];
+    for (const ch of target) {
+      if (ch === " ") continue;
+      tiles.push({ char: ch, id: id++ });
+    }
+    shuffle(tiles);
+    scramblePoolArr = tiles;
+    renderScramble();
+  };
+  modalScrambleShuffleBtn.addEventListener("click", resetScramble);
+  modalScrambleRevealBtn.addEventListener("click", () => {
+    if (!currentModalWord) return;
+    const target = currentModalWord;
+    let id = 0;
+    scrambleAnswerArr = [];
+    scramblePoolArr = [];
+    for (const ch of target) {
+      scrambleAnswerArr.push(ch === " " ? null : { char: ch, id: id++ });
+    }
+    scrambleResolved = true;
+    modalScrambleFeedback.textContent = "答案揭曉:" + target;
+    modalScrambleFeedback.className = "modal-write-feedback hint";
+    renderScramble();
+  });
+
+  // 開新卡片時重設兩個書寫模式
+  const resetWriteSection = () => {
+    resetSpell();
+    resetScramble();
+    updateWritePrompt();
+  };
+
   const openWordModal = async (w) => {
     const mn = (mnemonicsData.mnemonics || {})[w.word.toLowerCase()];
     currentModalWord = w.word;
     currentModalExample = "";
+    currentModalZh = (mn && mn.zh_override) || (w.zh || "").split(/[,;，；]/)[0].trim();
+    currentModalEmoji = w.emoji || "";
     modalEmoji.textContent = w.emoji || "📘";
     modalWord.textContent = w.word;
     modalZh.textContent = (mn && mn.zh_override) || w.zh || "";
@@ -2717,6 +3259,8 @@
 
     // 預設先練單字
     setModalPracticeMode("word");
+    // 重設書寫練習(拼字 / 拼圖)
+    resetWriteSection();
 
     wordModal.classList.add("show");
 
