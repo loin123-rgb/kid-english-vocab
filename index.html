@@ -1152,7 +1152,9 @@
     statusEl.className = "status " + type;
   };
 
-  const langCode = (val) => val.split("-")[0]; // zh-TW -> zh, en-US -> en
+  // 重要:保留 zh-TW / en-US 完整 BCP-47,別砍成 zh/en —
+  // MyMemory 拿到 zh 會回簡體,zh-TW 才會回繁體。
+  const langCode = (val) => val;
 
   const translate = async () => {
     const text = srcText.value.trim();
