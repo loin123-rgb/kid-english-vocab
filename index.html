@@ -1264,10 +1264,12 @@
   });
 
   // ---------- 朗讀 (TTS) — 原生 + Google 雲端 fallback ----------
-  // 為什麼:LINE / FB 等 in-app 瀏覽器沒裝 Web Speech API,
-  // 此時改用 Google Translate TTS endpoint 經 <audio> 播放,所有瀏覽器都能用。
+  // 為什麼:LINE / FB 等 in-app 瀏覽器有些只是「假裝」支援 Web Speech API
+  // (speechSynthesis 存在但 speak() 不發聲),所以 in-app 環境直接走雲端。
+  const _UA_TTS = navigator.userAgent || "";
+  const _IS_IN_APP_TTS = /Line\/|FBAN\/|FBAV\/|MicroMessenger|Instagram|TikTok/i.test(_UA_TTS);
   const HAS_NATIVE_TTS = "speechSynthesis" in window;
-  let _useFallback = !HAS_NATIVE_TTS;
+  let _useFallback = !HAS_NATIVE_TTS || _IS_IN_APP_TTS;
   let _ttsAudio = null;
 
   const speakCancel = () => {
@@ -1298,7 +1300,13 @@
       a.addEventListener("ended", opts.onend, { once: true });
       a.addEventListener("error", opts.onend, { once: true });
     }
-    a.play().catch(() => { if (opts && opts.onend) opts.onend(); });
+    a.addEventListener("error", () => {
+      setStatus("雲端 TTS 載入失敗 (網路/Google 端點問題)。請改用 Chrome / Safari 開啟。", "error");
+    }, { once: true });
+    a.play().catch((err) => {
+      setStatus("雲端 TTS 播放失敗: " + (err && err.name ? err.name : err) + "。LINE 內若無法播放音訊,請改用外部瀏覽器。", "error");
+      if (opts && opts.onend) opts.onend();
+    });
     _ttsAudio = a;
     return a;
   };
