@@ -17,10 +17,13 @@
 - 2149 字按年級瀏覽(國小 G6 833 字 + 國中 G7-9 1316 字)
 - 篩選:年級 / 只看有圖 / 只看有記憶卡 / 全文搜尋
 - 點卡片跳出大卡:emoji + 中譯 + 記憶法 + 例句 + 朗讀
+- 🎯 **大卡內練發音** — 直接錄自己唸,即時上色 + 0-100 分,可切換練「單字」或「例句」
+- 📝 **例句自動補齊** — 沒手寫的字自動從 [dictionaryapi.dev](https://dictionaryapi.dev) 抓真實例句,失敗則用模板兜底,結果存 localStorage 下次秒開
 - 4 種記憶法標籤:🎵 諧音 / 👀 字形 / ✨ 特徵 / 🧩 拆字
 
 ## 🚀 本機執行
 
+### 純前端(MyMemory 翻譯,不用 DeepL)
 需要 http server(瀏覽器擋住 file:// 抓 JSON)。
 
 ```bash
@@ -30,6 +33,14 @@ python -m http.server 3000   # Python
 ```
 
 然後開 http://localhost:3000
+
+### 本機要測 DeepL backup(走 Netlify Function)
+1. `cp .env.example .env` 然後把你的 DeepL Free key 貼進 `DEEPL_API_KEY=`
+2. `npm i -g netlify-cli`
+3. `netlify dev`
+4. 開瀏覽器自動跳出的 http://localhost:8888
+
+`.env` 已加入 `.gitignore`,不會 commit。
 
 ## ☁️ 部署
 

@@ -13,3 +13,9 @@ npm-debug.log*
 # Misc
 *.log
 *.tmp
+
+# Netlify CLI / 環境變數(絕對不能 commit)
+.env
+.env.*
+!.env.example
+.netlify/

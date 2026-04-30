@@ -719,6 +719,136 @@
     background: var(--accent);
     color: #0f172a;
   }
+  .modal-example-source {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-left: 6px;
+  }
+  .modal-example-en.loading {
+    color: var(--muted);
+    font-style: italic;
+  }
+  /* 練習發音 (modal 內) */
+  .modal-practice {
+    background: linear-gradient(135deg, rgba(34,197,94,0.10), rgba(34,197,94,0.03));
+    border: 1px solid rgba(34,197,94,0.35);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    text-align: left;
+  }
+  .modal-practice-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .modal-practice-title {
+    font-size: 12px;
+    color: var(--ok);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .modal-practice-toggle {
+    display: inline-flex;
+    gap: 4px;
+  }
+  .modal-practice-toggle button {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .modal-practice-toggle button.active {
+    background: var(--ok);
+    color: #052e16;
+    border-color: var(--ok);
+    font-weight: 600;
+  }
+  .modal-practice-toggle button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .modal-practice-target {
+    background: var(--panel-2);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 8px;
+    min-height: 44px;
+    word-break: break-word;
+    text-align: center;
+  }
+  .modal-practice-target .tk {
+    padding: 1px 2px;
+    border-radius: 3px;
+  }
+  .modal-practice-target .tk.hit { color: var(--ok); }
+  .modal-practice-target .tk.miss {
+    color: var(--danger);
+    text-decoration: underline wavy var(--danger);
+    text-underline-offset: 4px;
+  }
+  .modal-practice-target .tk.pending { color: var(--text); }
+  .modal-practice-heard {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 4px 2px;
+    margin-bottom: 6px;
+    min-height: 22px;
+  }
+  .modal-practice-heard b { color: var(--text); }
+  .modal-practice-score {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .modal-practice-score b {
+    font-size: 22px;
+    color: var(--ok);
+    margin-right: 4px;
+  }
+  .modal-practice-score b.low { color: var(--danger); }
+  .modal-practice-score b.mid { color: #facc15; }
+  .modal-practice-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .modal-practice-actions button {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .modal-practice-actions button:hover {
+    border-color: var(--ok);
+    color: var(--ok);
+  }
+  .modal-practice-actions button.primary {
+    background: var(--ok);
+    color: #052e16;
+    border-color: var(--ok);
+    font-weight: 600;
+  }
+  .modal-practice-actions button.primary:hover {
+    filter: brightness(1.1);
+  }
+  .modal-practice-actions button.recording {
+    color: var(--danger);
+    border-color: var(--danger);
+    background: transparent;
+  }
   .modal-actions {
     display: flex;
     gap: 8px;
@@ -865,7 +995,7 @@
   </section>
 
   <footer>
-    免費 API 由 <code>MyMemory</code> 提供 · 語音與朗讀使用瀏覽器內建 Web Speech API ·
+    翻譯先用 <code>MyMemory</code> 免費額度,用完自動切 <code>DeepL</code> · 語音與朗讀使用瀏覽器內建 Web Speech API ·
     建議使用 Chrome / Edge
   </footer>
 </div>
@@ -882,11 +1012,32 @@
       <div class="modal-mn-label" id="modalMnLabel"></div>
       <div class="modal-mn-explain" id="modalMnExplain"></div>
     </div>
-    <div class="modal-example" id="modalExample" style="display:none">
-      <div class="modal-example-label">📝 例句</div>
-      <div class="modal-example-en" id="modalExampleEn"></div>
+    <div class="modal-example" id="modalExample">
+      <div class="modal-example-label">
+        📝 例句<span class="modal-example-source" id="modalExampleSource"></span>
+      </div>
+      <div class="modal-example-en loading" id="modalExampleEn">生成例句中...</div>
       <div class="modal-example-zh" id="modalExampleZh"></div>
       <button class="modal-example-speak" id="modalExampleSpeak">🔊 唸例句</button>
+    </div>
+    <div class="modal-practice" id="modalPractice">
+      <div class="modal-practice-head">
+        <span class="modal-practice-title">🎯 練習發音</span>
+        <div class="modal-practice-toggle" id="modalPracticeToggle">
+          <button class="active" data-mode="word" type="button">單字</button>
+          <button data-mode="example" type="button" disabled>例句</button>
+        </div>
+      </div>
+      <div class="modal-practice-target" id="modalPracticeTarget"></div>
+      <div class="modal-practice-heard" id="modalPracticeHeard">(尚未錄音)</div>
+      <div class="modal-practice-score" id="modalPracticeScore" style="display:none">
+        <b id="modalPracticeScoreNum">--</b><span id="modalPracticeScoreText">分</span>
+      </div>
+      <div class="modal-practice-actions">
+        <button class="primary" id="modalPracticeRecord" type="button">🎤 開始唸</button>
+        <button id="modalPracticeNormal" type="button">🔊 標準</button>
+        <button id="modalPracticeSlow" type="button">🐢 慢</button>
+      </div>
     </div>
     <div class="modal-actions">
       <button class="primary" id="modalSpeakNormal">🔊 唸給我聽</button>
@@ -1156,6 +1307,46 @@
   // MyMemory 拿到 zh 會回簡體,zh-TW 才會回繁體。
   const langCode = (val) => val;
 
+  // 翻譯來源優先序:MyMemory(每日 5000 字免費) → DeepL proxy(MyMemory 額度滿了再用)
+  // 一個 session 內若 MyMemory 回 quota 訊號就記住,後續請求直接走 DeepL
+  let myMemoryExhausted = false;
+
+  const isMyMemoryQuotaErr = (data) => {
+    if (!data) return false;
+    const code = data.responseStatus;
+    if (code === 429 || code === 403) return true;
+    const detail = (data.responseDetails || "").toUpperCase();
+    return detail.includes("QUOTA")
+      || detail.includes("USED ALL")
+      || detail.includes("LIMIT EXCEEDED")
+      || detail.includes("MYMEMORY WARNING");
+  };
+
+  const callMyMemory = async (text, from, to) => {
+    const url =
+      "https://api.mymemory.translated.net/get?q=" +
+      encodeURIComponent(text) +
+      "&langpair=" + from + "%7C" + to;
+    const res = await fetch(url);
+    const data = await res.json();
+    return {
+      text: (data && data.responseData && data.responseData.translatedText) || "",
+      raw: data,
+    };
+  };
+
+  const callDeepLProxy = async (text, from, to) => {
+    const url =
+      "/.netlify/functions/translate?q=" + encodeURIComponent(text) +
+      "&source=" + encodeURIComponent(from) +
+      "&target=" + encodeURIComponent(to);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("proxy " + res.status);
+    const data = await res.json();
+    if (!data.translated) throw new Error("empty translation");
+    return data.translated;
+  };
+
   const translate = async () => {
     const text = srcText.value.trim();
     if (!text) {
@@ -1178,29 +1369,40 @@
     }
 
     setStatus("翻譯中...");
-    try {
-      const url =
-        "https://api.mymemory.translated.net/get?q=" +
-        encodeURIComponent(text) +
-        "&langpair=" +
-        from +
-        "%7C" +
-        to;
-      const res = await fetch(url);
-      const data = await res.json();
-      const translated =
-        (data && data.responseData && data.responseData.translatedText) || "";
-      tgtText.textContent = translated;
-      updateCounts();
-      updateEmojiStrip();
-      if (data.responseStatus === 200 || translated) {
-        setStatus("翻譯完成。", "ok");
-      } else {
-        setStatus("翻譯回應異常: " + (data.responseDetails || "未知"), "error");
+    let translated = "";
+    let provider = "";
+
+    // 1. 先試 MyMemory(沒被 quota 打回票就試)
+    if (!myMemoryExhausted) {
+      try {
+        const mm = await callMyMemory(text, from, to);
+        if (isMyMemoryQuotaErr(mm.raw)) {
+          myMemoryExhausted = true;
+          setStatus("MyMemory 今日額度用完,改走 DeepL...");
+        } else if (mm.text) {
+          translated = mm.text;
+          provider = "MyMemory";
+        }
+      } catch (err) {
+        // 網路錯誤等 — 還是給 DeepL 試試
       }
-    } catch (err) {
-      setStatus("翻譯失敗: " + err.message + " (請確認網路或改用其他翻譯來源)", "error");
     }
+
+    // 2. MyMemory 沒拿到結果就走 DeepL proxy
+    if (!translated) {
+      try {
+        translated = await callDeepLProxy(text, from, to);
+        provider = "DeepL";
+      } catch (err) {
+        setStatus("翻譯失敗: " + err.message + " (DeepL proxy 不可用,請確認 Netlify 環境變數 DEEPL_API_KEY 已設定)", "error");
+        return;
+      }
+    }
+
+    tgtText.textContent = translated;
+    updateCounts();
+    updateEmojiStrip();
+    setStatus("翻譯完成 · " + provider, "ok");
   };
 
   const scheduleAuto = () => {
@@ -2102,6 +2304,66 @@
     el.addEventListener("change", applyVocabFilters)
   );
 
+  // ---------- 例句來源:手寫 → API → 模板 ----------
+  const EXAMPLE_CACHE_KEY = "vocab_examples_v1";
+  let exampleCache = null;
+  const loadExampleCache = () => {
+    if (exampleCache) return exampleCache;
+    try { exampleCache = JSON.parse(localStorage.getItem(EXAMPLE_CACHE_KEY) || "{}"); }
+    catch { exampleCache = {}; }
+    return exampleCache;
+  };
+  const saveExampleCache = () => {
+    try { localStorage.setItem(EXAMPLE_CACHE_KEY, JSON.stringify(exampleCache)); } catch {}
+  };
+  // 給沒抓到例句的字一個簡單的小朋友看得懂的範例句。pos 來自 vocab.json
+  const templateExample = (word, pos) => {
+    const w = word;
+    if (pos === "n") return `I can see the ${w}.`;
+    if (pos === "v" || pos === "vi" || pos === "vt") return `I like to ${w} every day.`;
+    if (pos === "adj") return `It is very ${w}.`;
+    if (pos === "adv") return `She does it ${w}.`;
+    if (pos === "prep") return `The book is ${w} the table.`;
+    if (pos === "conj") return `I like apples ${w} oranges.`;
+    if (pos === "片") return `Try to use "${w}" in a sentence today.`;
+    return `Today I learned the word "${w}".`;
+  };
+  const fetchExampleFromAPI = async (word) => {
+    // dictionaryapi.dev 只支援單字,片語直接放棄
+    if (/\s/.test(word)) return null;
+    try {
+      const res = await fetch(
+        "https://api.dictionaryapi.dev/api/v2/entries/en/" + encodeURIComponent(word)
+      );
+      if (!res.ok) return null;
+      const data = await res.json();
+      if (!Array.isArray(data)) return null;
+      for (const entry of data) {
+        for (const m of entry.meanings || []) {
+          for (const d of m.definitions || []) {
+            if (d.example && d.example.length <= 120) return d.example;
+          }
+        }
+      }
+      return null;
+    } catch { return null; }
+  };
+  const getExampleFor = async (word, pos, manual) => {
+    if (manual && manual.en) {
+      return { en: manual.en, zh: manual.zh || "", source: "manual" };
+    }
+    loadExampleCache();
+    const key = word.toLowerCase();
+    if (exampleCache[key]) return exampleCache[key];
+    const apiEx = await fetchExampleFromAPI(word);
+    const result = apiEx
+      ? { en: apiEx, zh: "", source: "api" }
+      : { en: templateExample(word, pos), zh: "", source: "template" };
+    exampleCache[key] = result;
+    saveExampleCache();
+    return result;
+  };
+
   // ---------- 單字大卡 modal ----------
   const wordModal = $("wordModal");
   const modalEmoji = $("modalEmoji");
@@ -2116,15 +2378,193 @@
   const modalExampleEn = $("modalExampleEn");
   const modalExampleZh = $("modalExampleZh");
   const modalExampleSpeak = $("modalExampleSpeak");
+  const modalExampleSource = $("modalExampleSource");
   const modalCloseBtn = $("modalClose");
   const modalSpeakNormal = $("modalSpeakNormal");
   const modalSpeakSlow = $("modalSpeakSlow");
+  // 練習區
+  const modalPracticeToggleEl = $("modalPracticeToggle");
+  const modalPracticeTargetEl = $("modalPracticeTarget");
+  const modalPracticeHeardEl = $("modalPracticeHeard");
+  const modalPracticeScoreEl = $("modalPracticeScore");
+  const modalPracticeScoreNum = $("modalPracticeScoreNum");
+  const modalPracticeScoreText = $("modalPracticeScoreText");
+  const modalPracticeRecordBtn = $("modalPracticeRecord");
+  const modalPracticeNormalBtn = $("modalPracticeNormal");
+  const modalPracticeSlowBtn = $("modalPracticeSlow");
+
   let currentModalWord = "";
   let currentModalExample = "";
+  let modalPracticeMode = "word"; // "word" | "example"
+  let modalPracticeRecog = null;
+  let modalPracticeActive = false;
+  let modalLoadSeq = 0; // 防止前一張卡的 async 結果蓋到新卡
 
-  const openWordModal = (w) => {
+  const modalPracticeText = () =>
+    modalPracticeMode === "example" ? currentModalExample : currentModalWord;
+
+  // 把目標文字渲染成可上色的 token (英文逐詞)
+  const renderModalTarget = (text) => {
+    modalPracticeTargetEl.innerHTML = "";
+    if (!text) return;
+    const words = text.split(/(\s+)/).filter((s) => s.length > 0);
+    words.forEach((w, i) => {
+      const span = document.createElement("span");
+      span.className = "tk pending";
+      span.dataset.idx = i;
+      span.dataset.compare = /[a-zA-Z]/.test(w) ? "1" : "0";
+      span.dataset.text = w;
+      span.textContent = w;
+      modalPracticeTargetEl.appendChild(span);
+    });
+  };
+
+  // 比對發音結果上色,回傳 0-100 分
+  const compareModalAndColor = (heard) => {
+    const tokens = Array.from(modalPracticeTargetEl.querySelectorAll(".tk"));
+    const heardNorm = heard.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+    const heardWords = heardNorm.split(/\s+/).filter(Boolean);
+    let h = 0, hits = 0, total = 0;
+    tokens.forEach((span) => {
+      if (span.dataset.compare !== "1") return;
+      total++;
+      const w = (span.dataset.text || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (!w) return;
+      const idx = heardWords.indexOf(w, h);
+      if (idx !== -1) {
+        span.classList.remove("pending", "miss");
+        span.classList.add("hit");
+        hits++;
+        h = idx + 1;
+      } else {
+        span.classList.remove("pending", "hit");
+        span.classList.add("miss");
+      }
+    });
+    return total > 0 ? Math.round((hits / total) * 100) : 0;
+  };
+
+  const showModalScore = (n) => {
+    modalPracticeScoreEl.style.display = "";
+    modalPracticeScoreNum.textContent = n;
+    modalPracticeScoreNum.classList.remove("low", "mid");
+    if (n < 60) {
+      modalPracticeScoreNum.classList.add("low");
+      modalPracticeScoreText.textContent = " 分 · 多練幾次!";
+    } else if (n < 85) {
+      modalPracticeScoreNum.classList.add("mid");
+      modalPracticeScoreText.textContent = " 分 · 不錯,再加強紅字部分";
+    } else {
+      modalPracticeScoreText.textContent = " 分 · 很棒!";
+    }
+  };
+
+  const resetModalPracticeUI = () => {
+    modalPracticeScoreEl.style.display = "none";
+    modalPracticeHeardEl.textContent = "(尚未錄音)";
+    if (modalPracticeRecordBtn.classList.contains("recording")) {
+      modalPracticeRecordBtn.classList.remove("recording");
+    }
+    modalPracticeRecordBtn.textContent = "🎤 開始唸";
+  };
+
+  const setModalPracticeMode = (mode) => {
+    if (mode === "example" && !currentModalExample) return;
+    modalPracticeMode = mode;
+    modalPracticeToggleEl.querySelectorAll("button").forEach((b) => {
+      b.classList.toggle("active", b.dataset.mode === mode);
+    });
+    renderModalTarget(modalPracticeText());
+    resetModalPracticeUI();
+  };
+
+  modalPracticeToggleEl.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (btn.disabled) return;
+      // 切換時若還在錄音先停下來
+      if (modalPracticeActive && modalPracticeRecog) {
+        try { modalPracticeRecog.stop(); } catch {}
+      }
+      setModalPracticeMode(btn.dataset.mode);
+    });
+  });
+
+  modalPracticeRecordBtn.addEventListener("click", () => {
+    if (!SR) {
+      modalPracticeHeardEl.textContent = "此瀏覽器不支援語音辨識(請改用 Chrome / Edge)。";
+      return;
+    }
+    if (modalPracticeActive) {
+      try { modalPracticeRecog.stop(); } catch {}
+      return;
+    }
+    const target = modalPracticeText();
+    if (!target) return;
+
+    modalPracticeRecog = new SR();
+    modalPracticeRecog.lang = "en-US";
+    modalPracticeRecog.continuous = false;
+    modalPracticeRecog.interimResults = true;
+
+    let finalHeard = "";
+    modalPracticeRecog.onstart = () => {
+      modalPracticeActive = true;
+      modalPracticeRecordBtn.classList.add("recording");
+      modalPracticeRecordBtn.textContent = "■ 停止";
+      modalPracticeHeardEl.innerHTML = '<span class="mic-pulse"></span>聆聽中...';
+      modalPracticeTargetEl.querySelectorAll(".tk").forEach((s) => {
+        s.classList.remove("hit", "miss");
+        s.classList.add("pending");
+      });
+      modalPracticeScoreEl.style.display = "none";
+    };
+    modalPracticeRecog.onresult = (e) => {
+      let interim = "";
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const r = e.results[i];
+        if (r.isFinal) finalHeard += r[0].transcript + " ";
+        else interim += r[0].transcript;
+      }
+      modalPracticeHeardEl.textContent = (finalHeard + interim).trim() || "(聆聽中...)";
+    };
+    modalPracticeRecog.onerror = (e) => {
+      modalPracticeHeardEl.textContent = "錯誤: " + formatSpeechError(e.error);
+    };
+    modalPracticeRecog.onend = () => {
+      modalPracticeActive = false;
+      modalPracticeRecordBtn.classList.remove("recording");
+      modalPracticeRecordBtn.textContent = "🎤 再唸一次";
+      const heardFinal = finalHeard.trim();
+      if (heardFinal) {
+        modalPracticeHeardEl.innerHTML = "你說的:<b>" + escapeHtml(heardFinal) + "</b>";
+        const score = compareModalAndColor(heardFinal);
+        showModalScore(score);
+        if (typeof saveHistory === "function") {
+          saveHistory(modalPracticeText(), "en-US", score, heardFinal);
+        }
+      } else {
+        modalPracticeHeardEl.textContent = "沒聽到聲音,再試一次。";
+      }
+    };
+    try { modalPracticeRecog.start(); }
+    catch (err) {
+      modalPracticeHeardEl.textContent = "無法啟動麥克風: " + err.message;
+    }
+  });
+
+  modalPracticeNormalBtn.addEventListener("click", () => {
+    const t = modalPracticeText();
+    if (t) speakText(t, "en-US", 1.0);
+  });
+  modalPracticeSlowBtn.addEventListener("click", () => {
+    const t = modalPracticeText();
+    if (t) speakText(t, "en-US", 0.55);
+  });
+
+  const openWordModal = async (w) => {
     const mn = (mnemonicsData.mnemonics || {})[w.word.toLowerCase()];
     currentModalWord = w.word;
+    currentModalExample = "";
     modalEmoji.textContent = w.emoji || "📘";
     modalWord.textContent = w.word;
     modalZh.textContent = (mn && mn.zh_override) || w.zh || "";
@@ -2139,21 +2579,42 @@
     } else {
       modalMnemonic.style.display = "none";
     }
-    if (mn && mn.example && mn.example.en) {
-      modalExample.style.display = "";
-      modalExampleEn.textContent = mn.example.en;
-      modalExampleZh.textContent = mn.example.zh || "";
-      currentModalExample = mn.example.en;
-    } else {
-      modalExample.style.display = "none";
-      currentModalExample = "";
-    }
+
+    // 例句先顯示載入中,再 async 補上
+    modalExampleEn.classList.add("loading");
+    modalExampleEn.textContent = "生成例句中...";
+    modalExampleZh.textContent = "";
+    modalExampleSource.textContent = "";
+    const exampleToggleBtn = modalPracticeToggleEl.querySelector('[data-mode="example"]');
+    if (exampleToggleBtn) exampleToggleBtn.disabled = true;
+
+    // 預設先練單字
+    setModalPracticeMode("word");
+
     wordModal.classList.add("show");
+
+    // 防止連續開不同卡時舊 fetch 蓋到新卡
+    const seq = ++modalLoadSeq;
+    const ex = await getExampleFor(w.word, w.pos, mn ? mn.example : null);
+    if (seq !== modalLoadSeq) return;
+
+    modalExampleEn.classList.remove("loading");
+    modalExampleEn.textContent = ex.en;
+    modalExampleZh.textContent = ex.zh || "";
+    modalExampleSource.textContent =
+      ex.source === "manual" ? "" :
+      ex.source === "api" ? "(自動取得)" :
+      "(範例句)";
+    currentModalExample = ex.en;
+    if (exampleToggleBtn) exampleToggleBtn.disabled = false;
   };
 
   const closeWordModal = () => {
     wordModal.classList.remove("show");
     speakCancel();
+    if (modalPracticeActive && modalPracticeRecog) {
+      try { modalPracticeRecog.stop(); } catch {}
+    }
   };
 
   modalCloseBtn.addEventListener("click", closeWordModal);

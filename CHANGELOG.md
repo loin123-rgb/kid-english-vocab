@@ -4,6 +4,60 @@
 
 ---
 
+## v0.9 · 2026-04-30 · 加入 DeepL 當 MyMemory 用完的 backup
+
+### 策略
+**MyMemory 先用、用完才切 DeepL** — MyMemory 每日 5000 字/IP 免費,小朋友日常用一定夠;真的爆了再用 DeepL Free 50 萬字/月當 backup,兩個額度疊起來。
+
+### 新增
+- **[`netlify/functions/translate.js`](netlify/functions/translate.js)** — DeepL API proxy
+  - API key 藏在 Netlify 環境變數 `DEEPL_API_KEY`,前端永遠看不到
+  - Free key (`:fx` 後綴) 自動走 `api-free.deepl.com`,Pro key 走 `api.deepl.com`
+  - BCP-47 → DeepL 語言碼轉換(`zh-TW` → `ZH-HANT`、`en-US` → `EN-US`)
+- 前端先打 MyMemory,若回應是 quota 錯誤(429 / 403 / detail 含 `QUOTA` `USED ALL` `MYMEMORY WARNING`)就標記本 session 已耗盡,直接走 DeepL
+- 翻譯完成訊息顯示來源:`翻譯完成 · MyMemory` 或 `翻譯完成 · DeepL`,可以即時看到當前用哪個
+
+### 部署步驟
+1. push 到 GitHub(key 不在 code 裡,安全)
+2. Netlify dashboard → **Site configuration → Environment variables** → 新增 `DEEPL_API_KEY = <你的 DeepL Free key>`
+3. Trigger redeploy(或下次 push 自動觸發)
+4. 本機要測 DeepL?裝 `netlify-cli` 後跑 `netlify dev`,讀同目錄 `.env`(已加進 `.gitignore`)
+
+### 配套
+- 新增 [`netlify.toml`](netlify.toml):宣告 `publish = "."` + `functions = "netlify/functions"`
+- `.gitignore` 補上 `.env` / `.env.*` / `.netlify/`(避免本機 key 不小心 commit)
+
+---
+
+## v0.8 · 2026-04-30 · 學習卡片發音練習 + 自動例句
+
+### 新增
+- **單字大卡內也能練發音**(綠色框)— 不用切回翻譯分頁,在卡片上直接:
+  - 🎤 開始唸 → 即時上色比對 + 0-100 分評分
+  - 🔊 標準 / 🐢 慢 兩種朗讀速度
+  - 切換目標:`單字` / `例句`(讓小朋友唸完字,再唸整句加深印象)
+  - 評分結果一樣會存入練習紀錄
+- **2149 字全面有例句** — 之前只有 30 個記憶卡片有手寫例句,其他字打開大卡看不到例句
+  - 來源優先序:手寫例句 > [dictionaryapi.dev](https://dictionaryapi.dev) 動態抓 > 內建模板
+  - 例句來源會在標籤顯示:`(自動取得)` / `(範例句)` / 手寫無標籤
+  - 抓過的例句存 localStorage(`vocab_examples_v1`),下次秒開
+  - 片語(含空白)略過 API,直接用模板
+- 模板依詞性挑句型:
+  - n → `I can see the ___.`
+  - v/vi/vt → `I like to ___ every day.`
+  - adj → `It is very ___.`
+  - adv → `She does it ___.`
+  - prep → `The book is ___ the table.`
+  - conj → `I like apples ___ oranges.`
+  - 片 → `Try to use "___" in a sentence today.`
+
+### 技術
+- 新增 `getExampleFor(word, pos, manual)` 三層 fallback,async 載入 + race-protection(用 `modalLoadSeq` 防止連續切卡時舊 fetch 蓋到新卡)
+- 練習區自包成獨立元件,直接重用既有的 `SR` / `speakText` / `formatSpeechError` / `saveHistory` / `escapeHtml`
+- 模板句故意做得簡單但語法正確,寧可單調也不要產出怪句
+
+---
+
 ## v0.7 · 2026-04-30 · 繁體中文翻譯修正 ⚠️
 
 ### 修正(重要)
