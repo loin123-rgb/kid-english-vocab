@@ -49,7 +49,9 @@ python -m http.server 3000   # Python
 ├── data/
 │   ├── vocab.json       # 2149 字主資料
 │   └── mnemonics.json   # 記憶卡片內容(30 條起跳,持續擴充)
-└── README.md
+├── README.md            # 你正在看的檔案
+├── CHANGELOG.md         # 修改紀錄(改了什麼)
+└── DEV_NOTES.md         # 開發日記(為什麼這樣改、踩過的坑、未來方向)
 ```
 
 ## 📚 資料來源
