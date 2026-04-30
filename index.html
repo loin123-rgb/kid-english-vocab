@@ -1605,6 +1605,15 @@
   const UA = navigator.userAgent || "";
   // 偵測 in-app browser (LINE / FB / IG / WeChat) — 多半擋麥克風
   const IS_IN_APP = /Line\/|FBAN\/|FBAV\/|MicroMessenger|Instagram|TikTok/i.test(UA);
+  // iOS / iPadOS:Apple WebKit 至今(2026)仍未實作 Web Speech Recognition,
+  // 即使裝 Chrome / Edge 也沒用(iOS 上所有瀏覽器都被迫用 WebKit)。所以 SR 永遠是 undefined。
+  const IS_IOS = /iPhone|iPad|iPod/i.test(UA)
+    || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); // iPad 桌面模式
+
+  // SR 不存在時要給的訊息(iOS 跟其他瀏覽器訊息不同)
+  const SR_UNAVAILABLE_MSG = IS_IOS
+    ? "iPhone / iPad 不支援即時語音評分(Apple 系統限制,目前所有 iOS 瀏覽器都不行)。可以用 🔊 / 🐢 聽發音自己跟讀,評分功能要用電腦或 Android 才能用。"
+    : "此瀏覽器不支援語音辨識(建議改用桌面版 Chrome / Edge)。";
 
   const formatSpeechError = (errCode) => {
     if (errCode === "not-allowed" || errCode === "service-not-allowed") {
@@ -1621,7 +1630,14 @@
 
   if (!SR) {
     micBtn.disabled = true;
-    micBtn.title = "此瀏覽器不支援語音輸入(建議 Chrome / Edge)";
+    micBtn.title = SR_UNAVAILABLE_MSG;
+    // 大卡的練習錄音按鈕也一起 disable,不然 iOS 使用者會以為按了沒反應
+    const modalRecBtn = document.getElementById("modalPracticeRecord");
+    if (modalRecBtn) {
+      modalRecBtn.disabled = true;
+      modalRecBtn.title = SR_UNAVAILABLE_MSG;
+      modalRecBtn.textContent = IS_IOS ? "🎤 iOS 不支援" : "🎤 不支援";
+    }
   } else if (IS_IN_APP) {
     micBtn.title = "LINE / FB 內建瀏覽器多半會擋麥克風,若不能用請改用 Chrome / Safari 開";
   }
@@ -1862,7 +1878,7 @@
 
   recordBtn.addEventListener("click", () => {
     if (!SR) {
-      setStatus("此瀏覽器不支援語音辨識(請改用 Chrome / Edge)。", "error");
+      setStatus(SR_UNAVAILABLE_MSG, "error");
       return;
     }
     if (practiceActive) {
@@ -2547,7 +2563,7 @@
 
   modalPracticeRecordBtn.addEventListener("click", () => {
     if (!SR) {
-      modalPracticeHeardEl.textContent = "此瀏覽器不支援語音辨識(請改用 Chrome / Edge)。";
+      modalPracticeHeardEl.textContent = SR_UNAVAILABLE_MSG;
       return;
     }
     if (modalPracticeActive) {
