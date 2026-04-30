@@ -4,6 +4,20 @@
 
 ---
 
+## v0.7 · 2026-04-30 · 繁體中文翻譯修正 ⚠️
+
+### 修正(重要)
+- **翻譯結果原本回簡體字** — `langCode()` 函式把 `zh-TW` 砍成 `zh`,MyMemory 預設給簡體
+  - `langpair=en|zh` → 「你好」(簡體)
+  - `langpair=en|zh-TW` → 「哈囉」(繁體) ✓
+  - `langpair=en|zh-CN` → 「你好」(簡體)
+- 改成保留完整 BCP-47 代碼直接送給 API
+
+### 待觀察
+- MyMemory 是社群翻譯記憶庫,**少數冷門字翻譯品質差**(例如 dragon → 「李耀軒」?!)— 若品質持續不佳,後續可能需換 DeepL / Google Translate API
+
+---
+
 ## v0.6 · 2026-04-30 · LINE/FB 內建瀏覽器修正
 
 ### 修正
