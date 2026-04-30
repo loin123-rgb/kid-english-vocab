@@ -1369,7 +1369,9 @@
 
   <section class="tab-panel" id="tab-phonics">
     <div class="phonics-intro">
-      點任一張卡 → 唸字母音 + 例字。看 IPA 就知道嘴巴要怎麼擺。
+      點任一張卡 → 唸出例字,小朋友從例字裡聽出該字母的音。<br>
+      下面的「怎麼唸」教嘴巴 / 舌頭怎麼擺,IPA 是國際音標(專業參考用)。<br>
+      <small style="color:var(--muted)">⚠️ 為什麼不直接唸單一字母音?電腦 TTS 給「a」會唸成字母名「ay」,不是 phonics 的 /æ/ 短音 — 所以這裡播例字會比較準。</small>
     </div>
     <div class="phonics-section">
       <h3 class="phonics-h">🔠 26 個字母音 (Letter Sounds)</h3>
@@ -3591,45 +3593,45 @@
   });
 
   // ===== 自然發音 phonics 分頁 =====
-  // 26 字母音(英文 phonics 通常先教短音):每張卡點一下會唸「字母 + 例字」
+  // 26 字母音 — note 用中文「怎麼唸」幫小朋友抓嘴形 / 對應的注音
   const PHONICS_LETTERS = [
-    { letter: "a", ipa: "/æ/",  example: "apple",     emoji: "🍎" },
-    { letter: "b", ipa: "/b/",  example: "ball",      emoji: "⚽" },
-    { letter: "c", ipa: "/k/",  example: "cat",       emoji: "🐱" },
-    { letter: "d", ipa: "/d/",  example: "dog",       emoji: "🐶" },
-    { letter: "e", ipa: "/ɛ/",  example: "egg",       emoji: "🥚" },
-    { letter: "f", ipa: "/f/",  example: "fish",      emoji: "🐟" },
-    { letter: "g", ipa: "/g/",  example: "goat",      emoji: "🐐" },
-    { letter: "h", ipa: "/h/",  example: "hat",       emoji: "🎩" },
-    { letter: "i", ipa: "/ɪ/",  example: "ink",       emoji: "🖋️" },
-    { letter: "j", ipa: "/dʒ/", example: "jump",      emoji: "🤸" },
-    { letter: "k", ipa: "/k/",  example: "key",       emoji: "🔑" },
-    { letter: "l", ipa: "/l/",  example: "lion",      emoji: "🦁" },
-    { letter: "m", ipa: "/m/",  example: "mouse",     emoji: "🐭" },
-    { letter: "n", ipa: "/n/",  example: "nose",      emoji: "👃" },
-    { letter: "o", ipa: "/ɒ/",  example: "orange",    emoji: "🍊" },
-    { letter: "p", ipa: "/p/",  example: "pig",       emoji: "🐷" },
-    { letter: "q", ipa: "/kw/", example: "queen",     emoji: "👑" },
-    { letter: "r", ipa: "/r/",  example: "rabbit",    emoji: "🐰" },
-    { letter: "s", ipa: "/s/",  example: "sun",       emoji: "☀️" },
-    { letter: "t", ipa: "/t/",  example: "tiger",     emoji: "🐯" },
-    { letter: "u", ipa: "/ʌ/",  example: "umbrella",  emoji: "☂️" },
-    { letter: "v", ipa: "/v/",  example: "van",       emoji: "🚐" },
-    { letter: "w", ipa: "/w/",  example: "water",     emoji: "💧" },
-    { letter: "x", ipa: "/ks/", example: "fox",       emoji: "🦊", note: "x 多半在字尾" },
-    { letter: "y", ipa: "/j/",  example: "yellow",    emoji: "💛" },
-    { letter: "z", ipa: "/z/",  example: "zebra",     emoji: "🦓" },
+    { letter: "a", ipa: "/æ/",  example: "apple",    emoji: "🍎", note: "嘴巴張大,像被嚇到的「啊」(短)" },
+    { letter: "b", ipa: "/b/",  example: "ball",     emoji: "⚽", note: "嘴唇先閉緊,再「ㄅ」一聲爆出來" },
+    { letter: "c", ipa: "/k/",  example: "cat",      emoji: "🐱", note: "輕輕「ㄎ」一聲(跟 k 一樣)" },
+    { letter: "d", ipa: "/d/",  example: "dog",      emoji: "🐶", note: "舌尖頂上排牙齒後面,「ㄉ」" },
+    { letter: "e", ipa: "/ɛ/",  example: "egg",      emoji: "🥚", note: "嘴巴小張,像「ㄝ」" },
+    { letter: "f", ipa: "/f/",  example: "fish",     emoji: "🐟", note: "上排牙齒輕咬下嘴唇,吹氣" },
+    { letter: "g", ipa: "/g/",  example: "goat",     emoji: "🐐", note: "喉嚨深處「ㄍ」一聲" },
+    { letter: "h", ipa: "/h/",  example: "hat",      emoji: "🎩", note: "純氣音,像哈氣呵手取暖" },
+    { letter: "i", ipa: "/ɪ/",  example: "ink",      emoji: "🖋️", note: "嘴巴扁平,像短短的「衣」" },
+    { letter: "j", ipa: "/dʒ/", example: "jump",     emoji: "🤸", note: "像「具」開頭的音" },
+    { letter: "k", ipa: "/k/",  example: "key",      emoji: "🔑", note: "輕「ㄎ」(跟 c 一樣)" },
+    { letter: "l", ipa: "/l/",  example: "lion",     emoji: "🦁", note: "舌尖頂上顎,「ㄌ」" },
+    { letter: "m", ipa: "/m/",  example: "mouse",    emoji: "🐭", note: "嘴唇閉著,鼻子哼「嗯」" },
+    { letter: "n", ipa: "/n/",  example: "nose",     emoji: "👃", note: "舌尖頂上排牙後,鼻子哼" },
+    { letter: "o", ipa: "/ɒ/",  example: "orange",   emoji: "🍊", note: "嘴巴圓圓的,短「啊」" },
+    { letter: "p", ipa: "/p/",  example: "pig",      emoji: "🐷", note: "嘴唇先閉,再「ㄆ」噴氣" },
+    { letter: "q", ipa: "/kw/", example: "queen",    emoji: "👑", note: "「ㄎㄨ」連著唸" },
+    { letter: "r", ipa: "/r/",  example: "rabbit",   emoji: "🐰", note: "舌頭往後捲一點,「ㄖ」" },
+    { letter: "s", ipa: "/s/",  example: "sun",      emoji: "☀️", note: "蛇的「ㄙㄙ」聲" },
+    { letter: "t", ipa: "/t/",  example: "tiger",    emoji: "🐯", note: "舌尖頂上排牙後,「ㄊ」" },
+    { letter: "u", ipa: "/ʌ/",  example: "umbrella", emoji: "☂️", note: "短促的「啊」,嘴巴半張" },
+    { letter: "v", ipa: "/v/",  example: "van",      emoji: "🚐", note: "牙齒咬下唇,要振動 + 出聲(f 不出聲)" },
+    { letter: "w", ipa: "/w/",  example: "water",    emoji: "💧", note: "嘴巴噘成圓形,「烏」" },
+    { letter: "x", ipa: "/ks/", example: "fox",      emoji: "🦊", note: "「ㄎㄙ」連起來,多半在字尾" },
+    { letter: "y", ipa: "/j/",  example: "yellow",   emoji: "💛", note: "「一」開頭那個音" },
+    { letter: "z", ipa: "/z/",  example: "zebra",    emoji: "🦓", note: "蜜蜂飛的「ㄗ~」聲(s 不出聲)" },
   ];
 
   const PHONICS_DIGRAPHS = [
-    { letters: "sh", ipa: "/ʃ/",        example: "ship",  emoji: "🚢", note: "噓的聲音,像叫人安靜" },
-    { letters: "ch", ipa: "/tʃ/",       example: "chair", emoji: "🪑", note: "ㄑ 的氣音" },
-    { letters: "th", ipa: "/θ/ 或 /ð/", example: "three", emoji: "3️⃣", note: "舌頭咬到牙齒中間" },
-    { letters: "wh", ipa: "/w/",         example: "whale", emoji: "🐳" },
-    { letters: "ph", ipa: "/f/",         example: "phone", emoji: "📱", note: "ph 唸成 f" },
-    { letters: "ng", ipa: "/ŋ/",         example: "ring",  emoji: "💍", note: "鼻子發出來的音" },
-    { letters: "ck", ipa: "/k/",         example: "duck",  emoji: "🦆", note: "字尾常見,只唸一個 k" },
-    { letters: "qu", ipa: "/kw/",        example: "queen", emoji: "👑" },
+    { letters: "sh", ipa: "/ʃ/",        example: "ship",  emoji: "🚢", note: "「噓」的聲音,像叫人安靜" },
+    { letters: "ch", ipa: "/tʃ/",       example: "chair", emoji: "🪑", note: "像「七」開頭的氣音" },
+    { letters: "th", ipa: "/θ/ 或 /ð/", example: "three", emoji: "3️⃣", note: "舌頭尖端咬在上下牙齒中間" },
+    { letters: "wh", ipa: "/w/",         example: "whale", emoji: "🐳", note: "嘴噘圓「烏」(美式 wh 等於 w)" },
+    { letters: "ph", ipa: "/f/",         example: "phone", emoji: "📱", note: "ph 一律唸成 f(不要分開唸)" },
+    { letters: "ng", ipa: "/ŋ/",         example: "ring",  emoji: "💍", note: "鼻子哼出來,中文「ㄥ」結尾的音" },
+    { letters: "ck", ipa: "/k/",         example: "duck",  emoji: "🦆", note: "字尾常見,只唸一個「ㄎ」" },
+    { letters: "qu", ipa: "/kw/",        example: "queen", emoji: "👑", note: "永遠一起出現,唸「ㄎㄨ」" },
   ];
 
   const PHONICS_MAGIC_E = [
@@ -3715,27 +3717,14 @@
       const ipaLine = it.ipa ? `<div class="pc-ipa">${escapeHtml(it.ipa)}</div>` : "";
       const noteLine = it.note ? `<div class="pc-note">${escapeHtml(it.note)}</div>` : "";
       card.innerHTML =
-        '<button class="pc-speak" type="button" title="只唸字母音">音</button>' +
         '<span class="pc-emoji">' + (it.emoji || "🔠") + "</span>" +
         headerLine +
         ipaLine +
         '<div class="pc-example">' + escapeHtml(it.example) + "</div>" +
         noteLine;
 
-      // 點整張卡 → 唸例字
-      card.addEventListener("click", (e) => {
-        if (e.target.classList.contains("pc-speak")) return;
-        phonicsPlay(card, it.example);
-      });
-      // 「音」鈕 → 只唸字母 / 雙字母 / 母音團 (不含例字)
-      const speakBtn = card.querySelector(".pc-speak");
-      speakBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const justSound = it.letter || it.letters || it.pattern || it.example;
-        // letter / pattern 直接唸出字串(TTS 會把 "a_e" 唸成 "a underscore e",所以 magicE 改唸 example)
-        const say = (kind === "magicE") ? it.example : justSound;
-        phonicsPlay(card, say);
-      });
+      // 點任何位置 → 唸例字(TTS 沒辦法精準唸單一字母音,讓小朋友從例字裡聽出來)
+      card.addEventListener("click", () => phonicsPlay(card, it.example));
 
       frag.appendChild(card);
     });
