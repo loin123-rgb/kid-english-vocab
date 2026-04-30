@@ -1351,9 +1351,28 @@
 
   // ---------- 語音輸入 (STT) ----------
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const UA = navigator.userAgent || "";
+  // 偵測 in-app browser (LINE / FB / IG / WeChat) — 多半擋麥克風
+  const IS_IN_APP = /Line\/|FBAN\/|FBAV\/|MicroMessenger|Instagram|TikTok/i.test(UA);
+
+  const formatSpeechError = (errCode) => {
+    if (errCode === "not-allowed" || errCode === "service-not-allowed") {
+      if (IS_IN_APP) {
+        return "麥克風被 LINE / FB 內建瀏覽器擋住。請點右上角「⋯」→「在外部瀏覽器開啟」(Chrome 或 Safari)才能用語音功能。";
+      }
+      return "麥克風權限被拒絕。請點網址列旁的鎖頭圖示 → 重設權限,再重新整理頁面。";
+    }
+    if (errCode === "no-speech") return "沒聽到聲音,請說大聲一點再試。";
+    if (errCode === "audio-capture") return "找不到麥克風。確認裝置麥克風沒被其他 App 佔用。";
+    if (errCode === "network") return "語音辨識需要網路,確認連線後再試。";
+    return "語音輸入錯誤: " + errCode;
+  };
+
   if (!SR) {
     micBtn.disabled = true;
     micBtn.title = "此瀏覽器不支援語音輸入(建議 Chrome / Edge)";
+  } else if (IS_IN_APP) {
+    micBtn.title = "LINE / FB 內建瀏覽器多半會擋麥克風,若不能用請改用 Chrome / Safari 開";
   }
 
   const startMic = () => {
@@ -1384,7 +1403,7 @@
       scheduleAuto();
     };
     recog.onerror = (e) => {
-      setStatus("語音輸入錯誤: " + e.error, "error");
+      setStatus(formatSpeechError(e.error), "error");
     };
     recog.onend = () => {
       micActive = false;
@@ -1633,7 +1652,7 @@
       heardText.textContent = (finalHeard + interim).trim() || "(聆聽中...)";
     };
     practiceRecog.onerror = (e) => {
-      setStatus("發音練習錯誤: " + e.error, "error");
+      setStatus("發音練習: " + formatSpeechError(e.error), "error");
     };
     practiceRecog.onend = () => {
       practiceActive = false;
