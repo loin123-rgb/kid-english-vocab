@@ -47,12 +47,37 @@ exports.handler = async (event) => {
     };
   }
 
-  const key = process.env.DEEPL_API_KEY;
+  // 從 env 拿 key,順便清掉常見的貼歪情況:
+  //   - 兩端空白 / 換行
+  //   - 包了引號 ("..." 或 '...')
+  //   - 不小心把 `DEEPL_API_KEY=` 也貼進 value
+  let key = (process.env.DEEPL_API_KEY || "").trim();
+  if ((key.startsWith('"') && key.endsWith('"')) || (key.startsWith("'") && key.endsWith("'"))) {
+    key = key.slice(1, -1).trim();
+  }
+  if (key.toUpperCase().startsWith("DEEPL_API_KEY=")) {
+    key = key.slice("DEEPL_API_KEY=".length).trim();
+  }
   if (!key) {
     return {
       statusCode: 500,
       headers: { ...cors, "Content-Type": "application/json" },
       body: JSON.stringify({ error: "DEEPL_API_KEY not configured" }),
+    };
+  }
+
+  // debug 模式:?debug=1 不送 DeepL,只回報 function 端讀到的 key 形狀(不含 key 本身)
+  if (event.queryStringParameters && event.queryStringParameters.debug === "1") {
+    return {
+      statusCode: 200,
+      headers: { ...cors, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        key_length: key.length,
+        key_prefix: key.slice(0, 4),
+        key_suffix: key.slice(-4),
+        ends_with_fx: key.endsWith(":fx"),
+        endpoint: key.endsWith(":fx") ? "free" : "pro",
+      }),
     };
   }
 
