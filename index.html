@@ -1263,21 +1263,90 @@
     }
   });
 
-  // ---------- 朗讀 (TTS) ----------
+  // ---------- 朗讀 (TTS) — 原生 + Google 雲端 fallback ----------
+  // 為什麼:LINE / FB 等 in-app 瀏覽器沒裝 Web Speech API,
+  // 此時改用 Google Translate TTS endpoint 經 <audio> 播放,所有瀏覽器都能用。
+  const HAS_NATIVE_TTS = "speechSynthesis" in window;
+  let _useFallback = !HAS_NATIVE_TTS;
+  let _ttsAudio = null;
+
+  const speakCancel = () => {
+    if (HAS_NATIVE_TTS) {
+      try { window.speechSynthesis.cancel(); } catch {}
+    }
+    if (_ttsAudio) {
+      try { _ttsAudio.pause(); } catch {}
+      _ttsAudio = null;
+    }
+  };
+
+  const speakViaAudio = (text, lang, rate, opts) => {
+    if (_ttsAudio) {
+      try { _ttsAudio.pause(); } catch {}
+      _ttsAudio = null;
+    }
+    const tl = (lang || "en-US").split("-")[0];
+    const t = (text || "").slice(0, 200); // Google 端點有 ~200 字限制
+    if (!t) { if (opts && opts.onend) opts.onend(); return null; }
+    const url = "https://translate.google.com/translate_tts" +
+      "?ie=UTF-8&q=" + encodeURIComponent(t) +
+      "&tl=" + encodeURIComponent(tl) +
+      "&client=tw-ob";
+    const a = new Audio(url);
+    a.playbackRate = Math.max(0.5, Math.min(2.0, rate || 1.0));
+    if (opts && opts.onend) {
+      a.addEventListener("ended", opts.onend, { once: true });
+      a.addEventListener("error", opts.onend, { once: true });
+    }
+    a.play().catch(() => { if (opts && opts.onend) opts.onend(); });
+    _ttsAudio = a;
+    return a;
+  };
+
+  const speakText = (text, lang, rate, opts) => {
+    if (!text) { if (opts && opts.onend) opts.onend(); return; }
+    lang = lang || "en-US";
+    rate = rate || 1.0;
+    opts = opts || {};
+
+    if (_useFallback) {
+      speakViaAudio(text, lang, rate, opts);
+      return;
+    }
+
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = lang;
+      u.rate = rate;
+      let started = false;
+      let ended = false;
+      u.onstart = () => { started = true; };
+      u.onend = () => { ended = true; if (opts.onend) opts.onend(); };
+      u.onerror = () => {
+        if (ended) return;
+        _useFallback = true;
+        speakViaAudio(text, lang, rate, opts);
+      };
+      window.speechSynthesis.speak(u);
+      // 1.2 秒後若仍未開始播放,視為原生失敗,改用雲端
+      setTimeout(() => {
+        if (!started && !ended && !window.speechSynthesis.speaking) {
+          _useFallback = true;
+          try { window.speechSynthesis.cancel(); } catch {}
+          speakViaAudio(text, lang, rate, opts);
+        }
+      }, 1200);
+    } catch (e) {
+      _useFallback = true;
+      speakViaAudio(text, lang, rate, opts);
+    }
+  };
+
   speakBtn.addEventListener("click", () => {
     const text = tgtText.textContent.trim();
-    if (!text) {
-      setStatus("沒有譯文可朗讀。");
-      return;
-    }
-    if (!("speechSynthesis" in window)) {
-      setStatus("此瀏覽器不支援朗讀。", "error");
-      return;
-    }
-    window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = tgtLang.value;
-    window.speechSynthesis.speak(utter);
+    if (!text) { setStatus("沒有譯文可朗讀。"); return; }
+    speakText(text, tgtLang.value, 1.0);
   });
 
   // ---------- 語音輸入 (STT) ----------
@@ -1516,15 +1585,7 @@
 
   const speakAt = (rate) => {
     if (!currentTarget) return;
-    if (!("speechSynthesis" in window)) {
-      setStatus("此瀏覽器不支援朗讀。", "error");
-      return;
-    }
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(currentTarget);
-    u.lang = currentTargetLang;
-    u.rate = rate;
-    window.speechSynthesis.speak(u);
+    speakText(currentTarget, currentTargetLang, rate);
   };
   playNormalBtn.addEventListener("click", () => speakAt(1.0));
   playSlowBtn.addEventListener("click", () => speakAt(0.65));
@@ -1705,14 +1766,11 @@
 
   const speakAsync = (text, rate) =>
     new Promise((resolve) => {
-      if (!("speechSynthesis" in window)) return resolve();
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = currentTargetLang;
-      u.rate = rate;
-      u.onend = resolve;
-      u.onerror = resolve;
-      window.speechSynthesis.speak(u);
+      let done = false;
+      const finish = () => { if (!done) { done = true; resolve(); } };
+      speakText(text, currentTargetLang, rate, { onend: finish });
+      // 安全網:10 秒後自動 resolve,避免循環卡死
+      setTimeout(finish, 10000);
     });
 
   // 錄一次音,自動結束後給分,回傳分數
@@ -1775,7 +1833,7 @@
   loopBtn.addEventListener("click", async () => {
     if (loopActive) {
       loopAbort = true;
-      try { window.speechSynthesis.cancel(); } catch {}
+      speakCancel();
       try { practiceRecog && practiceRecog.stop(); } catch {}
       return;
     }
@@ -2066,7 +2124,7 @@
 
   const closeWordModal = () => {
     wordModal.classList.remove("show");
-    try { window.speechSynthesis.cancel(); } catch {}
+    speakCancel();
   };
 
   modalCloseBtn.addEventListener("click", closeWordModal);
@@ -2079,23 +2137,13 @@
 
   const speakModalWord = (rate) => {
     if (!currentModalWord) return;
-    if (!("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(currentModalWord);
-    u.lang = "en-US";
-    u.rate = rate;
-    window.speechSynthesis.speak(u);
+    speakText(currentModalWord, "en-US", rate);
   };
   modalSpeakNormal.addEventListener("click", () => speakModalWord(1.0));
   modalSpeakSlow.addEventListener("click", () => speakModalWord(0.55));
   modalExampleSpeak.addEventListener("click", () => {
     if (!currentModalExample) return;
-    if (!("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(currentModalExample);
-    u.lang = "en-US";
-    u.rate = 0.9;
-    window.speechSynthesis.speak(u);
+    speakText(currentModalExample, "en-US", 0.9);
   });
 
   // 初始
