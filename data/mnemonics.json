@@ -1,0 +1,312 @@
+{
+  "version": "1.1",
+  "schema": {
+    "type": "homophone | visual | feature | compound",
+    "label": "綽號 / 短標題",
+    "explain": "完整解釋",
+    "zh_override": "可選,覆蓋 vocab.json 主中譯",
+    "example": "{ en, zh } — 一句小朋友看得懂的例句"
+  },
+  "mnemonics": {
+    "dinosaur": {
+      "type": "homophone",
+      "label": "呆腦獸",
+      "explain": "Dinosaur 唸起來像「呆腦獸」,而恐龍真的腦袋小、身體大,呆頭呆腦的!",
+      "zh_override": "恐龍",
+      "example": {
+        "en": "There was a big dinosaur in the park.",
+        "zh": "公園裡有一隻大恐龍。"
+      }
+    },
+    "panda": {
+      "type": "homophone",
+      "label": "胖達",
+      "explain": "Panda 唸起來像「胖達」— 胖胖圓圓的傢伙到了!",
+      "zh_override": "熊貓",
+      "example": {
+        "en": "The panda is eating bamboo.",
+        "zh": "熊貓正在吃竹子。"
+      }
+    },
+    "shark": {
+      "type": "homophone",
+      "label": "殺客",
+      "explain": "Shark 唸起來像「殺客」— 海裡的殺手,看到要躲快!",
+      "zh_override": "鯊魚",
+      "example": {
+        "en": "Sharks live in the deep sea.",
+        "zh": "鯊魚住在深海裡。"
+      }
+    },
+    "eagle": {
+      "type": "homophone",
+      "label": "銳哥",
+      "explain": "Eagle 唸起來像「銳哥」— 眼睛超銳利,飛在天空找獵物!",
+      "zh_override": "老鷹",
+      "example": {
+        "en": "An eagle flies high in the sky.",
+        "zh": "老鷹在天空高高地飛。"
+      }
+    },
+    "frog": {
+      "type": "homophone",
+      "label": "縛綠哥",
+      "explain": "Frog 唸起來像「縛綠哥」— 綁著綠衣服的傢伙,蹦蹦跳跳!",
+      "zh_override": "青蛙",
+      "example": {
+        "en": "The green frog jumps into the pond.",
+        "zh": "綠色的青蛙跳進池塘。"
+      }
+    },
+    "cool": {
+      "type": "homophone",
+      "label": "酷",
+      "explain": "Cool 唸起來就是「酷」— 中文的「酷」就是從這個英文字音譯來的!",
+      "zh_override": "酷;涼涼的",
+      "example": {
+        "en": "This game is so cool!",
+        "zh": "這個遊戲超酷的!"
+      }
+    },
+    "strong": {
+      "type": "homophone",
+      "label": "死壯",
+      "explain": "Strong 唸起來像「死壯」— 壯到不行!肌肉爆出來!",
+      "zh_override": "強壯",
+      "example": {
+        "en": "My dad is very strong.",
+        "zh": "我爸爸很強壯。"
+      }
+    },
+    "sorry": {
+      "type": "homophone",
+      "label": "臊瑞",
+      "explain": "Sorry 唸起來像「臊瑞」— 道歉時害羞臉紅紅的!",
+      "zh_override": "抱歉",
+      "example": {
+        "en": "I'm sorry, it was my fault.",
+        "zh": "對不起,是我的錯。"
+      }
+    },
+    "happy": {
+      "type": "homophone",
+      "label": "哈皮",
+      "explain": "Happy 唸起來像「哈皮」— 笑到嘴皮哈哈響!",
+      "zh_override": "快樂",
+      "example": {
+        "en": "I am happy to see you.",
+        "zh": "看到你我很開心。"
+      }
+    },
+    "apple": {
+      "type": "homophone",
+      "label": "阿婆",
+      "explain": "Apple 唸起來像「阿婆」— 阿婆種了一棵蘋果樹給孫子吃!",
+      "zh_override": "蘋果",
+      "example": {
+        "en": "She eats an apple every day.",
+        "zh": "她每天吃一顆蘋果。"
+      }
+    },
+    "ice": {
+      "type": "homophone",
+      "label": "愛斯",
+      "explain": "Ice 唸起來像「愛斯」— 冰冰涼涼夏天最愛的東西!",
+      "zh_override": "冰",
+      "example": {
+        "en": "I want some ice in my drink.",
+        "zh": "我的飲料要加冰塊。"
+      }
+    },
+    "eye": {
+      "type": "visual",
+      "label": "字本身就是一張臉",
+      "explain": "兩個 e 是兩隻眼睛,中間的 y 是鼻子 — 整個 eye 看起來就是一張臉!",
+      "zh_override": "眼睛",
+      "example": {
+        "en": "Close your eyes and count to ten.",
+        "zh": "閉上眼睛數到十。"
+      }
+    },
+    "bed": {
+      "type": "visual",
+      "label": "床的形狀",
+      "explain": "字母 b 和 d 像床的兩根柱子,中間的 e 是躺著睡覺的人。bed 整個就長得像一張床!",
+      "zh_override": "床",
+      "example": {
+        "en": "Go to bed early tonight.",
+        "zh": "今晚早點睡。"
+      }
+    },
+    "bee": {
+      "type": "visual",
+      "label": "ee 是兩翅膀",
+      "explain": "B 是蜜蜂胖胖的肚子,後面兩個 e 像兩片翅膀在嗡嗡振動!",
+      "zh_override": "蜜蜂",
+      "example": {
+        "en": "A bee is buzzing around the flower.",
+        "zh": "一隻蜜蜂在花朵旁嗡嗡叫。"
+      }
+    },
+    "moon": {
+      "type": "visual",
+      "label": "oo 像兩個月亮",
+      "explain": "中間兩個 o 圓圓的,像兩個月亮並排掛在天上!",
+      "zh_override": "月亮",
+      "example": {
+        "en": "The moon is bright tonight.",
+        "zh": "今晚月亮很亮。"
+      }
+    },
+    "book": {
+      "type": "visual",
+      "label": "oo 像翻開的書頁",
+      "explain": "兩個 o 像翻開書時左右兩頁的圓弧形 — book 就是書!",
+      "zh_override": "書",
+      "example": {
+        "en": "I read a book before sleep.",
+        "zh": "睡前我讀一本書。"
+      }
+    },
+    "look": {
+      "type": "visual",
+      "label": "oo 像兩隻眼睛",
+      "explain": "兩個 o 是兩隻圓圓的眼睛在看 — look 就是「看」!",
+      "zh_override": "看",
+      "example": {
+        "en": "Look at the rainbow!",
+        "zh": "看那道彩虹!"
+      }
+    },
+    "egg": {
+      "type": "visual",
+      "label": "兩個 g 像兩顆蛋",
+      "explain": "後面兩個 g 圓圓的肚子,像兩顆雞蛋疊在一起!",
+      "zh_override": "蛋",
+      "example": {
+        "en": "I had two eggs for breakfast.",
+        "zh": "我早餐吃了兩顆蛋。"
+      }
+    },
+    "balloon": {
+      "type": "visual",
+      "label": "oo 是兩顆氣球",
+      "explain": "中間兩個 o 飽滿圓圓的,就是兩顆氣球!",
+      "zh_override": "氣球",
+      "example": {
+        "en": "The red balloon flew into the sky.",
+        "zh": "紅氣球飛上天。"
+      }
+    },
+    "snake": {
+      "type": "feature",
+      "label": "沒腳滑溜條",
+      "explain": "蛇沒有腳,身體像繩子一樣滑來滑去 — 而且 S 這個字母也彎彎的像蛇!",
+      "zh_override": "蛇",
+      "example": {
+        "en": "Don't touch that snake!",
+        "zh": "不要摸那條蛇!"
+      }
+    },
+    "monkey": {
+      "type": "feature",
+      "label": "樹梢盪鞦韆",
+      "explain": "猴子超會爬樹,在樹枝間盪來盪去,還會吃香蕉!",
+      "zh_override": "猴子",
+      "example": {
+        "en": "The monkey climbs up the tree.",
+        "zh": "猴子爬上樹。"
+      }
+    },
+    "tiger": {
+      "type": "feature",
+      "label": "條紋大貓",
+      "explain": "老虎像放大版的貓,身上有黑色條紋,叢林之王!",
+      "zh_override": "老虎",
+      "example": {
+        "en": "The tiger has orange and black stripes.",
+        "zh": "老虎有橘色和黑色條紋。"
+      }
+    },
+    "lion": {
+      "type": "feature",
+      "label": "鬃毛大王",
+      "explain": "公獅子的鬃毛像皇冠,牠就是「百獸之王」!",
+      "zh_override": "獅子",
+      "example": {
+        "en": "The lion is the king of the jungle.",
+        "zh": "獅子是叢林之王。"
+      }
+    },
+    "elephant": {
+      "type": "feature",
+      "label": "水管鼻怪",
+      "explain": "大象的鼻子像水管一樣長,還能吸水噴水 — 鼻子就是牠的手!",
+      "zh_override": "大象",
+      "example": {
+        "en": "The elephant has a long trunk.",
+        "zh": "大象有長長的鼻子。"
+      }
+    },
+    "fish": {
+      "type": "feature",
+      "label": "水裡的飛機",
+      "explain": "魚在水裡游就像飛機在天上飛,鰭是翅膀!",
+      "zh_override": "魚",
+      "example": {
+        "en": "I see a fish in the river.",
+        "zh": "我看到河裡有一條魚。"
+      }
+    },
+    "banana": {
+      "type": "feature",
+      "label": "香香的彎月",
+      "explain": "香蕉是彎彎的、黃黃的、香香的,像月亮一樣!",
+      "zh_override": "香蕉",
+      "example": {
+        "en": "Monkeys love eating bananas.",
+        "zh": "猴子最愛吃香蕉。"
+      }
+    },
+    "butterfly": {
+      "type": "compound",
+      "label": "會飛的奶油",
+      "explain": "butter (奶油) + fly (飛) = 蝴蝶。古人覺得蝴蝶像會飛的奶油!",
+      "zh_override": "蝴蝶",
+      "example": {
+        "en": "A pretty butterfly landed on the flower.",
+        "zh": "一隻漂亮的蝴蝶停在花上。"
+      }
+    },
+    "rainbow": {
+      "type": "compound",
+      "label": "雨後的弓",
+      "explain": "rain (雨) + bow (弓) = 彩虹。下雨後天空出現的彩色弓!",
+      "zh_override": "彩虹",
+      "example": {
+        "en": "I saw a rainbow after the rain.",
+        "zh": "雨後我看到一道彩虹。"
+      }
+    },
+    "understand": {
+      "type": "compound",
+      "label": "站在下面",
+      "explain": "under (下面) + stand (站) = 了解。要懂一件事,就要「站在它的底下」徹底看清楚!",
+      "zh_override": "了解",
+      "example": {
+        "en": "I understand what you mean.",
+        "zh": "我懂你的意思。"
+      }
+    },
+    "afternoon": {
+      "type": "compound",
+      "label": "中午之後",
+      "explain": "after (之後) + noon (中午) = 下午。中午過後就是下午!",
+      "zh_override": "下午",
+      "example": {
+        "en": "We will meet in the afternoon.",
+        "zh": "我們下午見面。"
+      }
+    }
+  }
+}
