@@ -1475,8 +1475,11 @@
   const HAS_NATIVE_TTS = "speechSynthesis" in window;
   let _useFallback = !HAS_NATIVE_TTS || _IS_IN_APP_TTS;
   let _ttsAudio = null;
+  // 每次 speakText() / speakCancel() 都 ++,讓上一輪殘存的 callback / probe 知道自己過期了
+  let _ttsGen = 0;
 
   const speakCancel = () => {
+    _ttsGen++;
     if (HAS_NATIVE_TTS) {
       try { window.speechSynthesis.cancel(); } catch {}
     }
@@ -1485,6 +1488,16 @@
       _ttsAudio = null;
     }
   };
+
+  // Chrome bug:speechSynthesis 閒置 ~15 秒會自動 pause,接著怎麼 speak() 都不發聲。
+  // 每 5 秒戳一下 resume() 讓引擎保持醒著。
+  if (HAS_NATIVE_TTS) {
+    setInterval(() => {
+      try {
+        if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+      } catch {}
+    }, 5000);
+  }
 
   const speakViaAudio = (text, lang, rate, opts) => {
     if (_ttsAudio) {
@@ -1521,38 +1534,64 @@
     rate = rate || 1.0;
     opts = opts || {};
 
+    // 開新一輪:之前那輪的 onerror / probe / onend 看到 myGen !== _ttsGen 就會自己跳出
+    const myGen = ++_ttsGen;
+
+    // 不論走原生或 fallback,都先把上一段切掉
+    if (HAS_NATIVE_TTS) {
+      try { window.speechSynthesis.cancel(); } catch {}
+    }
+    if (_ttsAudio) {
+      try { _ttsAudio.pause(); } catch {}
+      _ttsAudio = null;
+    }
+
     if (_useFallback) {
       speakViaAudio(text, lang, rate, opts);
       return;
     }
 
-    try {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = lang;
-      u.rate = rate;
-      let started = false;
-      let ended = false;
-      u.onstart = () => { started = true; };
-      u.onend = () => { ended = true; if (opts.onend) opts.onend(); };
-      u.onerror = () => {
-        if (ended) return;
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
+    u.rate = rate;
+    let started = false;
+    let ended = false;
+    u.onstart = () => { started = true; };
+    u.onend = () => {
+      ended = true;
+      if (myGen === _ttsGen && opts.onend) opts.onend();
+    };
+    u.onerror = (e) => {
+      if (myGen !== _ttsGen) return; // 已被新一次點擊取代,別再做事
+      const ec = e && e.error;
+      // 使用者按下一次造成的 cancel/interrupt 不算「原生 TTS 失敗」
+      if (ec === "interrupted" || ec === "canceled") return;
+      if (ended) return;
+      _useFallback = true;
+      speakViaAudio(text, lang, rate, opts);
+    };
+
+    // Chrome 在 cancel() 之後馬上 speak() 偶爾會卡住,給一個 tick 處理 queue
+    setTimeout(() => {
+      if (myGen !== _ttsGen) return;
+      try {
+        window.speechSynthesis.speak(u);
+      } catch (err) {
+        if (myGen !== _ttsGen) return;
         _useFallback = true;
         speakViaAudio(text, lang, rate, opts);
-      };
-      window.speechSynthesis.speak(u);
+        return;
+      }
       // 1.2 秒後若仍未開始播放,視為原生失敗,改用雲端
       setTimeout(() => {
+        if (myGen !== _ttsGen) return;
         if (!started && !ended && !window.speechSynthesis.speaking) {
           _useFallback = true;
           try { window.speechSynthesis.cancel(); } catch {}
           speakViaAudio(text, lang, rate, opts);
         }
       }, 1200);
-    } catch (e) {
-      _useFallback = true;
-      speakViaAudio(text, lang, rate, opts);
-    }
+    }, 0);
   };
 
   speakBtn.addEventListener("click", () => {
