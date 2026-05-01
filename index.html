@@ -4,8 +4,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>即時翻譯 小程式</title>
-<!-- mespeak.js (eSpeak NG WASM 移植) — 用來播 phonics 的單一字母音 (IPA),瀏覽器原生 TTS 給單字母只會唸字母名 -->
-<script src="https://cdn.jsdelivr.net/npm/mespeak/mespeak.full.js" defer></script>
 <style>
   :root {
     --bg: #0f172a;
@@ -602,17 +600,6 @@
     border-radius: 6px;
     line-height: 1.6;
   }
-  .phonics-engine-status {
-    display: inline-block;
-    margin-top: 6px;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 4px;
-    background: rgba(255,255,255,0.05);
-  }
-  .phonics-engine-status.ready { color: var(--ok); }
-  .phonics-engine-status.loading { color: #fb923c; }
-  .phonics-engine-status.failed { color: var(--danger); }
   .phonics-section { margin-bottom: 24px; }
   .phonics-h {
     font-size: 16px;
@@ -705,6 +692,161 @@
     box-shadow: 0 0 0 2px rgba(34,197,94,0.3);
   }
 
+  /* === 每日英文 === */
+  .daily-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .daily-date {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .daily-date b { color: var(--accent); font-size: 16px; margin-right: 6px; }
+  .daily-nav {
+    display: inline-flex;
+    gap: 4px;
+  }
+  .daily-nav button {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .daily-nav button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .daily-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .daily-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .daily-emoji { font-size: 36px; line-height: 1; }
+  .daily-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .daily-meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .daily-text {
+    font-size: 17px;
+    line-height: 1.85;
+    color: var(--text);
+    background: var(--panel-2);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+  }
+  .daily-text .kv {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+    cursor: pointer;
+    color: var(--accent);
+  }
+  .daily-text .kv:hover { background: rgba(56,189,248,0.15); border-radius: 3px; }
+  .daily-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .daily-actions button {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .daily-actions button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .daily-actions button.primary {
+    background: var(--accent);
+    color: #0f172a;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .daily-zh {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.8;
+    background: var(--panel-2);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    display: none;
+  }
+  .daily-zh.show { display: block; }
+  .daily-quiz-h {
+    font-size: 14px;
+    color: var(--accent);
+    margin: 14px 0 8px;
+    font-weight: 600;
+  }
+  .daily-quiz {
+    background: var(--panel-2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .daily-quiz-q {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .daily-quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .daily-quiz-options button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+  }
+  .daily-quiz-options button:hover {
+    border-color: var(--accent);
+  }
+  .daily-quiz-options button.right {
+    background: rgba(34,197,94,0.2);
+    border-color: var(--ok);
+    color: var(--ok);
+  }
+  .daily-quiz-options button.wrong {
+    background: rgba(239,68,68,0.2);
+    border-color: var(--danger);
+    color: var(--danger);
+  }
+  .daily-quiz-options button:disabled { cursor: default; }
+
   /* === 單字大卡 modal === */
   .word-modal {
     display: none;
@@ -766,6 +908,43 @@
     font-size: 12px;
     color: var(--muted);
     margin-bottom: 18px;
+  }
+  .modal-definitions {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    text-align: left;
+  }
+  .modal-definitions-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+  .modal-definition-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .modal-definition-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .modal-definition-pos {
+    min-width: 40px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .modal-definition-zh {
+    flex: 1;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
   }
   .modal-mnemonic {
     background: linear-gradient(135deg, rgba(252,211,77,0.15), rgba(252,211,77,0.04));
@@ -1276,6 +1455,7 @@
     <button class="tab active" data-tab="translate">🌐 翻譯</button>
     <button class="tab" data-tab="vocab">📚 單字寶盒</button>
     <button class="tab" data-tab="phonics">🔤 自然發音</button>
+    <button class="tab" data-tab="daily">📰 每日英文</button>
   </nav>
 
   <section class="tab-panel active" id="tab-translate">
@@ -1382,9 +1562,8 @@
 
   <section class="tab-panel" id="tab-phonics">
     <div class="phonics-intro">
-      點任一張卡 → 唸出**單一字母音 + 例字**(跟 phonics 老師教法一樣:「a-a-a, apple」)。<br>
-      下面的「怎麼唸」是中文嘴形提示,IPA 是國際音標。<br>
-      <span class="phonics-engine-status" id="phonicsEngineStatus">⚪ phonics 引擎尚未啟動</span>
+      點任一張卡 → 唸出例字,小朋友從例字裡聽出該字母的音。<br>
+      下面的「怎麼唸」教嘴巴 / 舌頭怎麼擺,IPA 是國際音標(專業參考用)。
     </div>
     <div class="phonics-section">
       <h3 class="phonics-h">🔠 26 個字母音 (Letter Sounds)</h3>
@@ -1412,6 +1591,20 @@
     </div>
   </section>
 
+  <section class="tab-panel" id="tab-daily">
+    <div class="daily-header">
+      <div class="daily-date" id="dailyDate"></div>
+      <div class="daily-nav">
+        <button id="dailyPrev" type="button" title="昨天">‹</button>
+        <button id="dailyToday" type="button" title="今天">📅 今天</button>
+        <button id="dailyNext" type="button" title="明天">›</button>
+      </div>
+    </div>
+    <div class="daily-card" id="dailyCard">
+      <div class="vocab-empty">點上方「📰 每日英文」分頁即會載入今日文章...</div>
+    </div>
+  </section>
+
   <footer>
     翻譯先用 <code>MyMemory</code> 免費額度,用完自動切 <code>DeepL</code> · 語音與朗讀使用瀏覽器內建 Web Speech API ·
     建議使用 Chrome / Edge
@@ -1425,6 +1618,10 @@
     <div class="modal-word" id="modalWord">word</div>
     <div class="modal-zh" id="modalZh">中文</div>
     <div class="modal-meta" id="modalMeta"></div>
+    <div class="modal-definitions" id="modalDefinitions" style="display:none">
+      <div class="modal-definitions-label">詞性與中譯</div>
+      <div class="modal-definition-list" id="modalDefinitionList"></div>
+    </div>
     <div class="modal-mnemonic" id="modalMnemonic" style="display:none">
       <div class="modal-mn-type" id="modalMnType"></div>
       <div class="modal-mn-label" id="modalMnLabel"></div>
@@ -1497,7 +1694,8 @@
       </div>
     </div>
     <div class="modal-actions">
-      <button class="primary" id="modalSpeakNormal">🔊 唸給我聽</button>
+      <button class="primary" id="modalSpeakNeural" title="真人神經音(Microsoft Edge)">🎙️ 真人發音</button>
+      <button id="modalSpeakNormal">🔊 唸給我聽</button>
       <button id="modalSpeakSlow">🐢 慢慢唸</button>
     </div>
   </div>
@@ -1793,8 +1991,10 @@
   };
 
   const callDeepLProxy = async (text, from, to) => {
+    // /translate 兩個平台都通:Cloudflare Pages 直接路由到 functions/translate.js,
+    // Netlify 透過 netlify.toml 的 redirect 導到 /.netlify/functions/translate
     const url =
-      "/.netlify/functions/translate?q=" + encodeURIComponent(text) +
+      "/translate?q=" + encodeURIComponent(text) +
       "&source=" + encodeURIComponent(from) +
       "&target=" + encodeURIComponent(to);
     const res = await fetch(url);
@@ -1851,7 +2051,7 @@
         translated = await callDeepLProxy(text, from, to);
         provider = "DeepL";
       } catch (err) {
-        setStatus("翻譯失敗: " + err.message + " (DeepL proxy 不可用,請確認 Netlify 環境變數 DEEPL_API_KEY 已設定)", "error");
+        setStatus("翻譯失敗: " + err.message + " (DeepL proxy 不可用,請確認部署平台的環境變數 DEEPL_API_KEY 已設定)", "error");
         return;
       }
     }
@@ -2718,7 +2918,11 @@
       tabs.forEach((b) => b.classList.toggle("active", b === btn));
       panels.forEach((p) => p.classList.toggle("active", p.id === "tab-" + t));
       if (t === "vocab" && !vocabLoaded) loadVocab();
-      if (t === "phonics") initIpaEngine(); // lazy load 700KB,只在進到 phonics 才下載
+      if (t === "daily") {
+        // vocab 也要載入(每日文章的 key vocab 會點開大卡)
+        if (!vocabLoaded) loadVocab();
+        renderDaily();
+      }
     });
   });
 
@@ -2759,6 +2963,81 @@
     feature: "✨ 特徵綽號",
     compound: "🧩 拆字組合",
   };
+  const ZH_SPLIT_RE = /[,;，；]/;
+  const POS_GROUP_MAP = {
+    n: "n", noun: "n",
+    v: "v", vi: "v", vt: "v",
+    adj: "adj",
+    adv: "adv",
+    prep: "prep",
+    conj: "conj",
+    pron: "pron",
+    aux: "aux",
+    num: "num",
+    det: "det",
+    art: "det",
+    int: "int",
+  };
+  const POS_LABELS = {
+    n: "n.",
+    v: "v.",
+    adj: "adj.",
+    adv: "adv.",
+    prep: "prep.",
+    conj: "conj.",
+    pron: "pron.",
+    aux: "aux.",
+    num: "num.",
+    det: "det.",
+    int: "int.",
+  };
+  const shortZh = (zh) => String(zh || "").split(ZH_SPLIT_RE)[0].trim();
+  const normalizePos = (pos) => {
+    const key = String(pos || "").trim().toLowerCase();
+    return POS_GROUP_MAP[key] || key || "";
+  };
+  const posLabel = (pos) => POS_LABELS[normalizePos(pos)] || (pos ? String(pos) + "." : "");
+  const getGroupedDefinitions = (w) => {
+    const grouped = [];
+    const seen = new Set();
+    for (const def of w.definitions || []) {
+      const zh = String((def && def.zh) || "").trim();
+      if (!zh) continue;
+      const pos = normalizePos(def && def.pos);
+      const key = pos + "::" + zh;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const existing = grouped.find((row) => row.pos === pos);
+      if (existing) existing.items.push(zh);
+      else grouped.push({ pos, items: [zh] });
+    }
+    return grouped;
+  };
+  const getDisplayZh = (w, overrideZh = "") => {
+    if (overrideZh) return overrideZh;
+    const grouped = getGroupedDefinitions(w);
+    if (grouped.length >= 2 && grouped.length <= 3) {
+      const compact = grouped
+        .slice(0, 2)
+        .map((row) => {
+          const label = posLabel(row.pos);
+          const zh = shortZh(row.items[0]);
+          return label ? (label + " " + zh) : zh;
+        })
+        .join(" / ");
+      if (compact.length <= 24) return compact;
+    }
+    const mainPos = normalizePos(w.pos);
+    const preferred = grouped.find((row) => row.pos === mainPos) || grouped[0];
+    if (preferred) return shortZh(preferred.items[0]);
+    return shortZh(w.zh || "");
+  };
+  const renderDefinitionRows = (w) => getGroupedDefinitions(w).map((row) => (
+    '<div class="modal-definition-row">' +
+      '<span class="modal-definition-pos">' + escapeHtml(posLabel(row.pos) || "mean") + '</span>' +
+      '<span class="modal-definition-zh">' + escapeHtml(row.items.join(" / ")) + '</span>' +
+    '</div>'
+  )).join("");
 
   const applyVocabFilters = () => {
     if (!vocabData) return;
@@ -2794,7 +3073,7 @@
       const m = mn[w.word.toLowerCase()];
       const card = document.createElement("div");
       card.className = "word-card" + (m ? " has-mn" : "");
-      const displayZh = (m && m.zh_override) || (w.zh || "").split(/[,;，；]/)[0].trim();
+      const displayZh = getDisplayZh(w, (m && m.zh_override) || "");
       card.innerHTML =
         '<span class="wc-grade">G' + w.grade + '</span>' +
         (m ? '<span class="wc-mn-badge">💡</span>' : "") +
@@ -2926,6 +3205,8 @@
   const modalWord = $("modalWord");
   const modalZh = $("modalZh");
   const modalMeta = $("modalMeta");
+  const modalDefinitions = $("modalDefinitions");
+  const modalDefinitionList = $("modalDefinitionList");
   const modalMnemonic = $("modalMnemonic");
   const modalMnType = $("modalMnType");
   const modalMnLabel = $("modalMnLabel");
@@ -2936,6 +3217,7 @@
   const modalExampleSpeak = $("modalExampleSpeak");
   const modalExampleSource = $("modalExampleSource");
   const modalCloseBtn = $("modalClose");
+  const modalSpeakNeural = $("modalSpeakNeural");
   const modalSpeakNormal = $("modalSpeakNormal");
   const modalSpeakSlow = $("modalSpeakSlow");
   // 練習區
@@ -3507,15 +3789,23 @@
     const mn = (mnemonicsData.mnemonics || {})[w.word.toLowerCase()];
     currentModalWord = w.word;
     currentModalExample = "";
-    currentModalZh = (mn && mn.zh_override) || (w.zh || "").split(/[,;，；]/)[0].trim();
+    currentModalZh = getDisplayZh(w, (mn && mn.zh_override) || "");
     currentModalEmoji = w.emoji || "";
     dictationRevealedThisCard = false; // 新卡:重新套用聽寫設定
     modalEmoji.textContent = w.emoji || "📘";
     modalWord.textContent = w.word;
-    modalZh.textContent = (mn && mn.zh_override) || w.zh || "";
+    modalZh.textContent = currentModalZh;
     const posPart = w.pos ? "(" + w.pos + ".) " : "";
     const levelLabel = w.level === "elementary" ? "國小" : "國中";
     modalMeta.textContent = posPart + levelLabel + " · G" + w.grade;
+    const definitionRows = renderDefinitionRows(w);
+    if (definitionRows) {
+      modalDefinitions.style.display = "";
+      modalDefinitionList.innerHTML = definitionRows;
+    } else {
+      modalDefinitions.style.display = "none";
+      modalDefinitionList.innerHTML = "";
+    }
     if (mn) {
       modalMnemonic.style.display = "";
       modalMnType.textContent = TYPE_LABELS[mn.type] || "💡 記憶法";
@@ -3604,6 +3894,25 @@
   modalExampleSpeak.addEventListener("click", () => {
     if (!currentModalExample) return;
     speakText(currentModalExample, "en-US", 0.75);
+  });
+
+  // 真人神經音(edge-tts 預先生成的靜態 MP3),載不到才退原生 TTS
+  // 檔名規則跟 gen_vocab_audio.py 對齊:apple → word_apple.mp3
+  const vocabNeuralPath = (word) => {
+    if (!word) return "";
+    const cleaned = word.replace(/\s*\([^)]*\)/g, "").split("/")[0].trim();
+    const safe = cleaned.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+    return safe ? `data/audio/vocab/word_${safe}.mp3` : "";
+  };
+  modalSpeakNeural.addEventListener("click", async () => {
+    if (!currentModalWord) return;
+    const path = vocabNeuralPath(currentModalWord);
+    try {
+      await playStaticAudio(path);
+    } catch {
+      // 音檔不存在(可能是冷僻字還沒生)→ 退原生 TTS
+      speakText(currentModalWord, "en-US", 0.85);
+    }
   });
 
   // ===== 自然發音 phonics 分頁 =====
@@ -3700,89 +4009,148 @@
     { letters: "str",example: "string",emoji: "🧵" },
   ];
 
-  // ===== Phonics 真音引擎 (mespeak.js / eSpeak NG) =====
-  // 為什麼:瀏覽器原生 TTS 看到「a」只會唸字母名「ay」,不是 phonics 的 /æ/ 短音。
-  // mespeak 走 IPA SSML 標籤可以精準唸隔離音,但載入要 ~700KB 一次性下載。
-  let _ipaEngineState = "idle"; // idle | loading | ready | failed
-  const setIpaStatus = () => {
-    const el = $("phonicsEngineStatus");
-    if (!el) return;
-    el.classList.remove("ready", "loading", "failed");
-    if (_ipaEngineState === "ready") {
-      el.classList.add("ready");
-      el.textContent = "✅ phonics 引擎就緒(可唸字母音)";
-    } else if (_ipaEngineState === "loading") {
-      el.classList.add("loading");
-      el.textContent = "🔄 載入 phonics 引擎中...(~700KB,只會載一次)";
-    } else if (_ipaEngineState === "failed") {
-      el.classList.add("failed");
-      el.textContent = "⚠️ phonics 引擎載入失敗,自動退回唸例字";
-    } else {
-      el.textContent = "⚪ phonics 引擎尚未啟動";
-    }
-  };
-  const initIpaEngine = () => {
-    if (_ipaEngineState !== "idle") return;
-    if (typeof window.meSpeak === "undefined") {
-      _ipaEngineState = "failed";
-      setIpaStatus();
-      return;
-    }
-    _ipaEngineState = "loading";
-    setIpaStatus();
+  // === Azure Neural TTS for phonics (透過 /tts proxy)===
+  // 為什麼:瀏覽器 TTS 看到 "a" 只會唸字母名 "ay",不是 phonics 的 /æ/。
+  // Azure 接 SSML <phoneme alphabet="ipa" ph="..."/> 才能精準唸隔離音。
+  // 一律先查 IndexedDB,沒命中再打 /tts,結果存回快取,Azure 50 萬字/月免費撐很久。
+
+  const AUDIO_DB_NAME = "phonics_audio_cache_v1";
+  const AUDIO_STORE = "audio";
+  let _audioDB = null;
+  const openAudioDB = () => new Promise((resolve, reject) => {
+    if (_audioDB) return resolve(_audioDB);
+    if (!("indexedDB" in window)) return reject(new Error("no indexedDB"));
+    const req = indexedDB.open(AUDIO_DB_NAME, 1);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(AUDIO_STORE)) db.createObjectStore(AUDIO_STORE);
+    };
+    req.onsuccess = () => { _audioDB = req.result; resolve(_audioDB); };
+    req.onerror = () => reject(req.error);
+  });
+  const audioCacheGet = async (key) => {
     try {
-      window.meSpeak.loadConfig("https://cdn.jsdelivr.net/npm/mespeak/src/mespeak_config.json");
-      window.meSpeak.loadVoice(
-        "https://cdn.jsdelivr.net/npm/mespeak/voices/en/en.json",
-        (success) => {
-          _ipaEngineState = success ? "ready" : "failed";
-          setIpaStatus();
-        }
-      );
+      const db = await openAudioDB();
+      return await new Promise((resolve) => {
+        const tx = db.transaction(AUDIO_STORE, "readonly");
+        const r = tx.objectStore(AUDIO_STORE).get(key);
+        r.onsuccess = () => resolve(r.result || null);
+        r.onerror = () => resolve(null);
+      });
+    } catch { return null; }
+  };
+  const audioCacheSet = async (key, blob) => {
+    try {
+      const db = await openAudioDB();
+      await new Promise((resolve) => {
+        const tx = db.transaction(AUDIO_STORE, "readwrite");
+        const r = tx.objectStore(AUDIO_STORE).put(blob, key);
+        r.onsuccess = () => resolve(true);
+        r.onerror = () => resolve(false);
+      });
+    } catch {}
+  };
+
+  // /tts proxy 失敗時記住,後續就不再嘗試,直接退回原生 TTS
+  let _azureUnavailable = false;
+  const fetchAzureAudio = async (text, phoneme, rate) => {
+    if (_azureUnavailable) return null;
+    const params = new URLSearchParams();
+    if (phoneme) params.set("phoneme", phoneme);
+    params.set("text", text || "x");
+    if (rate) params.set("rate", rate);
+    try {
+      const res = await fetch("/tts?" + params.toString());
+      if (!res.ok) {
+        // 500 多半是 key 沒設,500/404 都標記不可用避免後續每次都打
+        if (res.status >= 500 || res.status === 404) _azureUnavailable = true;
+        return null;
+      }
+      return await res.blob();
     } catch {
-      _ipaEngineState = "failed";
-      setIpaStatus();
+      return null;
     }
   };
 
-  // 從 "/æ/" 或 "/θ/ 或 /ð/" 取出第一個 IPA 字串給 mespeak 用
+  const playBlob = (blob, onEnd) => {
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    const cleanup = () => { try { URL.revokeObjectURL(url); } catch {} if (onEnd) onEnd(); };
+    audio.addEventListener("ended", cleanup, { once: true });
+    audio.addEventListener("error", cleanup, { once: true });
+    audio.play().catch(cleanup);
+  };
+
+  // 統一入口:有 cache 用 cache,沒有打 Azure 拿並存入,再失敗就 null
+  const getPhonicsAudio = async (cacheKey, text, phoneme) => {
+    let blob = await audioCacheGet(cacheKey);
+    if (blob) return blob;
+    blob = await fetchAzureAudio(text, phoneme);
+    if (blob) audioCacheSet(cacheKey, blob); // 存背景進行不 await
+    return blob;
+  };
+
+  // 從 "/æ/" 或 "/θ/ 或 /ð/" 取出第一個 IPA 字串給 Azure SSML 用
   const stripIpaSlashes = (ipa) => {
     if (!ipa) return "";
     const m = ipa.match(/\/([^\/]+)\//);
     return m ? m[1].trim() : "";
   };
 
-  const speakViaMeSpeak = (ipa) => new Promise((resolve) => {
-    if (_ipaEngineState !== "ready") return resolve(false);
-    try {
-      const ssml = '<speak><phoneme alphabet="ipa" ph="' + ipa + '">x</phoneme></speak>';
-      window.meSpeak.speak(ssml, { ssml: true, amplitude: 100, speed: 110 }, () => resolve(true));
-    } catch { resolve(false); }
+  // mp3 路徑:
+  //   sound_<key>.mp3  字母音 / 雙字母 / 母音團 (用標準 phonics 近似詞: ah, buh, kuh ...)
+  //   word_<safe>.mp3  例字
+  const safeAudioKey = (s) =>
+    (s || "").toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+  const phonicsWordPath = (w) => {
+    const k = safeAudioKey(w);
+    return k ? `data/audio/phonics/word_${k}.mp3` : "";
+  };
+  const phonicsSoundPath = (item) => {
+    // 從 item 推 sound key: letter / letters / pattern
+    const raw = item.letter || item.letters || item.pattern || "";
+    const k = safeAudioKey(raw);
+    return k ? `data/audio/phonics/sound_${k}.mp3` : "";
+  };
+
+  // 試播靜態 MP3,resolve 在 ended,reject 在 error / play 失敗
+  const playStaticAudio = (path) => new Promise((resolve, reject) => {
+    if (!path) return reject(new Error("no path"));
+    const audio = new Audio(path);
+    audio.addEventListener("ended", () => resolve(), { once: true });
+    audio.addEventListener("error", () => reject(new Error("audio error")), { once: true });
+    audio.play().catch(reject);
   });
 
-  // 點 phonics 卡:可選播 IPA 後再唸例字(跟 phonics 老師教學節奏一樣)
-  const phonicsPlay = (cardEl, item) => {
+  const phonicsPlay = async (cardEl, item) => {
     document.querySelectorAll(".phonics-card.playing").forEach((c) => c.classList.remove("playing"));
     cardEl.classList.add("playing");
 
-    const exampleWord = item.example;
-    const ipa = stripIpaSlashes(item.ipa);
+    const example = item.example;
+    const finishUI = () => cardEl.classList.remove("playing");
 
-    const playExample = () => {
-      speakText(exampleWord, "en-US", 0.8, {
-        onend: () => cardEl.classList.remove("playing"),
-      });
+    const playWord = async () => {
+      try {
+        await playStaticAudio(phonicsWordPath(example));
+        finishUI();
+      } catch {
+        // 例字 mp3 載不到 → 退原生 TTS
+        speakText(example, "en-US", 0.8, { onend: finishUI });
+      }
     };
 
-    if (ipa && _ipaEngineState === "ready") {
-      // IPA → 短停頓 → 例字
-      speakViaMeSpeak(ipa).then((ok) => {
-        if (!ok) { playExample(); return; }
-        setTimeout(playExample, 250);
-      });
-    } else {
-      playExample();
+    // 先試播字母音 (有的話)→ 短停頓 → 例字。沒有就直接例字
+    const soundPath = phonicsSoundPath(item);
+    if (soundPath) {
+      try {
+        await playStaticAudio(soundPath);
+        setTimeout(playWord, 200);
+        return;
+      } catch {
+        // 字母音檔不存在(像 Magic E / Blends)→ 直接例字
+      }
     }
+    playWord();
   };
 
   const renderPhonicsCards = (containerEl, items, kind) => {
@@ -3830,6 +4198,133 @@
     renderPhonicsCards($("phonicsBlends"), PHONICS_BLENDS, "blend");
   };
   renderAllPhonics();
+
+  // ===== 每日英文 =====
+  let dailyArticles = null;
+  let dailyOffset = 0; // 相對「今天」偏移天數,0=今天, -1=昨天, +1=明天
+
+  const loadDailyArticles = async () => {
+    if (dailyArticles) return dailyArticles;
+    try {
+      const res = await fetch("data/articles.json");
+      const data = await res.json();
+      dailyArticles = data.articles || [];
+    } catch (e) {
+      dailyArticles = [];
+    }
+    return dailyArticles;
+  };
+
+  // 用日期算今天該顯示哪篇 — 可重現的 hash
+  const getDateForOffset = (offset) => {
+    const d = new Date();
+    d.setDate(d.getDate() + offset);
+    return d;
+  };
+  const fmtDate = (d) => {
+    const w = ["日", "一", "二", "三", "四", "五", "六"][d.getDay()];
+    return `${d.getFullYear()}/${(d.getMonth()+1).toString().padStart(2,"0")}/${d.getDate().toString().padStart(2,"0")} (${w})`;
+  };
+  const pickArticleForDate = (articles, d) => {
+    if (!articles.length) return null;
+    // YYYYMMDD 數字 mod 文章數
+    const key = d.getFullYear() * 10000 + (d.getMonth()+1) * 100 + d.getDate();
+    return articles[key % articles.length];
+  };
+
+  // 把文章 text 中的 key_vocab 字標成可點選 (大小寫不分,word boundary)
+  const renderTextWithVocab = (text, keyVocab) => {
+    let html = escapeHtml(text);
+    const sorted = [...new Set(keyVocab)].sort((a,b) => b.length - a.length);
+    for (const w of sorted) {
+      // 有 word boundary 的全字匹配,大小寫不敏感
+      const re = new RegExp("\\b(" + w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")\\b", "gi");
+      html = html.replace(re, (m) => `<span class="kv" data-word="${escapeHtml(w.toLowerCase())}">${m}</span>`);
+    }
+    return html;
+  };
+
+  const dailyDateEl = $("dailyDate");
+  const dailyCardEl = $("dailyCard");
+
+  const renderDaily = async () => {
+    const articles = await loadDailyArticles();
+    if (!articles.length) {
+      dailyDateEl.textContent = "";
+      dailyCardEl.innerHTML = '<div class="vocab-empty">沒有文章資料,請確認 data/articles.json 存在。</div>';
+      return;
+    }
+    const d = getDateForOffset(dailyOffset);
+    const a = pickArticleForDate(articles, d);
+
+    dailyDateEl.innerHTML = `<b>${fmtDate(d)}</b>${dailyOffset === 0 ? "(今天)" : ""}`;
+
+    dailyCardEl.innerHTML =
+      '<div class="daily-card-header">' +
+        '<span class="daily-emoji">' + (a.emoji || "📰") + '</span>' +
+        '<div><div class="daily-title">' + escapeHtml(a.title) + '</div></div>' +
+      '</div>' +
+      '<div class="daily-meta">主題:' + escapeHtml(a.topic || "—") +
+         ' · 程度:' + escapeHtml(a.level || "—") +
+         ' · 約 ' + a.text.split(/\s+/).filter(Boolean).length + ' 字</div>' +
+      '<div class="daily-text" id="dailyText">' +
+         renderTextWithVocab(a.text, a.key_vocab || []) +
+      '</div>' +
+      '<div class="daily-actions">' +
+        '<button class="primary" id="dailyReadBtn">🎙️ 朗讀整段</button>' +
+        '<button id="dailyZhBtn">看中譯</button>' +
+      '</div>' +
+      '<div class="daily-zh" id="dailyZh">' + escapeHtml(a.text_zh || "") + '</div>' +
+      (a.questions && a.questions.length
+        ? '<div class="daily-quiz-h">📝 小測驗</div>' +
+          a.questions.map((q, qi) =>
+            '<div class="daily-quiz" data-qi="' + qi + '">' +
+              '<div class="daily-quiz-q">' + (qi+1) + '. ' + escapeHtml(q.q) + '</div>' +
+              '<div class="daily-quiz-options">' +
+                q.options.map((opt, oi) =>
+                  '<button data-qi="' + qi + '" data-oi="' + oi + '">' +
+                    String.fromCharCode(65+oi) + '. ' + escapeHtml(opt) +
+                  '</button>'
+                ).join("") +
+              '</div>' +
+            '</div>'
+          ).join("")
+        : "");
+
+    // 點 key vocab → 開大卡(若該字存在於 vocab.json)
+    dailyCardEl.querySelectorAll(".kv").forEach((el) => {
+      el.addEventListener("click", () => {
+        const w = el.dataset.word;
+        if (!vocabData) return;
+        const found = vocabData.words.find((x) => x.word.toLowerCase() === w);
+        if (found) openWordModal(found);
+      });
+    });
+
+    // 朗讀整段:用瀏覽器 TTS(整段太長預生不划算)
+    $("dailyReadBtn").addEventListener("click", () => speakText(a.text, "en-US", 0.85));
+    // 看中譯切換
+    const zhEl = $("dailyZh");
+    $("dailyZhBtn").addEventListener("click", () => zhEl.classList.toggle("show"));
+    // 小測驗
+    dailyCardEl.querySelectorAll(".daily-quiz-options button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const qi = +btn.dataset.qi;
+        const oi = +btn.dataset.oi;
+        const correctIdx = a.questions[qi].answer;
+        const all = dailyCardEl.querySelectorAll(`.daily-quiz[data-qi="${qi}"] button`);
+        all.forEach((b, i) => {
+          b.disabled = true;
+          if (i === correctIdx) b.classList.add("right");
+          else if (i === oi) b.classList.add("wrong");
+        });
+      });
+    });
+  };
+
+  $("dailyPrev").addEventListener("click", () => { dailyOffset--; renderDaily(); });
+  $("dailyNext").addEventListener("click", () => { dailyOffset++; renderDaily(); });
+  $("dailyToday").addEventListener("click", () => { dailyOffset = 0; renderDaily(); });
 
   // 初始
   updateCounts();

@@ -1,0 +1,427 @@
+{
+  "version": "1",
+  "source": "Hand-crafted by Claude — kid-friendly, 50-80 words, G6 vocab",
+  "license_note": "原創內容,商用授權無虞",
+  "articles": [
+    {
+      "id": "001",
+      "title": "My Pet Cat",
+      "emoji": "🐱",
+      "topic": "Animals",
+      "level": "G6",
+      "text": "I have a cat. His name is Lucky. He is small and white. Lucky likes to play with a ball. Every morning he sits on my bed and waits for me. He is my best friend. I love Lucky very much.",
+      "text_zh": "我有一隻貓。他叫 Lucky。他小小的、白白的。Lucky 喜歡玩球。每天早上他都坐在我的床上等我。他是我最好的朋友。我非常愛 Lucky。",
+      "key_vocab": ["cat", "white", "play", "ball", "morning", "friend"],
+      "questions": [
+        {"q": "What color is Lucky?", "options": ["white", "black", "brown"], "answer": 0},
+        {"q": "Where does Lucky sit in the morning?", "options": ["on the chair", "on my bed", "in the kitchen"], "answer": 1}
+      ]
+    },
+    {
+      "id": "002",
+      "title": "Breakfast Time",
+      "emoji": "🍳",
+      "topic": "Food",
+      "level": "G6",
+      "text": "I eat breakfast every day. My mom makes eggs and bread. I also drink milk. My little brother likes to eat fruit. He eats an apple and a banana. We all sit at the table and eat together. Breakfast is fun!",
+      "text_zh": "我每天吃早餐。媽媽煮蛋和麵包。我還喝牛奶。我的小弟弟喜歡吃水果。他吃一顆蘋果和一根香蕉。我們都坐在餐桌一起吃。早餐很有趣!",
+      "key_vocab": ["breakfast", "egg", "bread", "milk", "apple", "banana", "table"],
+      "questions": [
+        {"q": "What does my mom make?", "options": ["rice and soup", "eggs and bread", "noodles"], "answer": 1},
+        {"q": "What does my little brother eat?", "options": ["fruit", "eggs", "bread"], "answer": 0}
+      ]
+    },
+    {
+      "id": "003",
+      "title": "Going to School",
+      "emoji": "🎒",
+      "topic": "School",
+      "level": "G6",
+      "text": "It is Monday morning. I get up at seven. I put on my school clothes. I take my bag and walk to school. My friend Tom walks with me. We talk and laugh on the way. School starts at eight. I like my teacher and my classmates.",
+      "text_zh": "今天是星期一早上。我七點起床。我穿上校服。我拿書包走路上學。我的朋友 Tom 和我一起走。我們在路上聊天笑笑。學校八點開始。我喜歡我的老師和同學。",
+      "key_vocab": ["Monday", "morning", "school", "bag", "walk", "friend", "teacher", "classmate"],
+      "questions": [
+        {"q": "What time do I get up?", "options": ["six", "seven", "eight"], "answer": 1},
+        {"q": "Who walks to school with me?", "options": ["my brother", "my friend Tom", "my mom"], "answer": 1}
+      ]
+    },
+    {
+      "id": "004",
+      "title": "A Rainy Day",
+      "emoji": "🌧️",
+      "topic": "Weather",
+      "level": "G6",
+      "text": "Today is rainy and cold. I cannot go to the park. I stay at home with my sister. We read books and play games. Mom makes hot soup for us. Dad gives us warm milk. The rain is loud, but our home is warm and happy.",
+      "text_zh": "今天又下雨又冷。我不能去公園。我和姊姊待在家。我們看書、玩遊戲。媽媽煮熱湯給我們。爸爸給我們溫牛奶。雨聲很大,但是家裡溫暖又快樂。",
+      "key_vocab": ["rainy", "cold", "park", "home", "sister", "book", "soup", "warm"],
+      "questions": [
+        {"q": "Why can't I go to the park?", "options": ["it is too late", "it is rainy", "I am sick"], "answer": 1},
+        {"q": "What does mom make?", "options": ["cold drinks", "hot soup", "rice"], "answer": 1}
+      ]
+    },
+    {
+      "id": "005",
+      "title": "My Birthday Party",
+      "emoji": "🎂",
+      "topic": "Celebration",
+      "level": "G6",
+      "text": "Today is my birthday. I am ten years old. My mom makes a big cake. My friends come to my house. We sing a song and eat the cake. I get many gifts. My favorite gift is a new book about animals. I am very happy today.",
+      "text_zh": "今天是我的生日。我十歲了。媽媽做了一個大蛋糕。我的朋友來我家。我們唱歌、吃蛋糕。我收到很多禮物。我最喜歡的禮物是一本新的動物書。我今天很開心。",
+      "key_vocab": ["birthday", "cake", "friend", "house", "sing", "song", "gift", "book", "animal"],
+      "questions": [
+        {"q": "How old am I today?", "options": ["nine", "ten", "eleven"], "answer": 1},
+        {"q": "What is my favorite gift?", "options": ["a toy", "a new book", "a cake"], "answer": 1}
+      ]
+    },
+    {
+      "id": "006",
+      "title": "Helping Mom",
+      "emoji": "🧹",
+      "topic": "Family",
+      "level": "G6",
+      "text": "On Saturday I help my mom at home. First I clean my room. Then I help her wash the dishes. After that we go to the market and buy fruit and vegetables. Mom says I am a good kid. I feel happy when I can help.",
+      "text_zh": "星期六我在家幫媽媽。我先打掃自己的房間。然後幫她洗碗。之後我們去市場買水果和蔬菜。媽媽說我是個好孩子。能幫忙我覺得很開心。",
+      "key_vocab": ["Saturday", "help", "home", "clean", "room", "wash", "market", "fruit"],
+      "questions": [
+        {"q": "What do I clean first?", "options": ["the kitchen", "my room", "the dishes"], "answer": 1},
+        {"q": "Where do we go to buy fruit?", "options": ["the market", "the school", "the park"], "answer": 0}
+      ]
+    },
+    {
+      "id": "007",
+      "title": "Playing in the Park",
+      "emoji": "🌳",
+      "topic": "Outdoor",
+      "level": "G6",
+      "text": "It is a sunny day. I go to the park with my friends. We play soccer and run around. Some kids ride bikes. There are big trees and beautiful flowers. I see a bird sing in the tree. We have a wonderful time at the park.",
+      "text_zh": "今天天氣晴朗。我和朋友去公園。我們踢足球、到處跑。有些小朋友騎腳踏車。有大樹和漂亮的花。我看到一隻鳥在樹上唱歌。我們在公園玩得很開心。",
+      "key_vocab": ["sunny", "park", "friend", "soccer", "run", "bike", "tree", "flower", "bird"],
+      "questions": [
+        {"q": "What sport do we play?", "options": ["basketball", "soccer", "tennis"], "answer": 1},
+        {"q": "What do I see in the tree?", "options": ["a cat", "a bird", "a monkey"], "answer": 1}
+      ]
+    },
+    {
+      "id": "008",
+      "title": "At the Library",
+      "emoji": "📚",
+      "topic": "School",
+      "level": "G6",
+      "text": "I love the library. It is quiet and full of books. Today I read a story about a brave dog. The dog helps a little girl find her way home. The book is very interesting. I want to read more stories like this. Reading makes me happy.",
+      "text_zh": "我愛圖書館。那裡很安靜、有很多書。今天我讀了一個關於勇敢的狗的故事。那隻狗幫助一個小女孩找到回家的路。這本書很有趣。我想多讀像這樣的故事。閱讀讓我快樂。",
+      "key_vocab": ["library", "quiet", "book", "story", "brave", "dog", "girl", "home", "read"],
+      "questions": [
+        {"q": "What is the story about?", "options": ["a brave cat", "a brave dog", "a brave bird"], "answer": 1},
+        {"q": "How is the library?", "options": ["quiet and full of books", "noisy", "small"], "answer": 0}
+      ]
+    },
+    {
+      "id": "009",
+      "title": "Making a Sandwich",
+      "emoji": "🥪",
+      "topic": "Food",
+      "level": "G6",
+      "text": "I am hungry. I want to make a sandwich. I take two pieces of bread. I put cheese, ham, and a leaf of lettuce on the bread. I add a little butter. Then I eat my sandwich with a glass of milk. It is so yummy!",
+      "text_zh": "我肚子餓了。我想做一個三明治。我拿兩片麵包。我把起司、火腿和一片生菜放在麵包上。我加一點奶油。然後我配一杯牛奶吃我的三明治。好好吃!",
+      "key_vocab": ["hungry", "bread", "cheese", "ham", "lettuce", "butter", "milk", "yummy"],
+      "questions": [
+        {"q": "How many pieces of bread do I take?", "options": ["one", "two", "three"], "answer": 1},
+        {"q": "What do I drink with the sandwich?", "options": ["water", "milk", "tea"], "answer": 1}
+      ]
+    },
+    {
+      "id": "010",
+      "title": "Visiting Grandma",
+      "emoji": "👵",
+      "topic": "Family",
+      "level": "G6",
+      "text": "On Sunday we visit my grandma. She lives in the country. Her house has a garden with many flowers. Grandma makes my favorite cookies. We sit and eat them together. She tells me stories from when she was young. I love going to grandma's house.",
+      "text_zh": "星期天我們去看奶奶。她住在鄉下。她家有一個花園,種了很多花。奶奶做我最喜歡的餅乾。我們坐著一起吃。她講她年輕時的故事給我聽。我喜歡去奶奶家。",
+      "key_vocab": ["Sunday", "visit", "house", "garden", "flower", "cookie", "story", "young"],
+      "questions": [
+        {"q": "Where does Grandma live?", "options": ["in the city", "in the country", "in a tall building"], "answer": 1},
+        {"q": "What does Grandma make for me?", "options": ["my favorite cookies", "soup", "ice cream"], "answer": 0}
+      ]
+    },
+    {
+      "id": "011",
+      "title": "At the Zoo",
+      "emoji": "🦁",
+      "topic": "Animals",
+      "level": "G6",
+      "text": "Today we go to the zoo. I see a big lion sleeping in the sun. The monkeys jump from tree to tree. A gray elephant drinks water with its long nose. I love the panda the most. It eats green leaves and looks so cute.",
+      "text_zh": "今天我們去動物園。我看到一隻大獅子在太陽下睡覺。猴子從一棵樹跳到另一棵樹。一隻灰色的大象用長鼻子喝水。我最愛熊貓。牠吃綠色的葉子,看起來好可愛。",
+      "key_vocab": ["zoo", "lion", "monkey", "tree", "elephant", "water", "panda", "cute"],
+      "questions": [
+        {"q": "What is the lion doing?", "options": ["eating", "sleeping", "running"], "answer": 1},
+        {"q": "Which animal do I like the most?", "options": ["the lion", "the monkey", "the panda"], "answer": 2}
+      ]
+    },
+    {
+      "id": "012",
+      "title": "Going Swimming",
+      "emoji": "🏊",
+      "topic": "Sports",
+      "level": "G6",
+      "text": "It is hot summer. My dad takes me to the swimming pool. The water is cool and blue. I can swim with my arms and legs. My little sister cannot swim, so she stays in the small pool. We have fun for two hours.",
+      "text_zh": "炎熱的夏天。爸爸帶我去游泳池。水又涼又藍。我可以用手腳游泳。我的小妹妹不會游泳,所以她待在小池子。我們玩了兩個小時。",
+      "key_vocab": ["hot", "summer", "pool", "water", "blue", "swim", "sister", "hour"],
+      "questions": [
+        {"q": "Where does dad take me?", "options": ["the park", "the pool", "the beach"], "answer": 1},
+        {"q": "Why does my sister stay in the small pool?", "options": ["she likes it", "she cannot swim", "she is tired"], "answer": 1}
+      ]
+    },
+    {
+      "id": "013",
+      "title": "First Snow",
+      "emoji": "❄️",
+      "topic": "Weather",
+      "level": "G6",
+      "text": "Today I see snow for the first time. It is white and soft. I run outside with my warm coat and gloves. My friends and I make a big snowman. We give him a long carrot for a nose. Snow is so much fun!",
+      "text_zh": "今天我第一次看到雪。雪又白又軟。我穿上溫暖的外套和手套跑到外面。我和朋友堆了一個大雪人。我們給他一根長紅蘿蔔當鼻子。雪好好玩!",
+      "key_vocab": ["snow", "white", "warm", "coat", "glove", "friend", "snowman", "nose"],
+      "questions": [
+        {"q": "What color is the snow?", "options": ["blue", "white", "gray"], "answer": 1},
+        {"q": "What do we use for the snowman's nose?", "options": ["a stick", "a carrot", "a stone"], "answer": 1}
+      ]
+    },
+    {
+      "id": "014",
+      "title": "The Lost Dog",
+      "emoji": "🐶",
+      "topic": "Animals",
+      "level": "G6",
+      "text": "I see a little brown dog on the street. It looks sad and hungry. I give it some bread and water. The dog has a name on its collar. I call the number on the tag. Soon a happy family comes and takes the dog home.",
+      "text_zh": "我在街上看到一隻棕色小狗。牠看起來又難過又餓。我給牠一些麵包和水。狗的項圈上有名字。我打項圈牌上的電話。很快一家人開心地來把狗帶回家。",
+      "key_vocab": ["dog", "brown", "street", "sad", "hungry", "bread", "water", "family", "home"],
+      "questions": [
+        {"q": "How does the dog look?", "options": ["happy", "sad and hungry", "angry"], "answer": 1},
+        {"q": "What do I give the dog?", "options": ["bread and water", "rice", "meat"], "answer": 0}
+      ]
+    },
+    {
+      "id": "015",
+      "title": "New Shoes",
+      "emoji": "👟",
+      "topic": "Family",
+      "level": "G6",
+      "text": "My old shoes are too small now. Mom takes me to the shop to buy new ones. I try on red shoes, blue shoes, and white shoes. I like the blue ones the most. They feel light and look cool. Now I want to run everywhere.",
+      "text_zh": "我的舊鞋現在太小了。媽媽帶我去店裡買新的。我試了紅鞋、藍鞋和白鞋。我最喜歡藍色的。它們又輕又酷。現在我想到處跑。",
+      "key_vocab": ["shoes", "small", "shop", "buy", "red", "blue", "white", "light"],
+      "questions": [
+        {"q": "Why do I need new shoes?", "options": ["the old ones are dirty", "the old ones are too small", "I lost them"], "answer": 1},
+        {"q": "Which shoes do I like the most?", "options": ["red", "blue", "white"], "answer": 1}
+      ]
+    },
+    {
+      "id": "016",
+      "title": "The Teacher's Gift",
+      "emoji": "🎁",
+      "topic": "School",
+      "level": "G6",
+      "text": "Today is Teacher's Day. My class makes a big card for our teacher. We draw flowers and write nice words. I bring a small gift, too. It is a yellow pencil. Our teacher smiles and says thank you. She is the best teacher in the world.",
+      "text_zh": "今天是教師節。我們班為老師做了一張大卡片。我們畫花、寫好話。我也帶了小禮物。是一支黃色鉛筆。老師笑著說謝謝。她是世界上最棒的老師。",
+      "key_vocab": ["teacher", "class", "card", "draw", "flower", "gift", "pencil", "yellow", "smile"],
+      "questions": [
+        {"q": "What day is today?", "options": ["Mother's Day", "Teacher's Day", "Father's Day"], "answer": 1},
+        {"q": "What gift do I bring?", "options": ["a yellow pencil", "a red pen", "a book"], "answer": 0}
+      ]
+    },
+    {
+      "id": "017",
+      "title": "Camping Trip",
+      "emoji": "⛺",
+      "topic": "Outdoor",
+      "level": "G6",
+      "text": "My family goes camping near a lake. We put up a green tent. Dad makes a fire and cooks dinner. At night, the sky is full of bright stars. I hear the wind and the water. I sleep in the tent with my brother. Camping is wonderful.",
+      "text_zh": "我們家去湖邊露營。我們搭了一個綠色帳篷。爸爸生火煮晚餐。晚上,天空滿是亮亮的星星。我聽見風聲和水聲。我和哥哥一起睡帳篷。露營太棒了。",
+      "key_vocab": ["family", "lake", "tent", "fire", "dinner", "night", "star", "wind", "brother"],
+      "questions": [
+        {"q": "Where do we go camping?", "options": ["near a mountain", "near a lake", "in the forest"], "answer": 1},
+        {"q": "What is in the night sky?", "options": ["clouds", "bright stars", "the moon only"], "answer": 1}
+      ]
+    },
+    {
+      "id": "018",
+      "title": "Mother's Day Card",
+      "emoji": "💐",
+      "topic": "Family",
+      "level": "G6",
+      "text": "Mother's Day is coming. I want to make a card for my mom. I cut paper into a heart shape. I draw flowers and write \"I love you, Mom\". I put the card under her plate at breakfast. When mom sees it, she gives me a big hug.",
+      "text_zh": "母親節要到了。我想為媽媽做一張卡片。我把紙剪成心形。我畫花、寫「媽媽,我愛你」。我把卡片放在她早餐的盤子下面。媽媽看到時,給了我一個大大的擁抱。",
+      "key_vocab": ["mother", "card", "paper", "heart", "draw", "flower", "love", "breakfast", "hug"],
+      "questions": [
+        {"q": "What shape do I cut the paper into?", "options": ["a star", "a heart", "a circle"], "answer": 1},
+        {"q": "Where do I put the card?", "options": ["on her bed", "under her plate", "in her bag"], "answer": 1}
+      ]
+    },
+    {
+      "id": "019",
+      "title": "Chinese New Year",
+      "emoji": "🧧",
+      "topic": "Holiday",
+      "level": "G6",
+      "text": "Chinese New Year is my favorite holiday. The whole family comes to my home. We eat a big meal with fish, rice, and meat. The kids get red envelopes with money inside. We watch fireworks at night. It is a happy and bright time.",
+      "text_zh": "農曆新年是我最愛的節日。全家人都來我家。我們吃大餐,有魚、飯和肉。小朋友拿到裝有錢的紅包。我們晚上看煙火。是快樂又明亮的時光。",
+      "key_vocab": ["new year", "holiday", "family", "home", "meal", "fish", "rice", "money", "night"],
+      "questions": [
+        {"q": "What food do we eat?", "options": ["pizza and chips", "fish, rice, and meat", "cookies"], "answer": 1},
+        {"q": "What is inside the red envelopes?", "options": ["candy", "money", "stickers"], "answer": 1}
+      ]
+    },
+    {
+      "id": "020",
+      "title": "At the Doctor",
+      "emoji": "👨‍⚕️",
+      "topic": "Health",
+      "level": "G6",
+      "text": "I do not feel well today. My head hurts and I am hot. Mom takes me to see the doctor. The doctor checks my mouth and ears. He gives me some medicine. \"You will feel better tomorrow,\" he says with a smile. I drink lots of water and rest.",
+      "text_zh": "我今天不舒服。頭痛、發燒。媽媽帶我去看醫生。醫生檢查我的嘴巴和耳朵。他給我一些藥。「你明天就會好很多了,」他笑著說。我喝很多水、休息。",
+      "key_vocab": ["doctor", "head", "hot", "mouth", "ear", "medicine", "tomorrow", "water"],
+      "questions": [
+        {"q": "Why does mom take me to the doctor?", "options": ["I want to play", "I do not feel well", "for a check-up"], "answer": 1},
+        {"q": "What does the doctor give me?", "options": ["candy", "some medicine", "a toy"], "answer": 1}
+      ]
+    },
+    {
+      "id": "021",
+      "title": "A New Friend",
+      "emoji": "🤝",
+      "topic": "School",
+      "level": "G6",
+      "text": "Today a new girl comes to my class. Her name is Mia. She looks shy and quiet. At lunch, I sit next to her. We talk about books and music. She likes the same things as me. After school, we walk home together. Now I have a new friend.",
+      "text_zh": "今天一個新女生來我們班。她叫 Mia。她看起來害羞又安靜。午餐時,我坐在她旁邊。我們聊書和音樂。她跟我喜歡一樣的東西。放學後我們一起走回家。現在我有了新朋友。",
+      "key_vocab": ["girl", "class", "shy", "quiet", "lunch", "book", "music", "school", "friend"],
+      "questions": [
+        {"q": "What is the new girl's name?", "options": ["Mia", "Lily", "Ann"], "answer": 0},
+        {"q": "What do we talk about?", "options": ["sports", "books and music", "movies"], "answer": 1}
+      ]
+    },
+    {
+      "id": "022",
+      "title": "Ice Cream Day",
+      "emoji": "🍦",
+      "topic": "Food",
+      "level": "G6",
+      "text": "On hot days, I love ice cream. After school, dad takes me to the ice cream shop. There are so many flavors. I pick chocolate. My dad picks vanilla. We sit on a bench in the park and eat slowly. The ice cream is sweet and cold.",
+      "text_zh": "炎熱的日子,我愛冰淇淋。放學後,爸爸帶我去冰淇淋店。有好多口味。我選巧克力。爸爸選香草。我們坐在公園的長椅上慢慢吃。冰淇淋又甜又冰。",
+      "key_vocab": ["hot", "ice cream", "school", "shop", "chocolate", "park", "sweet", "cold"],
+      "questions": [
+        {"q": "Which flavor does dad pick?", "options": ["chocolate", "vanilla", "strawberry"], "answer": 1},
+        {"q": "Where do we eat the ice cream?", "options": ["at home", "in the shop", "on a park bench"], "answer": 2}
+      ]
+    },
+    {
+      "id": "023",
+      "title": "Beach Day",
+      "emoji": "🏖️",
+      "topic": "Outdoor",
+      "level": "G6",
+      "text": "We drive to the beach in summer. The sand is warm under my feet. The sea is big and blue. I make a sand castle with my brother. We find pretty shells and a small crab. Mom puts a big umbrella in the sand. We have a great day.",
+      "text_zh": "夏天我們開車去海邊。沙子在我腳下暖暖的。大海又大又藍。我和哥哥堆沙堡。我們找到漂亮的貝殼和一隻小螃蟹。媽媽把大傘插在沙裡。我們度過很棒的一天。",
+      "key_vocab": ["beach", "summer", "sand", "warm", "sea", "blue", "brother", "crab", "umbrella"],
+      "questions": [
+        {"q": "What do we make in the sand?", "options": ["a sand castle", "a hole", "a road"], "answer": 0},
+        {"q": "What small animal do we find?", "options": ["a fish", "a crab", "a bird"], "answer": 1}
+      ]
+    },
+    {
+      "id": "024",
+      "title": "Sports Day",
+      "emoji": "🏃",
+      "topic": "School",
+      "level": "G6",
+      "text": "Today is Sports Day at school. We run, jump, and play games on the playground. I am in the running race. I run very fast and come in second place. My team wins the game of basketball. I am hot and tired, but very happy.",
+      "text_zh": "今天是學校的運動會。我們在操場跑步、跳、玩遊戲。我參加賽跑。我跑得很快,得到第二名。我們隊贏了籃球比賽。我又熱又累,但很開心。",
+      "key_vocab": ["school", "run", "jump", "playground", "race", "fast", "second", "team", "basketball"],
+      "questions": [
+        {"q": "What place do I get in the race?", "options": ["first", "second", "third"], "answer": 1},
+        {"q": "Which game does my team win?", "options": ["soccer", "basketball", "baseball"], "answer": 1}
+      ]
+    },
+    {
+      "id": "025",
+      "title": "The Big Moon",
+      "emoji": "🌕",
+      "topic": "Nature",
+      "level": "G6",
+      "text": "Last night I saw a very big moon. It was round and bright. My dad and I went to the roof to look at it. He told me the moon goes around the earth. Sometimes it looks small, sometimes big. I think the moon is like a quiet friend in the sky.",
+      "text_zh": "昨晚我看到一個很大的月亮。又圓又亮。爸爸和我上頂樓看。他告訴我月亮繞著地球轉。有時候看起來小、有時候大。我覺得月亮像天空中一個安靜的朋友。",
+      "key_vocab": ["night", "moon", "round", "bright", "earth", "small", "quiet", "friend"],
+      "questions": [
+        {"q": "Where do we go to see the moon?", "options": ["the garden", "the roof", "the park"], "answer": 1},
+        {"q": "What does the moon go around?", "options": ["the sun", "the earth", "the stars"], "answer": 1}
+      ]
+    },
+    {
+      "id": "026",
+      "title": "Bedtime Story",
+      "emoji": "🌙",
+      "topic": "Family",
+      "level": "G6",
+      "text": "Every night before bed, my dad reads me a story. Tonight he reads about a little fox who wants to fly. The fox tries many times but cannot fly. In the end, he learns that he is good at running fast. I close my eyes and dream of the fox.",
+      "text_zh": "每晚睡前,爸爸唸故事給我聽。今晚他唸一隻想飛的小狐狸。小狐狸試了很多次都飛不起來。最後,牠發現自己跑得很快。我閉上眼睛,夢見那隻狐狸。",
+      "key_vocab": ["night", "bed", "story", "fox", "fly", "many", "fast", "eye", "dream"],
+      "questions": [
+        {"q": "What does the fox want to do?", "options": ["swim", "fly", "sing"], "answer": 1},
+        {"q": "What is the fox actually good at?", "options": ["jumping", "running fast", "climbing"], "answer": 1}
+      ]
+    },
+    {
+      "id": "027",
+      "title": "Fishing With Dad",
+      "emoji": "🎣",
+      "topic": "Outdoor",
+      "level": "G6",
+      "text": "On Saturday morning, my dad and I go fishing. We sit by the river with our fishing poles. We wait for a long time. Suddenly, my pole moves! I pull and pull. It is a big silver fish! Dad helps me put it back in the water. We laugh and try again.",
+      "text_zh": "星期六早上,爸爸和我去釣魚。我們拿著釣竿坐在河邊。等了好久。突然我的釣竿動了!我用力拉。是一條大銀色的魚!爸爸幫我把牠放回水裡。我們笑著再試一次。",
+      "key_vocab": ["Saturday", "morning", "river", "fish", "wait", "pull", "silver", "water"],
+      "questions": [
+        {"q": "Where do we go fishing?", "options": ["the lake", "the river", "the sea"], "answer": 1},
+        {"q": "What do we do with the fish?", "options": ["take it home", "put it back in the water", "cook it"], "answer": 1}
+      ]
+    },
+    {
+      "id": "028",
+      "title": "Pizza Party",
+      "emoji": "🍕",
+      "topic": "Food",
+      "level": "G6",
+      "text": "Tonight we have a pizza party at my house. My friends bring drinks and snacks. We make our own pizzas with cheese, ham, and mushrooms. Mom helps us put them in the oven. After ten minutes, the pizzas are hot and yummy. We eat and play games until late.",
+      "text_zh": "今晚我家有披薩派對。朋友們帶飲料和零食來。我們自己做披薩,有起司、火腿、香菇。媽媽幫忙把披薩放進烤箱。十分鐘後,披薩又熱又好吃。我們一直吃、玩遊戲到很晚。",
+      "key_vocab": ["pizza", "house", "friend", "cheese", "ham", "oven", "minute", "yummy"],
+      "questions": [
+        {"q": "What do we put on our pizzas?", "options": ["cheese, ham, and mushrooms", "rice", "fish"], "answer": 0},
+        {"q": "How long does the pizza take in the oven?", "options": ["five minutes", "ten minutes", "twenty minutes"], "answer": 1}
+      ]
+    },
+    {
+      "id": "029",
+      "title": "Magic Show",
+      "emoji": "🎩",
+      "topic": "Outdoor",
+      "level": "G6",
+      "text": "There is a magic show at the park today. A man in a black hat does magic tricks. He pulls a white rabbit out of his hat! Then he makes a coin disappear. All the children clap and cheer. I am sure he has some secret. Magic is so much fun.",
+      "text_zh": "今天公園有魔術表演。一個戴黑帽的人變魔術。他從帽子裡拉出一隻白兔!接著他讓一個硬幣消失。所有小朋友拍手歡呼。我確定他有什麼祕密。魔術好好玩。",
+      "key_vocab": ["magic", "park", "black", "hat", "white", "rabbit", "coin", "children", "secret"],
+      "questions": [
+        {"q": "What comes out of the hat?", "options": ["a black cat", "a white rabbit", "a bird"], "answer": 1},
+        {"q": "What does he do with the coin?", "options": ["gives it away", "makes it disappear", "drops it"], "answer": 1}
+      ]
+    },
+    {
+      "id": "030",
+      "title": "The Rainbow",
+      "emoji": "🌈",
+      "topic": "Weather",
+      "level": "G6",
+      "text": "After the rain stops, I run outside. The sun comes out again. Suddenly I see a big rainbow in the sky. It has seven colors: red, orange, yellow, green, blue, and two more. My little sister points and laughs. We stand and watch until it slowly goes away.",
+      "text_zh": "雨停後,我跑到外面。太陽又出來了。突然我看到天空有一道大彩虹。有七個顏色:紅、橙、黃、綠、藍,還有另外兩個。我妹妹指著彩虹笑。我們站著看,直到它慢慢消失。",
+      "key_vocab": ["rain", "sun", "rainbow", "sky", "red", "orange", "yellow", "green", "blue", "sister"],
+      "questions": [
+        {"q": "How many colors does the rainbow have?", "options": ["five", "six", "seven"], "answer": 2},
+        {"q": "What happens to the rainbow at the end?", "options": ["it gets bigger", "it slowly goes away", "it changes color"], "answer": 1}
+      ]
+    }
+  ]
+}

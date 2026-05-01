@@ -4,3 +4,16 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# 跟 Cloudflare Pages 對齊:前端只打 /translate 與 /tts,Netlify 端 rewrite 到 function 路徑
+[[redirects]]
+  from = "/translate"
+  to = "/.netlify/functions/translate"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/tts"
+  to = "/.netlify/functions/tts"
+  status = 200
+  force = true
