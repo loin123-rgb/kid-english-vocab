@@ -307,6 +307,456 @@
         "en": "We will meet in the afternoon.",
         "zh": "我們下午見面。"
       }
+    },
+    "abstract": {
+      "type": "etymology",
+      "label": "abs(離) + tract(拉)",
+      "explain": "abs- 是「離開」,tract 是「拉」。把實物拉走、剩下概念 → 抽象的。",
+      "example": {
+        "en": "This is an abstract painting.",
+        "zh": "這是一幅抽象畫。"
+      }
+    },
+    "antibiotic": {
+      "type": "etymology",
+      "label": "anti(反) + bio(生命)",
+      "explain": "anti- 是「反對」,bio 是「生命」(細菌也是生命)→ 對抗細菌生命的藥 = 抗生素。",
+      "example": {
+        "en": "The doctor gave me antibiotics.",
+        "zh": "醫生給我抗生素。"
+      }
+    },
+    "automobile": {
+      "type": "etymology",
+      "label": "auto(自) + mobile(動)",
+      "explain": "auto- 是「自己」,mobile 是「動」→ 自己會動的東西 = 汽車。",
+      "example": {
+        "en": "Automobiles changed the world.",
+        "zh": "汽車改變了世界。"
+      }
+    },
+    "bicycle": {
+      "type": "etymology",
+      "label": "bi(二) + cycle(輪)",
+      "explain": "bi- 是「二」,cycle 是「輪子」→ 兩個輪子 = 腳踏車。三輪車 = tricycle (tri = 三)。",
+      "example": {
+        "en": "I ride my bicycle to school.",
+        "zh": "我騎腳踏車上學。"
+      }
+    },
+    "combine": {
+      "type": "etymology",
+      "label": "com(共) + bine(束)",
+      "explain": "com- 是「一起」→ 把東西綁在一起 → 結合。",
+      "example": {
+        "en": "Let us combine our ideas.",
+        "zh": "我們把想法結合起來。"
+      }
+    },
+    "decline": {
+      "type": "etymology",
+      "label": "de(下) + cline(傾)",
+      "explain": "de- 是「向下」,cline 是「傾斜」→ 向下傾倒 = 下降 / 衰退。",
+      "example": {
+        "en": "The number is in decline.",
+        "zh": "數字正在下降。"
+      }
+    },
+    "disagree": {
+      "type": "etymology",
+      "label": "dis(不) + agree(同意)",
+      "explain": "dis- 表示「相反」→ 不同意。dislike (不喜歡)、disappear (消失) 都是同樣邏輯。",
+      "example": {
+        "en": "I disagree with you.",
+        "zh": "我不同意你。"
+      }
+    },
+    "export": {
+      "type": "etymology",
+      "label": "ex(出) + port(港)",
+      "explain": "ex- 是「向外」,port 是「港口」→ 從港口送出去 = 出口。對應 import (im 入 + port = 進口)。",
+      "example": {
+        "en": "Taiwan exports many computers.",
+        "zh": "台灣出口很多電腦。"
+      }
+    },
+    "impossible": {
+      "type": "etymology",
+      "label": "im(不) + possible(可能)",
+      "explain": "im- / in- 都是「不」(im 用在 b/m/p 前面)→ 不可能。impolite (不禮貌)、imperfect (不完美) 同邏輯。",
+      "example": {
+        "en": "Nothing is impossible.",
+        "zh": "沒有什麼是不可能的。"
+      }
+    },
+    "international": {
+      "type": "etymology",
+      "label": "inter(間) + national(國家的)",
+      "explain": "inter- 是「之間」→ 國與國之間 = 國際的。internet 也是 inter + net (網路之間)。",
+      "example": {
+        "en": "English is an international language.",
+        "zh": "英語是國際語言。"
+      }
+    },
+    "mistake": {
+      "type": "etymology",
+      "label": "mis(錯) + take(取)",
+      "explain": "mis- 是「錯誤地」→ 拿錯了 = 錯誤。misunderstand (誤解)、misuse (誤用) 同邏輯。",
+      "example": {
+        "en": "Everyone makes mistakes.",
+        "zh": "每個人都會犯錯。"
+      }
+    },
+    "nonsense": {
+      "type": "etymology",
+      "label": "non(非) + sense(意義)",
+      "explain": "non- 是「不、非」→ 沒有意義 = 廢話 / 胡說。nonstop (不停的)、nonfiction (非小說) 同邏輯。",
+      "example": {
+        "en": "Stop talking nonsense.",
+        "zh": "別講廢話了。"
+      }
+    },
+    "overcome": {
+      "type": "etymology",
+      "label": "over(超過) + come(來)",
+      "explain": "over- 是「超越」→ 超越過來 = 克服困難。overload (超載)、oversleep (睡過頭) 同邏輯。",
+      "example": {
+        "en": "She overcame her fear.",
+        "zh": "她克服了恐懼。"
+      }
+    },
+    "postpone": {
+      "type": "etymology",
+      "label": "post(後) + pone(放)",
+      "explain": "post- 是「之後」→ 把事情放到後面去 = 延後。postscript (P.S. 後記) 同邏輯。",
+      "example": {
+        "en": "We postponed the meeting.",
+        "zh": "我們延後了會議。"
+      }
+    },
+    "predict": {
+      "type": "etymology",
+      "label": "pre(先) + dict(說)",
+      "explain": "pre- 是「之前」,dict 是「說」→ 事先說出 = 預測。preview (預覽)、prepare (預備) 同邏輯。",
+      "example": {
+        "en": "Can you predict the weather?",
+        "zh": "你能預測天氣嗎?"
+      }
+    },
+    "progress": {
+      "type": "etymology",
+      "label": "pro(向前) + gress(走)",
+      "explain": "pro- 是「向前」,gress 是「走」→ 向前走 = 進步。congress (一起走的人 = 國會)。",
+      "example": {
+        "en": "You made great progress.",
+        "zh": "你進步很大。"
+      }
+    },
+    "repeat": {
+      "type": "etymology",
+      "label": "re(再) + peat(走)",
+      "explain": "re- 是「再一次」→ 再走一次 = 重複。replay (重播)、rewrite (重寫) 同邏輯。",
+      "example": {
+        "en": "Please repeat that.",
+        "zh": "請再說一次。"
+      }
+    },
+    "submarine": {
+      "type": "etymology",
+      "label": "sub(下) + marine(海)",
+      "explain": "sub- 是「在...下面」,marine 是「海洋的」→ 海面下走的 = 潛水艇。subway (在路下面 = 地下鐵) 同邏輯。",
+      "example": {
+        "en": "A submarine sank deep.",
+        "zh": "潛水艇潛入深處。"
+      }
+    },
+    "supermarket": {
+      "type": "etymology",
+      "label": "super(超級) + market(市場)",
+      "explain": "super- 是「超越的」→ 超大型市場 = 超級市場。superman (超人) 同邏輯。",
+      "example": {
+        "en": "Mom is at the supermarket.",
+        "zh": "媽媽在超市。"
+      }
+    },
+    "translate": {
+      "type": "etymology",
+      "label": "trans(越過) + late(攜帶)",
+      "explain": "trans- 是「跨越」→ 把意思從一邊帶到另一邊 = 翻譯。transfer (轉移)、transport (運輸) 同邏輯。",
+      "example": {
+        "en": "Can you translate this?",
+        "zh": "你能翻譯這個嗎?"
+      }
+    },
+    "comfortable": {
+      "type": "etymology",
+      "label": "comfort(舒適) + able(能)",
+      "explain": "-able 是「能夠」→ 能讓人舒適的 = 舒服的。lovable (可愛的)、breakable (易碎的) 同邏輯。",
+      "example": {
+        "en": "This bed is so comfortable.",
+        "zh": "這張床好舒服。"
+      }
+    },
+    "teacher": {
+      "type": "etymology",
+      "label": "teach(教) + er(人)",
+      "explain": "-er 是「做這件事的人」→ 教書的人 = 老師。singer (唱歌的人)、worker (工人) 同邏輯。",
+      "example": {
+        "en": "My teacher is kind.",
+        "zh": "我的老師很親切。"
+      }
+    },
+    "beautiful": {
+      "type": "etymology",
+      "label": "beauty(美) + ful(滿)",
+      "explain": "-ful 是「充滿...的」→ 充滿美 = 美麗的。helpful (有幫助的)、careful (小心的) 同邏輯。",
+      "example": {
+        "en": "The flower is beautiful.",
+        "zh": "這朵花很美。"
+      }
+    },
+    "magical": {
+      "type": "etymology",
+      "label": "magic(魔法) + al(...的)",
+      "explain": "-al 是形容詞字尾,「...的」→ 有魔法的 = 神奇的。national (國家的)、natural (自然的) 同邏輯。",
+      "example": {
+        "en": "It was a magical night.",
+        "zh": "那是個神奇的夜晚。"
+      }
+    },
+    "action": {
+      "type": "etymology",
+      "label": "act(動) + ion(名詞化)",
+      "explain": "-ion 把動詞變名詞 → act (行動) → action (行動這件事)。decision (決定)、creation (創造) 同邏輯。",
+      "example": {
+        "en": "Take action now!",
+        "zh": "現在就行動!"
+      }
+    },
+    "artist": {
+      "type": "etymology",
+      "label": "art(藝術) + ist(人)",
+      "explain": "-ist 是「從事...的人」→ 從事藝術的人 = 藝術家。pianist (鋼琴家)、scientist (科學家) 同邏輯。",
+      "example": {
+        "en": "The artist painted a picture.",
+        "zh": "藝術家畫了一幅畫。"
+      }
+    },
+    "modernize": {
+      "type": "etymology",
+      "label": "modern(現代) + ize(使...化)",
+      "explain": "-ize 是「使變成...」→ 使現代化 = 現代化。realize (使...成真)、organize (使...組織) 同邏輯。",
+      "example": {
+        "en": "They modernized the school.",
+        "zh": "他們把學校現代化了。"
+      }
+    },
+    "famous": {
+      "type": "etymology",
+      "label": "fame(名聲) + ous(滿是)",
+      "explain": "-ous 是「充滿...的」形容詞 → 充滿名聲 = 著名的。dangerous (危險的)、nervous (緊張的) 同邏輯。",
+      "example": {
+        "en": "He is a famous singer.",
+        "zh": "他是有名的歌手。"
+      }
+    },
+    "dangerous": {
+      "type": "etymology",
+      "label": "danger(危險) + ous(滿是)",
+      "explain": "-ous 是「充滿...的」→ 充滿危險 = 危險的。同字尾還有 famous、nervous、jealous。",
+      "example": {
+        "en": "It is dangerous to swim alone.",
+        "zh": "獨自游泳很危險。"
+      }
+    },
+    "nervous": {
+      "type": "etymology",
+      "label": "nerve(神經) + ous(滿是)",
+      "explain": "-ous 是「充滿...的」→ 神經緊繃的 = 緊張的。",
+      "example": {
+        "en": "I am nervous about the test.",
+        "zh": "我考試很緊張。"
+      }
+    },
+    "finally": {
+      "type": "etymology",
+      "label": "final(最終) + ly(地)",
+      "explain": "-ly 把形容詞變副詞,加在後面 → 最終地 = 終於。quickly (快速地)、slowly (慢慢地) 同邏輯。",
+      "example": {
+        "en": "We finally arrived home.",
+        "zh": "我們終於到家了。"
+      }
+    },
+    "government": {
+      "type": "etymology",
+      "label": "govern(治理) + ment(結果)",
+      "explain": "-ment 把動詞變名詞 → 治理的結果 / 機構 = 政府。movement (運動)、agreement (協議) 同邏輯。",
+      "example": {
+        "en": "The government built a park.",
+        "zh": "政府蓋了一座公園。"
+      }
+    },
+    "movement": {
+      "type": "etymology",
+      "label": "move(動) + ment(結果)",
+      "explain": "-ment 是動詞變名詞 → 動的這件事 = 動作 / 運動。",
+      "example": {
+        "en": "I felt a small movement.",
+        "zh": "我感覺到一個小小的動作。"
+      }
+    },
+    "translation": {
+      "type": "etymology",
+      "label": "trans(越) + late(帶) + ion(名)",
+      "explain": "trans + late = 翻譯 (動詞);加 -ion 變名詞 → 翻譯這件事 / 譯文。",
+      "example": {
+        "en": "Her translation is very good.",
+        "zh": "她的翻譯很好。"
+      }
+    },
+    "dictionary": {
+      "type": "etymology",
+      "label": "dict(說) + ion + ary(地方)",
+      "explain": "dict 是「說、字」,-ary 是「...的場所」→ 收集字的地方 = 字典。library (書的地方 = 圖書館) 同邏輯。",
+      "example": {
+        "en": "Look it up in the dictionary.",
+        "zh": "查字典找一下。"
+      }
+    },
+    "photograph": {
+      "type": "etymology",
+      "label": "photo(光) + graph(寫)",
+      "explain": "photo 是「光」,graph 是「寫 / 畫」→ 用光寫下的東西 = 照片。photographer (寫光的人 = 攝影師)。",
+      "example": {
+        "en": "I took a photograph of the dog.",
+        "zh": "我給狗拍了張照片。"
+      }
+    },
+    "biology": {
+      "type": "etymology",
+      "label": "bio(生命) + logy(學問)",
+      "explain": "bio 是「生命」,-logy 是「研究」→ 研究生命的學問 = 生物學。psychology (心理學)、geology (地質學) 同邏輯。",
+      "example": {
+        "en": "Biology is my favorite subject.",
+        "zh": "生物是我最愛的科目。"
+      }
+    },
+    "import": {
+      "type": "etymology",
+      "label": "im(進) + port(港)",
+      "explain": "im / in 是「向內」,port 是「港口」→ 從港口運進來 = 進口。對應 export (出口)。",
+      "example": {
+        "en": "Japan imports oil.",
+        "zh": "日本進口石油。"
+      }
+    },
+    "inspect": {
+      "type": "etymology",
+      "label": "in(內) + spec(看)",
+      "explain": "in 是「裡面」,spec 是「看」→ 看裡面 = 檢查。spectator (看的人 = 觀眾) 同根。",
+      "example": {
+        "en": "The police inspected the car.",
+        "zh": "警察檢查了車子。"
+      }
+    },
+    "construct": {
+      "type": "etymology",
+      "label": "con(共) + struct(建)",
+      "explain": "con- 是「一起」,struct 是「建造」→ 一起建起來 = 建造 / 構成。structure (結構)、destruct (毀壞) 同根。",
+      "example": {
+        "en": "They will construct a bridge.",
+        "zh": "他們要蓋一座橋。"
+      }
+    },
+    "attract": {
+      "type": "etymology",
+      "label": "at(向) + tract(拉)",
+      "explain": "at- (= ad-) 是「向」,tract 是「拉」→ 把人拉過來 = 吸引。tractor (拖拉機)、distract (拉走 = 分心) 同根。",
+      "example": {
+        "en": "Bright colors attract bees.",
+        "zh": "鮮豔的顏色吸引蜜蜂。"
+      }
+    },
+    "vision": {
+      "type": "etymology",
+      "label": "vis(看) + ion(名詞化)",
+      "explain": "vis 是「看」,加 -ion 變名詞 → 看這件事 = 視覺 / 願景。video (我看)、visit (去看) 同根。",
+      "example": {
+        "en": "My vision is blurry.",
+        "zh": "我視線模糊。"
+      }
+    },
+    "vocabulary": {
+      "type": "etymology",
+      "label": "voc(聲音) + abulary",
+      "explain": "voc 是「聲音、字」→ 一堆字 = 字彙。vocal (聲音的)、vocation (天職 = 召喚的聲音) 同根。",
+      "example": {
+        "en": "My English vocabulary is growing.",
+        "zh": "我的英文字彙越來越多。"
+      }
+    },
+    "submit": {
+      "type": "etymology",
+      "label": "sub(下) + mit(送)",
+      "explain": "sub- 是「下」,mit 是「送」→ 把東西送到上級下面 = 提交 / 屈服。permit (允許)、emit (送出) 同根。",
+      "example": {
+        "en": "Submit your homework today.",
+        "zh": "今天交作業。"
+      }
+    },
+    "transfer": {
+      "type": "etymology",
+      "label": "trans(越過) + fer(攜帶)",
+      "explain": "trans- 是「跨越」,fer 是「帶」→ 帶到別處 = 轉移 / 轉學。prefer (帶到前面 = 偏好)、suffer (從下方承受) 同根。",
+      "example": {
+        "en": "He transferred to a new school.",
+        "zh": "他轉到新學校。"
+      }
+    },
+    "incredible": {
+      "type": "etymology",
+      "label": "in(不) + cred(信) + ible(能)",
+      "explain": "cred 是「相信」(credit 信用)→ 不能相信的 = 難以置信的。credible (可信的)、credit card (信用卡) 同根。",
+      "example": {
+        "en": "The view was incredible.",
+        "zh": "風景太不可思議了。"
+      }
+    },
+    "mortal": {
+      "type": "etymology",
+      "label": "mort(死) + al(...的)",
+      "explain": "mort 是「死亡」→ 會死的 = 凡人。immortal (im 不 + mort = 不死的 = 不朽的)。murder (謀殺) 同根。",
+      "example": {
+        "en": "All humans are mortal.",
+        "zh": "所有人都會死。"
+      }
+    },
+    "multiple": {
+      "type": "etymology",
+      "label": "multi(多) + ple(倍)",
+      "explain": "multi- 是「許多」→ 多倍的 = 多重的。multimedia (多媒體)、multitask (多工) 同邏輯。",
+      "example": {
+        "en": "He has multiple jobs.",
+        "zh": "他有多份工作。"
+      }
+    },
+    "underline": {
+      "type": "etymology",
+      "label": "under(下) + line(線)",
+      "explain": "under- 是「下面」→ 在底下劃線 = 加底線。underground (地下)、underwater (水下) 同邏輯。",
+      "example": {
+        "en": "Underline the important word.",
+        "zh": "把重要的字劃底線。"
+      }
+    },
+    "environment": {
+      "type": "etymology",
+      "label": "environ(環繞) + ment(物)",
+      "explain": "environ- 是「環繞」,-ment 把它變名詞 → 環繞我們的東西 = 環境。",
+      "example": {
+        "en": "We must protect the environment.",
+        "zh": "我們必須保護環境。"
+      }
     }
   }
 }

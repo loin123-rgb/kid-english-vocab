@@ -19,3 +19,20 @@ npm-debug.log*
 .env.*
 !.env.example
 .netlify/
+
+# Cloudflare Wrangler 本機 cache(含 OAuth token,絕對不能 commit)
+.wrangler/
+wrangler.toml
+wrangler.jsonc
+
+# Python
+__pycache__/
+*.pyc
+
+# 個人化 ComfyUI workflow(每人模型/設定不同,不該推共用)
+data/raw/comfyui_workflow.json
+
+# CSV 暫存 / 備份檔(批次跑壞時的歷史版本)
+*.bak
+*.v[0-9]*
+*NOWFROZEN*

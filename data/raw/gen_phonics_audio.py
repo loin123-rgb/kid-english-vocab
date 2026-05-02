@@ -32,13 +32,13 @@ CONCURRENCY = 4
 # ===== 字母音近似詞 — 標準 phonics 教法 =====
 # (TTS 會自動加上 schwa 是業界已知問題,但小朋友聽得懂,Hooked on Phonics 也這樣)
 LETTER_SOUNDS = {
-    "a": "ah",     "b": "buh",    "c": "kuh",    "d": "duh",
+    "a": "ah",     "b": "buh",    "c": "kah",    "d": "duh",
     "e": "eh",     "f": "fuh",    "g": "gah",    "h": "huh",
-    "i": "iss",    "j": "juh",    "k": "kuh",    "l": "lll",
+    "i": "in",     "j": "juh",    "k": "kit",    "l": "lll",
     "m": "muh",    "n": "nuh",    "o": "ah",     "p": "puh",
     "q": "kwuh",   "r": "ruh",    "s": "suh",    "t": "tuh",
-    "u": "uh",     "v": "vuh",    "w": "wuh",    "x": "ks",
-    "y": "yuh",    "z": "zuh",
+    "u": "uh",     "v": "vuh",    "w": "woo",    "x": "ax",
+    "y": "yee",    "z": "zuh",
 }
 
 # 雙字母發音
@@ -49,7 +49,7 @@ DIGRAPH_SOUNDS = {
     "wh": "wuh",
     "ph": "fuh",
     "ng": "ung",
-    "ck": "kuh",
+    "ck": "koo",
     "qu": "kwuh",
 }
 

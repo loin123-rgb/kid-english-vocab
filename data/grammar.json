@@ -1,0 +1,367 @@
+{
+  "version": "1",
+  "source": "Hand-crafted by Claude — Taiwan G6-G9 grammar essentials",
+  "license_note": "原創,商用授權無虞",
+  "topics": [
+    {
+      "id": "001",
+      "title": "Be 動詞 (am / is / are)",
+      "emoji": "🪢",
+      "category": "動詞",
+      "level": "G6",
+      "rule": "Be 動詞用來連接「誰」和「狀態 / 身份」。三個變化:I → am、he/she/it/單數 → is、you/we/they/複數 → are。",
+      "examples": [
+        {"en": "I am a student.", "zh": "我是學生。"},
+        {"en": "She is happy.", "zh": "她很開心。"},
+        {"en": "They are my friends.", "zh": "他們是我的朋友。"}
+      ],
+      "quiz": [
+        {"q": "I ___ ten years old.", "options": ["am", "is", "are"], "answer": 0},
+        {"q": "She ___ my teacher.", "options": ["am", "is", "are"], "answer": 1},
+        {"q": "We ___ in the same class.", "options": ["am", "is", "are"], "answer": 2}
+      ]
+    },
+    {
+      "id": "002",
+      "title": "一般動詞單數加 -s / -es",
+      "emoji": "➕",
+      "category": "動詞",
+      "level": "G6",
+      "rule": "主詞是 he / she / it 或單數時,動詞要加 -s。字尾是 s/sh/ch/x/o → 加 -es。字尾是子音+y → 改 -ies。",
+      "examples": [
+        {"en": "He plays soccer.", "zh": "他踢足球。"},
+        {"en": "She watches TV.", "zh": "她看電視。"},
+        {"en": "The baby cries.", "zh": "嬰兒哭了。"}
+      ],
+      "quiz": [
+        {"q": "He ___ to school every day.", "options": ["go", "goes", "going"], "answer": 1},
+        {"q": "She ___ her homework.", "options": ["do", "does", "doing"], "answer": 1},
+        {"q": "My dog ___ a lot.", "options": ["bark", "barks", "barking"], "answer": 1}
+      ]
+    },
+    {
+      "id": "003",
+      "title": "Do / Does 問句與否定",
+      "emoji": "❓",
+      "category": "句型",
+      "level": "G6",
+      "rule": "問題開頭用 Do(I/you/we/they)或 Does(he/she/it)。否定要用 don't / doesn't。原本動詞變回原型(不加 -s)。",
+      "examples": [
+        {"en": "Do you like ice cream?", "zh": "你喜歡冰淇淋嗎?"},
+        {"en": "Does she play piano?", "zh": "她彈鋼琴嗎?"},
+        {"en": "He doesn't eat meat.", "zh": "他不吃肉。"}
+      ],
+      "quiz": [
+        {"q": "___ you have a pen?", "options": ["Do", "Does", "Are"], "answer": 0},
+        {"q": "___ she like cats?", "options": ["Do", "Does", "Is"], "answer": 1},
+        {"q": "He ___ play basketball.", "options": ["don't", "doesn't", "isn't"], "answer": 1}
+      ]
+    },
+    {
+      "id": "004",
+      "title": "過去式:規則動詞 -ed",
+      "emoji": "⏪",
+      "category": "動詞",
+      "level": "G7",
+      "rule": "規則動詞過去式加 -ed。字尾 e → 只加 d。字尾子音+y → 改 -ied。短母音+子音 → 重複末子音再加 -ed(如 stop → stopped)。",
+      "examples": [
+        {"en": "I played basketball yesterday.", "zh": "我昨天打了籃球。"},
+        {"en": "She studied hard.", "zh": "她很努力讀書。"},
+        {"en": "We stopped at the red light.", "zh": "我們在紅燈停下來。"}
+      ],
+      "quiz": [
+        {"q": "He ___ TV last night.", "options": ["watch", "watched", "watches"], "answer": 1},
+        {"q": "I ___ to my mom.", "options": ["talk", "talked", "talking"], "answer": 1},
+        {"q": "They ___ the race.", "options": ["win", "won", "winning"], "answer": 1}
+      ]
+    },
+    {
+      "id": "005",
+      "title": "過去式:不規則動詞",
+      "emoji": "⚡",
+      "category": "動詞",
+      "level": "G7",
+      "rule": "有些動詞過去式不照規則:go→went、have→had、see→saw、do→did、eat→ate、come→came、make→made、take→took、get→got、give→gave。要背熟。",
+      "examples": [
+        {"en": "I went to the park.", "zh": "我去了公園。"},
+        {"en": "She had breakfast.", "zh": "她吃了早餐。"},
+        {"en": "We saw a movie.", "zh": "我們看了一部電影。"}
+      ],
+      "quiz": [
+        {"q": "I ___ to school by bus yesterday.", "options": ["go", "goed", "went"], "answer": 2},
+        {"q": "She ___ dinner at 7.", "options": ["had", "haved", "has"], "answer": 0},
+        {"q": "They ___ a big cake.", "options": ["maked", "made", "makes"], "answer": 1}
+      ]
+    },
+    {
+      "id": "006",
+      "title": "現在進行式 (be + Ving)",
+      "emoji": "🏃",
+      "category": "動詞",
+      "level": "G7",
+      "rule": "表示「現在正在做」。用 am/is/are + 動詞 ing。字尾 e 去掉再加 ing(make→making)。短母音+子音重複再加 ing(run→running)。",
+      "examples": [
+        {"en": "I am reading a book.", "zh": "我正在讀一本書。"},
+        {"en": "She is cooking dinner.", "zh": "她正在煮晚餐。"},
+        {"en": "They are playing outside.", "zh": "他們正在外面玩。"}
+      ],
+      "quiz": [
+        {"q": "Look! He ___ swimming.", "options": ["is", "are", "am"], "answer": 0},
+        {"q": "I am ___ my homework.", "options": ["do", "doing", "does"], "answer": 1},
+        {"q": "The dog ___ running fast.", "options": ["am", "is", "are"], "answer": 1}
+      ]
+    },
+    {
+      "id": "007",
+      "title": "未來式 will / be going to",
+      "emoji": "🔮",
+      "category": "動詞",
+      "level": "G7",
+      "rule": "will 用於臨時決定或預測。be going to 用於早就計畫好的事。兩個都接動詞原型(I will go / I am going to go)。",
+      "examples": [
+        {"en": "I will help you.", "zh": "我會幫你。(臨時決定)"},
+        {"en": "It will rain tomorrow.", "zh": "明天會下雨。(預測)"},
+        {"en": "We are going to visit Japan.", "zh": "我們要去日本。(計畫)"}
+      ],
+      "quiz": [
+        {"q": "I think it ___ snow tonight.", "options": ["will", "is", "am"], "answer": 0},
+        {"q": "She is ___ to be a doctor.", "options": ["go", "going", "goes"], "answer": 1},
+        {"q": "We will ___ the test.", "options": ["pass", "passes", "passing"], "answer": 0}
+      ]
+    },
+    {
+      "id": "008",
+      "title": "There is / There are",
+      "emoji": "📍",
+      "category": "句型",
+      "level": "G6",
+      "rule": "說「(某地)有...」用 There is(單數)或 There are(複數)。否定:isn't / aren't。問句:Is there...? Are there...?",
+      "examples": [
+        {"en": "There is a cat on the bed.", "zh": "床上有一隻貓。"},
+        {"en": "There are five books here.", "zh": "這裡有五本書。"},
+        {"en": "Are there any cookies?", "zh": "有餅乾嗎?"}
+      ],
+      "quiz": [
+        {"q": "There ___ a dog in the yard.", "options": ["is", "are", "am"], "answer": 0},
+        {"q": "There ___ many people in the park.", "options": ["is", "are", "be"], "answer": 1},
+        {"q": "___ there a problem?", "options": ["Is", "Are", "Do"], "answer": 0}
+      ]
+    },
+    {
+      "id": "009",
+      "title": "介系詞:時間 in / on / at",
+      "emoji": "🕐",
+      "category": "介系詞",
+      "level": "G6",
+      "rule": "in 用於月份、年份、長段時間(in 2026, in May, in the morning)。on 用於日期、星期(on Monday, on June 1)。at 用於精確時間點(at 8 o'clock, at noon)。",
+      "examples": [
+        {"en": "We have class at 9 a.m.", "zh": "我們九點上課。"},
+        {"en": "My birthday is on July 5th.", "zh": "我的生日在 7 月 5 日。"},
+        {"en": "It is hot in summer.", "zh": "夏天很熱。"}
+      ],
+      "quiz": [
+        {"q": "I get up ___ 7 o'clock.", "options": ["in", "on", "at"], "answer": 2},
+        {"q": "We have a party ___ Sunday.", "options": ["in", "on", "at"], "answer": 1},
+        {"q": "She was born ___ January.", "options": ["in", "on", "at"], "answer": 0}
+      ]
+    },
+    {
+      "id": "010",
+      "title": "介系詞:位置 in / on / under / behind",
+      "emoji": "📦",
+      "category": "介系詞",
+      "level": "G6",
+      "rule": "in(在...裡面)、on(在...上面,有接觸)、under(在...下面)、behind(在...後面)、in front of(在...前面)、next to(在...旁邊)。",
+      "examples": [
+        {"en": "The cat is on the table.", "zh": "貓在桌子上。"},
+        {"en": "My bag is under the chair.", "zh": "我的包在椅子下面。"},
+        {"en": "The car is behind the house.", "zh": "車在房子後面。"}
+      ],
+      "quiz": [
+        {"q": "The book is ___ the box.", "options": ["in", "on", "under"], "answer": 0},
+        {"q": "The dog is ___ the tree.", "options": ["under", "in", "on"], "answer": 0},
+        {"q": "She sits ___ to me.", "options": ["next", "in", "on"], "answer": 0}
+      ]
+    },
+    {
+      "id": "011",
+      "title": "冠詞 a / an / the",
+      "emoji": "🔤",
+      "category": "冠詞",
+      "level": "G6",
+      "rule": "a / an 用於「不特定的單數」。a 接子音開頭(a cat),an 接母音開頭音(an apple)。the 用於「雙方都知道的特定東西」。",
+      "examples": [
+        {"en": "I have a dog.", "zh": "我有一隻狗。(不特定哪一隻)"},
+        {"en": "She ate an orange.", "zh": "她吃了一顆橘子。"},
+        {"en": "The sun is bright.", "zh": "太陽很亮。(只有一個太陽)"}
+      ],
+      "quiz": [
+        {"q": "I see ___ elephant!", "options": ["a", "an", "the"], "answer": 1},
+        {"q": "Pass me ___ salt please.", "options": ["a", "an", "the"], "answer": 2},
+        {"q": "She is ___ teacher.", "options": ["a", "an", "the"], "answer": 0}
+      ]
+    },
+    {
+      "id": "012",
+      "title": "可數 vs 不可數 / some / any",
+      "emoji": "🍎",
+      "category": "名詞",
+      "level": "G7",
+      "rule": "可數名詞有單複數(an apple, three apples)。不可數名詞沒複數(water, sugar, money)。some 用肯定,any 用問句和否定。",
+      "examples": [
+        {"en": "I want some water.", "zh": "我想要一些水。"},
+        {"en": "Do you have any questions?", "zh": "你有任何問題嗎?"},
+        {"en": "There isn't any milk.", "zh": "沒有牛奶了。"}
+      ],
+      "quiz": [
+        {"q": "I have ___ friends here.", "options": ["some", "any", "a"], "answer": 0},
+        {"q": "Do you want ___ tea?", "options": ["some", "any", "a"], "answer": 1},
+        {"q": "There aren't ___ apples.", "options": ["some", "any", "the"], "answer": 1}
+      ]
+    },
+    {
+      "id": "013",
+      "title": "many / much / a lot of",
+      "emoji": "💯",
+      "category": "形容詞",
+      "level": "G7",
+      "rule": "many 接可數(many books)。much 接不可數(much water)。a lot of / lots of 兩種都可以(萬用)。否定句和問句多用 many/much,肯定句多用 a lot of。",
+      "examples": [
+        {"en": "I have many books.", "zh": "我有很多書。"},
+        {"en": "She drinks a lot of water.", "zh": "她喝很多水。"},
+        {"en": "How much money do you have?", "zh": "你有多少錢?"}
+      ],
+      "quiz": [
+        {"q": "There are ___ kids in the park.", "options": ["many", "much", "is"], "answer": 0},
+        {"q": "I don't have ___ time.", "options": ["many", "much", "a"], "answer": 1},
+        {"q": "She has ___ of homework.", "options": ["many", "much", "a lot"], "answer": 2}
+      ]
+    },
+    {
+      "id": "014",
+      "title": "this / that / these / those",
+      "emoji": "👉",
+      "category": "代名詞",
+      "level": "G6",
+      "rule": "this(這個)、these(這些) → 近距離。that(那個)、those(那些) → 遠距離。單數 vs 複數對齊 be 動詞:this is / these are / that is / those are。",
+      "examples": [
+        {"en": "This is my pen.", "zh": "這是我的筆。"},
+        {"en": "Those are nice shoes.", "zh": "那些鞋子很好看。"},
+        {"en": "Are these your books?", "zh": "這些是你的書嗎?"}
+      ],
+      "quiz": [
+        {"q": "___ is my brother.", "options": ["This", "These", "Those"], "answer": 0},
+        {"q": "___ are my friends.", "options": ["This", "That", "These"], "answer": 2},
+        {"q": "I like ___ apple in your hand.", "options": ["these", "those", "that"], "answer": 2}
+      ]
+    },
+    {
+      "id": "015",
+      "title": "形容詞比較級 -er / more",
+      "emoji": "📊",
+      "category": "形容詞",
+      "level": "G8",
+      "rule": "短形容詞(1-2 音節)加 -er,後面接 than(taller than, faster than)。長形容詞前面加 more(more beautiful than)。不規則:good→better,bad→worse。",
+      "examples": [
+        {"en": "I am taller than my brother.", "zh": "我比哥哥高。"},
+        {"en": "This book is more interesting.", "zh": "這本書更有趣。"},
+        {"en": "Today is better than yesterday.", "zh": "今天比昨天好。"}
+      ],
+      "quiz": [
+        {"q": "She is ___ than me.", "options": ["young", "younger", "more young"], "answer": 1},
+        {"q": "Math is ___ than English.", "options": ["difficult", "more difficult", "difficulter"], "answer": 1},
+        {"q": "His grade is ___ than mine.", "options": ["good", "gooder", "better"], "answer": 2}
+      ]
+    },
+    {
+      "id": "016",
+      "title": "WH 問句 (What/Where/When/Who/Why/How)",
+      "emoji": "🤔",
+      "category": "句型",
+      "level": "G6",
+      "rule": "What 問什麼東西、Where 問哪裡、When 問何時、Who 問誰、Why 問為什麼、How 問怎麼樣。WH 詞放句首,後面接動詞。",
+      "examples": [
+        {"en": "What is your name?", "zh": "你叫什麼名字?"},
+        {"en": "Where do you live?", "zh": "你住在哪裡?"},
+        {"en": "Why are you sad?", "zh": "你為什麼難過?"}
+      ],
+      "quiz": [
+        {"q": "___ is the toilet?", "options": ["What", "Where", "When"], "answer": 1},
+        {"q": "___ is your birthday?", "options": ["When", "Why", "Who"], "answer": 0},
+        {"q": "___ are you?  — I'm fine.", "options": ["What", "Why", "How"], "answer": 2}
+      ]
+    },
+    {
+      "id": "017",
+      "title": "連接詞 and / but / or / because",
+      "emoji": "🔗",
+      "category": "連接詞",
+      "level": "G6",
+      "rule": "and 連接相同 / 同類(我和你)。but 表示對比(便宜但好用)。or 表示二選一(要茶還是咖啡)。because 表示原因(因為...所以...)。",
+      "examples": [
+        {"en": "I like cats and dogs.", "zh": "我喜歡貓跟狗。"},
+        {"en": "It's cold but sunny.", "zh": "天氣冷但是晴朗。"},
+        {"en": "I am happy because today is my birthday.", "zh": "我很開心,因為今天是我生日。"}
+      ],
+      "quiz": [
+        {"q": "I like apples ___ bananas.", "options": ["and", "but", "or"], "answer": 0},
+        {"q": "It is small ___ heavy.", "options": ["and", "but", "or"], "answer": 1},
+        {"q": "She cried ___ she was sad.", "options": ["and", "but", "because"], "answer": 2}
+      ]
+    },
+    {
+      "id": "018",
+      "title": "助動詞 can / could",
+      "emoji": "💪",
+      "category": "助動詞",
+      "level": "G6",
+      "rule": "can 表示「能夠」。否定 can't / cannot。過去式 could。後面接動詞原型,不加 to。問句把 can 放句首:Can you...?",
+      "examples": [
+        {"en": "I can swim.", "zh": "我會游泳。"},
+        {"en": "She can't sing well.", "zh": "她唱歌不太好。"},
+        {"en": "Can you help me?", "zh": "你可以幫我嗎?"}
+      ],
+      "quiz": [
+        {"q": "I ___ ride a bike.", "options": ["can", "cans", "is"], "answer": 0},
+        {"q": "He can ___ Chinese.", "options": ["speak", "speaks", "speaking"], "answer": 0},
+        {"q": "___ you open the door?", "options": ["Can", "Is", "Do"], "answer": 0}
+      ]
+    },
+    {
+      "id": "019",
+      "title": "祈使句:命令、建議、禁止",
+      "emoji": "🚫",
+      "category": "句型",
+      "level": "G7",
+      "rule": "祈使句直接用動詞原型開頭,沒有主詞(說話對象就是 you)。否定:Don't + 動詞。客氣加 please。Let's = Let us(建議)。",
+      "examples": [
+        {"en": "Open the door, please.", "zh": "請開門。"},
+        {"en": "Don't run in the hall.", "zh": "走廊不要跑。"},
+        {"en": "Let's go shopping!", "zh": "我們去買東西吧!"}
+      ],
+      "quiz": [
+        {"q": "___ touch the dog.", "options": ["No", "Don't", "Not"], "answer": 1},
+        {"q": "Please ___ down.", "options": ["sit", "sits", "to sit"], "answer": 0},
+        {"q": "___ play together!", "options": ["Let's", "Let me", "Let"], "answer": 0}
+      ]
+    },
+    {
+      "id": "020",
+      "title": "受格 me / him / her / us / them",
+      "emoji": "👆",
+      "category": "代名詞",
+      "level": "G6",
+      "rule": "主格放動詞前面當主詞(I love you),受格放動詞或介系詞後面當受詞(He loves me)。對應:I→me、he→him、she→her、we→us、they→them、you→you、it→it。",
+      "examples": [
+        {"en": "She loves him.", "zh": "她愛他。"},
+        {"en": "Give it to me.", "zh": "把它給我。"},
+        {"en": "We can help them.", "zh": "我們可以幫他們。"}
+      ],
+      "quiz": [
+        {"q": "He sees ___.", "options": ["I", "me", "my"], "answer": 1},
+        {"q": "Tell ___ the truth.", "options": ["he", "him", "his"], "answer": 1},
+        {"q": "Look at ___!", "options": ["they", "their", "them"], "answer": 2}
+      ]
+    }
+  ]
+}

@@ -544,6 +544,13 @@
     font-size: 32px;
     line-height: 1;
   }
+  .word-card .wc-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: var(--panel-2);
+  }
   .word-card .wc-word {
     font-size: 15px;
     font-weight: 600;
@@ -692,6 +699,130 @@
     box-shadow: 0 0 0 2px rgba(34,197,94,0.3);
   }
 
+  /* === 語法卡 === */
+  .grammar-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .grammar-toolbar select {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+  .grammar-count {
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+  .grammar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .grammar-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .grammar-card:hover { border-color: var(--accent); }
+  .grammar-card.expanded {
+    grid-column: 1 / -1;
+    border-color: var(--accent);
+    cursor: default;
+  }
+  .gc-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .gc-emoji { font-size: 24px; }
+  .gc-title { font-size: 16px; font-weight: 600; color: var(--text); }
+  .gc-meta { font-size: 11px; color: var(--muted); }
+  .gc-rule {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  .grammar-card.expanded .gc-rule {
+    color: var(--text);
+    background: var(--panel-2);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 10px 0;
+  }
+  .gc-section-h {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 12px 0 6px;
+    letter-spacing: 0.5px;
+  }
+  .gc-example {
+    background: var(--panel-2);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .gc-example-text { flex: 1; }
+  .gc-example-en { color: var(--text); font-size: 14px; line-height: 1.5; }
+  .gc-example-zh { color: var(--muted); font-size: 12px; line-height: 1.5; margin-top: 2px; }
+  .gc-example-speak {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .gc-example-speak:hover { border-color: var(--accent); }
+  .gc-quiz {
+    background: var(--panel-2);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+  .gc-quiz-q { font-size: 13px; color: var(--text); margin-bottom: 6px; }
+  .gc-quiz-options { display: flex; gap: 6px; flex-wrap: wrap; }
+  .gc-quiz-options button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .gc-quiz-options button:hover { border-color: var(--accent); }
+  .gc-quiz-options button.right {
+    background: rgba(34,197,94,0.2);
+    border-color: var(--ok);
+    color: var(--ok);
+  }
+  .gc-quiz-options button.wrong {
+    background: rgba(239,68,68,0.2);
+    border-color: var(--danger);
+    color: var(--danger);
+  }
+  .gc-quiz-options button:disabled { cursor: default; }
+
   /* === 每日英文 === */
   .daily-header {
     display: flex;
@@ -787,6 +918,27 @@
     color: #0f172a;
     border-color: var(--accent);
     font-weight: 600;
+  }
+  .daily-rate {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 10px;
+  }
+  .daily-rate input[type="range"] {
+    width: 100px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .daily-rate-num {
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 42px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
   }
   .daily-zh {
     font-size: 14px;
@@ -891,6 +1043,13 @@
     font-size: 80px;
     line-height: 1;
     margin-bottom: 8px;
+  }
+  .modal-emoji .modal-img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: var(--panel-2);
   }
   .modal-word {
     font-size: 32px;
@@ -1456,6 +1615,7 @@
     <button class="tab" data-tab="vocab">📚 單字寶盒</button>
     <button class="tab" data-tab="phonics">🔤 自然發音</button>
     <button class="tab" data-tab="daily">📰 每日英文</button>
+    <button class="tab" data-tab="grammar">📐 語法</button>
   </nav>
 
   <section class="tab-panel active" id="tab-translate">
@@ -1545,11 +1705,10 @@
     <div class="vocab-toolbar">
       <input type="text" id="vocabSearch" placeholder="🔎 搜尋單字或中文..." />
       <select id="vocabGrade">
-        <option value="all">全部年級</option>
-        <option value="6">國小 G6</option>
-        <option value="7">國中一</option>
-        <option value="8">國中二</option>
-        <option value="9">國中三</option>
+        <option value="all">全部</option>
+        <option value="elementary">國小</option>
+        <option value="junior">國中</option>
+        <option value="senior">高中</option>
       </select>
       <label><input type="checkbox" id="vocabHasEmoji" /> 只看有圖</label>
       <label><input type="checkbox" id="vocabHasMnemonic" /> 只看記憶卡</label>
@@ -1588,6 +1747,25 @@
       <h3 class="phonics-h">🔗 常見子音串 (Blends)</h3>
       <div class="phonics-sub">兩三個子音連在一起,每個都要唸出來,但要連成一團</div>
       <div class="phonics-grid" id="phonicsBlends"></div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="tab-grammar">
+    <div class="grammar-toolbar">
+      <select id="grammarLevel">
+        <option value="all">全部年級</option>
+        <option value="G6">國小 G6</option>
+        <option value="G7">國中一</option>
+        <option value="G8">國中二</option>
+        <option value="G9">國中三</option>
+      </select>
+      <select id="grammarCat">
+        <option value="all">全部分類</option>
+      </select>
+      <span class="grammar-count" id="grammarCount">— 條</span>
+    </div>
+    <div class="grammar-grid" id="grammarGrid">
+      <div class="vocab-empty">點上方「📐 語法」分頁時自動載入...</div>
     </div>
   </section>
 
@@ -2919,9 +3097,11 @@
       panels.forEach((p) => p.classList.toggle("active", p.id === "tab-" + t));
       if (t === "vocab" && !vocabLoaded) loadVocab();
       if (t === "daily") {
-        // vocab 也要載入(每日文章的 key vocab 會點開大卡)
         if (!vocabLoaded) loadVocab();
         renderDaily();
+      }
+      if (t === "grammar") {
+        loadGrammar().then(renderGrammar);
       }
     });
   });
@@ -2962,6 +3142,7 @@
     visual: "👀 字形聯想",
     feature: "✨ 特徵綽號",
     compound: "🧩 拆字組合",
+    etymology: "🌱 字根字首字尾",
   };
   const ZH_SPLIT_RE = /[,;，；]/;
   const POS_GROUP_MAP = {
@@ -3015,6 +3196,8 @@
   };
   const getDisplayZh = (w, overrideZh = "") => {
     if (overrideZh) return overrideZh;
+    const primaryZh = shortZh(w.zh || "");
+    if (primaryZh) return primaryZh;
     const grouped = getGroupedDefinitions(w);
     if (grouped.length >= 2 && grouped.length <= 3) {
       const compact = grouped
@@ -3030,7 +3213,7 @@
     const mainPos = normalizePos(w.pos);
     const preferred = grouped.find((row) => row.pos === mainPos) || grouped[0];
     if (preferred) return shortZh(preferred.items[0]);
-    return shortZh(w.zh || "");
+    return primaryZh;
   };
   const renderDefinitionRows = (w) => getGroupedDefinitions(w).map((row) => (
     '<div class="modal-definition-row">' +
@@ -3039,16 +3222,24 @@
     '</div>'
   )).join("");
 
+  // 把 grade 數字對應到學習階段:G6=國小,G7-G9=國中,G10+=高中
+  const gradeToStage = (g) => {
+    const n = Number(g);
+    if (!n || n <= 6) return "elementary";
+    if (n <= 9) return "junior";
+    return "senior";
+  };
+
   const applyVocabFilters = () => {
     if (!vocabData) return;
     const q = vocabSearchEl.value.trim().toLowerCase();
-    const grade = vocabGradeEl.value;
+    const stage = vocabGradeEl.value;  // all / elementary / junior / senior
     const onlyEmoji = vocabHasEmojiEl.checked;
     const onlyMn = vocabHasMnemonicEl.checked;
     const mn = mnemonicsData.mnemonics || {};
 
     const filtered = vocabData.words.filter((w) => {
-      if (grade !== "all" && String(w.grade) !== grade) return false;
+      if (stage !== "all" && gradeToStage(w.grade) !== stage) return false;
       if (onlyEmoji && !w.emoji) return false;
       if (onlyMn && !mn[w.word.toLowerCase()]) return false;
       if (q) {
@@ -3074,12 +3265,45 @@
       const card = document.createElement("div");
       card.className = "word-card" + (m ? " has-mn" : "");
       const displayZh = getDisplayZh(w, (m && m.zh_override) || "");
+      // 視覺優先序:image > emoji > 沒有
+      // 圖片路徑:data/images/vocab/word_<safe>.webp,跟 audio 命名規則一致
+      const safeKey = w.word.toLowerCase().replace(/\s*\([^)]*\)/g, "")
+                       .split("/")[0].trim()
+                       .replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+      const imgUrl = safeKey ? "data/images/vocab/word_" + safeKey + ".webp" : "";
+
+      const buildVisualHtml = () => {
+        if (imgUrl) {
+          return '<img class="wc-img" loading="lazy" alt="" src="' + imgUrl + '">';
+        }
+        if (w.emoji) {
+          return '<span class="wc-emoji">' + w.emoji + '</span>';
+        }
+        return "";
+      };
+
       card.innerHTML =
         '<span class="wc-grade">G' + w.grade + '</span>' +
         (m ? '<span class="wc-mn-badge">💡</span>' : "") +
-        (w.emoji ? '<span class="wc-emoji">' + w.emoji + '</span>' : "") +
+        buildVisualHtml() +
         '<span class="wc-word">' + escapeHtml(w.word) + '</span>' +
         '<span class="wc-zh">' + escapeHtml(displayZh) + '</span>';
+
+      // 圖片載不到 → 換成 emoji span(如果有)或刪掉
+      const imgEl = card.querySelector(".wc-img");
+      if (imgEl) {
+        imgEl.addEventListener("error", () => {
+          if (w.emoji) {
+            const span = document.createElement("span");
+            span.className = "wc-emoji";
+            span.textContent = w.emoji;
+            imgEl.replaceWith(span);
+          } else {
+            imgEl.remove();
+          }
+        }, { once: true });
+      }
+
       card.addEventListener("click", () => openWordModal(w));
       frag.appendChild(card);
     }
@@ -3792,7 +4016,26 @@
     currentModalZh = getDisplayZh(w, (mn && mn.zh_override) || "");
     currentModalEmoji = w.emoji || "";
     dictationRevealedThisCard = false; // 新卡:重新套用聽寫設定
-    modalEmoji.textContent = w.emoji || "📘";
+    // 視覺優先序:image > emoji > 預設書本 emoji
+    {
+      const safeKey = w.word.toLowerCase().replace(/\s*\([^)]*\)/g, "")
+                       .split("/")[0].trim()
+                       .replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+      const imgUrl = safeKey ? "data/images/vocab/word_" + safeKey + ".webp" : "";
+      const fbEmoji = w.emoji || "📘";
+      if (imgUrl) {
+        modalEmoji.innerHTML =
+          '<img class="modal-img" loading="lazy" alt="" src="' + imgUrl + '">';
+        const img = modalEmoji.querySelector(".modal-img");
+        if (img) {
+          img.addEventListener("error", () => {
+            modalEmoji.textContent = fbEmoji;
+          }, { once: true });
+        }
+      } else {
+        modalEmoji.textContent = fbEmoji;
+      }
+    }
     modalWord.textContent = w.word;
     modalZh.textContent = currentModalZh;
     const posPart = w.pos ? "(" + w.pos + ".) " : "";
@@ -4272,6 +4515,10 @@
       '</div>' +
       '<div class="daily-actions">' +
         '<button class="primary" id="dailyReadBtn">🎙️ 朗讀整段</button>' +
+        '<div class="daily-rate" title="自訂朗讀速度">' +
+          '<input type="range" id="dailyRateSlider" min="0.4" max="1.4" step="0.05" value="0.85" />' +
+          '<span class="daily-rate-num" id="dailyRateDisplay">0.85x</span>' +
+        '</div>' +
         '<button id="dailyZhBtn">看中譯</button>' +
       '</div>' +
       '<div class="daily-zh" id="dailyZh">' + escapeHtml(a.text_zh || "") + '</div>' +
@@ -4301,8 +4548,42 @@
       });
     });
 
-    // 朗讀整段:用瀏覽器 TTS(整段太長預生不划算)
-    $("dailyReadBtn").addEventListener("click", () => speakText(a.text, "en-US", 0.85));
+    // 朗讀速度滑桿:選擇存 localStorage,下次開新文章記得位置
+    const DAILY_RATE_KEY = "daily_speak_rate_v1";
+    const slider = $("dailyRateSlider");
+    const rateDisplay = $("dailyRateDisplay");
+    const updateRateDisplay = () => {
+      rateDisplay.textContent = Number(slider.value).toFixed(2) + "x";
+    };
+    try {
+      const saved = localStorage.getItem(DAILY_RATE_KEY);
+      if (saved) slider.value = saved;
+    } catch {}
+    updateRateDisplay();
+    slider.addEventListener("input", () => {
+      updateRateDisplay();
+      try { localStorage.setItem(DAILY_RATE_KEY, slider.value); } catch {}
+    });
+    // 朗讀整段:先試靜態 MP3 (edge-tts 神經音),失敗退回瀏覽器 TTS
+    // slider 套到 audio.playbackRate(瀏覽器原生支援 0.25-4.0)
+    let dailyAudio = null;
+    $("dailyReadBtn").addEventListener("click", () => {
+      const rate = parseFloat(slider.value);
+      // 取消上次的播放(避免疊聲)
+      if (dailyAudio) { try { dailyAudio.pause(); } catch {} dailyAudio = null; }
+      try { window.speechSynthesis.cancel(); } catch {}
+
+      const audio = new Audio("data/audio/daily/article_" + a.id + ".mp3");
+      audio.playbackRate = rate;
+      audio.addEventListener("error", () => {
+        // 神經音檔不存在 → 退回瀏覽器 TTS
+        speakText(a.text, "en-US", rate);
+      }, { once: true });
+      audio.play().catch(() => {
+        speakText(a.text, "en-US", rate);
+      });
+      dailyAudio = audio;
+    });
     // 看中譯切換
     const zhEl = $("dailyZh");
     $("dailyZhBtn").addEventListener("click", () => zhEl.classList.toggle("show"));
@@ -4325,6 +4606,161 @@
   $("dailyPrev").addEventListener("click", () => { dailyOffset--; renderDaily(); });
   $("dailyNext").addEventListener("click", () => { dailyOffset++; renderDaily(); });
   $("dailyToday").addEventListener("click", () => { dailyOffset = 0; renderDaily(); });
+
+  // ===== 語法卡 =====
+  let grammarData = null;
+  const grammarGridEl = $("grammarGrid");
+  const grammarLevelEl = $("grammarLevel");
+  const grammarCatEl = $("grammarCat");
+  const grammarCountEl = $("grammarCount");
+
+  const loadGrammar = async () => {
+    if (grammarData) return grammarData;
+    try {
+      const res = await fetch("data/grammar.json");
+      const d = await res.json();
+      grammarData = d.topics || [];
+      // 動態填 category 下拉
+      const cats = [...new Set(grammarData.map((t) => t.category))].sort();
+      cats.forEach((c) => {
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        grammarCatEl.appendChild(opt);
+      });
+    } catch { grammarData = []; }
+    return grammarData;
+  };
+
+  const renderGrammar = () => {
+    if (!grammarData) return;
+    const lvl = grammarLevelEl.value;
+    const cat = grammarCatEl.value;
+    const filtered = grammarData.filter((t) =>
+      (lvl === "all" || t.level === lvl) &&
+      (cat === "all" || t.category === cat)
+    );
+    grammarCountEl.textContent = filtered.length + " 條";
+    grammarGridEl.innerHTML = "";
+    if (!filtered.length) {
+      grammarGridEl.innerHTML = '<div class="vocab-empty">沒有符合條件的語法</div>';
+      return;
+    }
+    const frag = document.createDocumentFragment();
+    for (const t of filtered) {
+      const card = document.createElement("div");
+      card.className = "grammar-card";
+      card.innerHTML =
+        '<div class="gc-head">' +
+          '<span class="gc-emoji">' + (t.emoji || "📐") + '</span>' +
+          '<div>' +
+            '<div class="gc-title">' + escapeHtml(t.title) + '</div>' +
+            '<div class="gc-meta">' + escapeHtml(t.category) + ' · ' + escapeHtml(t.level) + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="gc-rule">' + escapeHtml(t.rule) + '</div>';
+      // 點卡片展開
+      card.addEventListener("click", (e) => {
+        // 已展開時不要因為點卡片內部又收合
+        if (card.classList.contains("expanded") &&
+            !e.target.classList.contains("gc-head") &&
+            !e.target.closest(".gc-head")) return;
+        if (card.classList.contains("expanded")) {
+          // 收回成預覽
+          collapseCard(card, t);
+        } else {
+          expandCard(card, t);
+        }
+      });
+      frag.appendChild(card);
+    }
+    grammarGridEl.appendChild(frag);
+  };
+
+  const collapseCard = (card, t) => {
+    card.classList.remove("expanded");
+    card.innerHTML =
+      '<div class="gc-head">' +
+        '<span class="gc-emoji">' + (t.emoji || "📐") + '</span>' +
+        '<div>' +
+          '<div class="gc-title">' + escapeHtml(t.title) + '</div>' +
+          '<div class="gc-meta">' + escapeHtml(t.category) + ' · ' + escapeHtml(t.level) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="gc-rule">' + escapeHtml(t.rule) + '</div>';
+  };
+
+  const expandCard = (card, t) => {
+    card.classList.add("expanded");
+    let html =
+      '<div class="gc-head">' +
+        '<span class="gc-emoji">' + (t.emoji || "📐") + '</span>' +
+        '<div>' +
+          '<div class="gc-title">' + escapeHtml(t.title) + '</div>' +
+          '<div class="gc-meta">' + escapeHtml(t.category) + ' · ' + escapeHtml(t.level) +
+            ' · 點「📐」標題收合' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="gc-rule">' + escapeHtml(t.rule) + '</div>';
+    if (t.examples && t.examples.length) {
+      html += '<div class="gc-section-h">📝 例句</div>';
+      t.examples.forEach((ex, i) => {
+        html +=
+          '<div class="gc-example">' +
+            '<div class="gc-example-text">' +
+              '<div class="gc-example-en">' + escapeHtml(ex.en) + '</div>' +
+              '<div class="gc-example-zh">' + escapeHtml(ex.zh) + '</div>' +
+            '</div>' +
+            '<button class="gc-example-speak" data-ex-idx="' + i + '">🔊</button>' +
+          '</div>';
+      });
+    }
+    if (t.quiz && t.quiz.length) {
+      html += '<div class="gc-section-h">✏️ 小測驗</div>';
+      t.quiz.forEach((q, qi) => {
+        html +=
+          '<div class="gc-quiz" data-qi="' + qi + '">' +
+            '<div class="gc-quiz-q">' + (qi+1) + '. ' + escapeHtml(q.q) + '</div>' +
+            '<div class="gc-quiz-options">' +
+              q.options.map((opt, oi) =>
+                '<button data-qi="' + qi + '" data-oi="' + oi + '">' +
+                  escapeHtml(opt) +
+                '</button>'
+              ).join("") +
+            '</div>' +
+          '</div>';
+      });
+    }
+    card.innerHTML = html;
+
+    // 例句朗讀
+    card.querySelectorAll(".gc-example-speak").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const idx = +btn.dataset.exIdx;
+        const ex = t.examples[idx];
+        if (ex) speakText(ex.en, "en-US", 0.85);
+      });
+    });
+    // 測驗按鈕
+    card.querySelectorAll(".gc-quiz-options button").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const qi = +btn.dataset.qi;
+        const oi = +btn.dataset.oi;
+        const correct = t.quiz[qi].answer;
+        card.querySelectorAll(`.gc-quiz[data-qi="${qi}"] button`).forEach((b, i) => {
+          b.disabled = true;
+          if (i === correct) b.classList.add("right");
+          else if (i === oi) b.classList.add("wrong");
+        });
+      });
+    });
+  };
+
+  grammarLevelEl.addEventListener("change", renderGrammar);
+  grammarCatEl.addEventListener("change", renderGrammar);
 
   // 初始
   updateCounts();
