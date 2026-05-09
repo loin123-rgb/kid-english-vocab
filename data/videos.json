@@ -1,0 +1,28 @@
+{
+  "version": "1",
+  "license_note": "影片本體不存 repo,只記 metadata + 外部播放 URL。商用前確認來源授權。",
+  "videos": [
+    {
+      "id": "001",
+      "title": "三隻小豬",
+      "title_en": "The Three Little Pigs",
+      "emoji": "🐷",
+      "topic": "經典故事",
+      "level": "G6",
+      "youtube_id": "0Xl8wRtB23g",
+      "bilibili_id": "BV1SnRQBwE9o",
+      "description": "經典英文童話,小豬建房子對抗大野狼。"
+    },
+    {
+      "id": "002",
+      "title": "月亮森林裡的勇氣與選擇",
+      "title_en": "Moonlit Stories EP01",
+      "emoji": "🌙",
+      "topic": "雙語故事",
+      "level": "G6",
+      "youtube_id": "uiRD38eAJEU",
+      "bilibili_id": "BV1SnRQBwEqZ",
+      "description": "中英雙語兒童故事,跟著 Moonlit Stories EP01 學會 14 個英文單字。"
+    }
+  ]
+}

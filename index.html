@@ -823,6 +823,82 @@
   }
   .gc-quiz-options button:disabled { cursor: default; }
 
+  /* === 故事影片 === */
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .story-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.1s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .story-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .story-card .sc-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--panel-2) center/cover no-repeat;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+  }
+  .story-card .sc-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .story-card .sc-title-en { font-size: 12px; color: var(--muted); }
+  .story-card .sc-meta { font-size: 11px; color: var(--muted); }
+  .story-card .sc-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  .story-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .story-modal.show { display: flex; }
+  .story-modal-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    max-width: 960px;
+    width: 100%;
+    position: relative;
+  }
+  .story-modal-title {
+    font-size: 16px;
+    color: var(--text);
+    margin: 4px 40px 10px 0;
+  }
+  .story-modal-player {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: black;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .story-modal-player iframe,
+  .story-modal-player video {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
   /* === 每日英文 === */
   .daily-header {
     display: flex;
@@ -1616,6 +1692,7 @@
     <button class="tab" data-tab="phonics">🔤 自然發音</button>
     <button class="tab" data-tab="daily">📰 每日英文</button>
     <button class="tab" data-tab="grammar">📐 語法</button>
+    <button class="tab" data-tab="stories">🎬 故事</button>
   </nav>
 
   <section class="tab-panel active" id="tab-translate">
@@ -1768,6 +1845,20 @@
       <div class="vocab-empty">點上方「📐 語法」分頁時自動載入...</div>
     </div>
   </section>
+
+  <section class="tab-panel" id="tab-stories">
+    <div class="stories-grid" id="storiesGrid">
+      <div class="vocab-empty">點上方「🎬 故事」分頁時自動載入...</div>
+    </div>
+  </section>
+
+  <div class="story-modal" id="storyModal">
+    <div class="story-modal-card">
+      <button class="modal-close" id="storyModalClose" title="關閉">×</button>
+      <div class="story-modal-title" id="storyModalTitle"></div>
+      <div class="story-modal-player" id="storyModalPlayer"></div>
+    </div>
+  </div>
 
   <section class="tab-panel" id="tab-daily">
     <div class="daily-header">
@@ -3102,6 +3193,9 @@
       }
       if (t === "grammar") {
         loadGrammar().then(renderGrammar);
+      }
+      if (t === "stories") {
+        renderStories();
       }
     });
   });
@@ -4761,6 +4855,102 @@
 
   grammarLevelEl.addEventListener("change", renderGrammar);
   grammarCatEl.addEventListener("change", renderGrammar);
+
+  // ===== 故事影片 =====
+  let storiesData = null;
+  const storiesGridEl = $("storiesGrid");
+  const storyModal = $("storyModal");
+  const storyModalTitle = $("storyModalTitle");
+  const storyModalPlayer = $("storyModalPlayer");
+
+  const loadStories = async () => {
+    if (storiesData) return storiesData;
+    try {
+      const res = await fetch("data/videos.json");
+      const d = await res.json();
+      storiesData = d.videos || [];
+    } catch { storiesData = []; }
+    return storiesData;
+  };
+
+  // 簡單地理偵測:時區是亞洲/上海 → 用 bilibili,其他 → youtube
+  // (可選邏輯,只在兩者都有 ID 時才生效)
+  const isMainlandUser = () => {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      return tz === "Asia/Shanghai" || tz === "Asia/Urumqi";
+    } catch { return false; }
+  };
+
+  const buildPlayer = (video) => {
+    const useBili = isMainlandUser() && video.bilibili_id;
+    if (useBili) {
+      return '<iframe src="//player.bilibili.com/player.html?bvid=' +
+        encodeURIComponent(video.bilibili_id) +
+        '&autoplay=1" allowfullscreen scrolling="no" frameborder="0"></iframe>';
+    }
+    if (video.youtube_id) {
+      return '<iframe src="https://www.youtube.com/embed/' +
+        encodeURIComponent(video.youtube_id) +
+        '?autoplay=1&rel=0" allowfullscreen frameborder="0"></iframe>';
+    }
+    if (video.bilibili_id) {
+      return '<iframe src="//player.bilibili.com/player.html?bvid=' +
+        encodeURIComponent(video.bilibili_id) +
+        '&autoplay=1" allowfullscreen scrolling="no" frameborder="0"></iframe>';
+    }
+    if (video.url) {
+      return '<video src="' + escapeHtml(video.url) + '" controls autoplay></video>';
+    }
+    return '<div style="color:#fff;padding:20px;text-align:center">沒有可用的影片來源</div>';
+  };
+
+  const renderStories = async () => {
+    const videos = await loadStories();
+    if (!videos.length) {
+      storiesGridEl.innerHTML = '<div class="vocab-empty">data/videos.json 是空的</div>';
+      return;
+    }
+    storiesGridEl.innerHTML = "";
+    const frag = document.createDocumentFragment();
+    for (const v of videos) {
+      const card = document.createElement("div");
+      card.className = "story-card";
+      // YouTube 縮圖:img.youtube.com/vi/<id>/hqdefault.jpg
+      const thumbStyle = v.youtube_id
+        ? `style="background-image:url('https://i.ytimg.com/vi/${encodeURIComponent(v.youtube_id)}/hqdefault.jpg')"`
+        : "";
+      card.innerHTML =
+        '<div class="sc-thumb" ' + thumbStyle + '>' +
+          (v.youtube_id ? "" : (v.emoji || "🎬")) +
+        '</div>' +
+        '<div class="sc-title">' + escapeHtml(v.title || "(無標題)") + '</div>' +
+        (v.title_en ? '<div class="sc-title-en">' + escapeHtml(v.title_en) + '</div>' : "") +
+        '<div class="sc-meta">' + escapeHtml(v.topic || "") +
+          (v.level ? ' · ' + escapeHtml(v.level) : "") + '</div>' +
+        (v.description ? '<div class="sc-desc">' + escapeHtml(v.description) + '</div>' : "");
+      card.addEventListener("click", () => openStory(v));
+      frag.appendChild(card);
+    }
+    storiesGridEl.appendChild(frag);
+  };
+
+  const openStory = (v) => {
+    storyModalTitle.textContent = (v.title || "") + (v.title_en ? "  ·  " + v.title_en : "");
+    storyModalPlayer.innerHTML = buildPlayer(v);
+    storyModal.classList.add("show");
+  };
+  const closeStory = () => {
+    storyModal.classList.remove("show");
+    storyModalPlayer.innerHTML = ""; // 清掉 iframe 才會停止播放
+  };
+  $("storyModalClose").addEventListener("click", closeStory);
+  storyModal.addEventListener("click", (e) => {
+    if (e.target === storyModal) closeStory();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && storyModal.classList.contains("show")) closeStory();
+  });
 
   // 初始
   updateCounts();
