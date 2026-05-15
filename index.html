@@ -698,6 +698,134 @@
     border-color: var(--ok);
     box-shadow: 0 0 0 2px rgba(34,197,94,0.3);
   }
+  .phonics-card .pc-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: var(--panel-2);
+    margin-bottom: 6px;
+  }
+  /* 字母歌 / 聽音選字 工具列 */
+  .phonics-tools {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .phonics-tool-btn {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .phonics-tool-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .phonics-tool-btn.primary {
+    background: var(--accent);
+    color: #0f172a;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .phonics-tool-btn.playing {
+    background: var(--ok);
+    color: #052e16;
+    border-color: var(--ok);
+  }
+  /* 聽音選字 quiz modal */
+  .phonics-quiz-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .phonics-quiz-modal.show { display: flex; }
+  .phonics-quiz-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+  }
+  .phonics-quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .pq-title { font-size: 18px; color: var(--text); font-weight: 600; }
+  .pq-score { font-size: 14px; color: var(--muted); }
+  .pq-prompt { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .pq-replay {
+    width: 100%;
+    background: var(--panel-2);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+  .pq-replay:hover { background: var(--accent); color: #0f172a; }
+  .pq-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .pq-options button {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    font-size: 18px;
+    cursor: pointer;
+    font-family: ui-monospace, monospace;
+    font-weight: 600;
+  }
+  .pq-options button:hover { border-color: var(--accent); }
+  .pq-options button.right {
+    background: rgba(34,197,94,0.2);
+    border-color: var(--ok);
+    color: var(--ok);
+  }
+  .pq-options button.wrong {
+    background: rgba(239,68,68,0.2);
+    border-color: var(--danger);
+    color: var(--danger);
+  }
+  .pq-options button:disabled { cursor: default; }
+  .pq-feedback {
+    text-align: center;
+    font-size: 14px;
+    min-height: 22px;
+    margin-bottom: 10px;
+  }
+  .pq-feedback.right { color: var(--ok); }
+  .pq-feedback.wrong { color: var(--danger); }
+  .pq-next {
+    width: 100%;
+    background: var(--accent);
+    color: #0f172a;
+    border: 0;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: none;
+  }
+  .pq-next.show { display: block; }
 
   /* === 語法卡 === */
   .grammar-toolbar {
@@ -1801,6 +1929,10 @@
       點任一張卡 → 唸出例字,小朋友從例字裡聽出該字母的音。<br>
       下面的「怎麼唸」教嘴巴 / 舌頭怎麼擺,IPA 是國際音標(專業參考用)。
     </div>
+    <div class="phonics-tools">
+      <button id="abcSongBtn" type="button" class="phonics-tool-btn primary">🎵 ABC 字母歌</button>
+      <button id="phonicsQuizBtn" type="button" class="phonics-tool-btn">🎯 聽音選字</button>
+    </div>
     <div class="phonics-section">
       <h3 class="phonics-h">🔠 26 個字母音 (Letter Sounds)</h3>
       <div class="phonics-grid" id="phonicsLetters"></div>
@@ -1851,6 +1983,21 @@
       <div class="vocab-empty">點上方「🎬 故事」分頁時自動載入...</div>
     </div>
   </section>
+
+  <div class="phonics-quiz-modal" id="phonicsQuizModal">
+    <div class="phonics-quiz-card">
+      <button class="modal-close" id="phonicsQuizClose">×</button>
+      <div class="phonics-quiz-header">
+        <span class="pq-title">🎯 聽音選字</span>
+        <span class="pq-score" id="phonicsQuizScore">0 / 0</span>
+      </div>
+      <div class="pq-prompt">點 🔊 聽,選你聽到的字</div>
+      <button class="pq-replay" id="phonicsQuizReplay">🔊 再聽一次</button>
+      <div class="pq-options" id="phonicsQuizOptions"></div>
+      <div class="pq-feedback" id="phonicsQuizFeedback"></div>
+      <button class="pq-next" id="phonicsQuizNext">下一題 →</button>
+    </div>
+  </div>
 
   <div class="story-modal" id="storyModal">
     <div class="story-modal-card">
@@ -4451,9 +4598,11 @@
   };
 
   // 試播靜態 MP3,resolve 在 ended,reject 在 error / play 失敗
-  const playStaticAudio = (path) => new Promise((resolve, reject) => {
+  // rate < 1 = 放慢(瀏覽器保 pitch 不會變鬼片)
+  const playStaticAudio = (path, rate = 1) => new Promise((resolve, reject) => {
     if (!path) return reject(new Error("no path"));
     const audio = new Audio(path);
+    if (rate !== 1) audio.playbackRate = rate;
     audio.addEventListener("ended", () => resolve(), { once: true });
     audio.addEventListener("error", () => reject(new Error("audio error")), { once: true });
     audio.play().catch(reject);
@@ -4477,10 +4626,11 @@
     };
 
     // 先試播字母音 (有的話)→ 短停頓 → 例字。沒有就直接例字
+    // 字母音是完整教學句,放慢到 0.8 倍速更像老師講課
     const soundPath = phonicsSoundPath(item);
     if (soundPath) {
       try {
-        await playStaticAudio(soundPath);
+        await playStaticAudio(soundPath, 0.8);
         setTimeout(playWord, 200);
         return;
       } catch {
@@ -4512,14 +4662,33 @@
       })();
       const ipaLine = it.ipa ? `<div class="pc-ipa">${escapeHtml(it.ipa)}</div>` : "";
       const noteLine = it.note ? `<div class="pc-note">${escapeHtml(it.note)}</div>` : "";
+
+      // 視覺優先:vocab 圖 → emoji。例字若有預先生的 webp 就用圖
+      const wordKey = (it.example || "").toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+      const imgUrl = wordKey ? "data/images/vocab/word_" + wordKey + ".webp" : "";
+      const visualHtml = imgUrl
+        ? '<img class="pc-img" loading="lazy" alt="" src="' + imgUrl + '">'
+        : '<span class="pc-emoji">' + (it.emoji || "🔠") + '</span>';
+
       card.innerHTML =
-        '<span class="pc-emoji">' + (it.emoji || "🔠") + "</span>" +
+        visualHtml +
         headerLine +
         ipaLine +
         '<div class="pc-example">' + escapeHtml(it.example) + "</div>" +
         noteLine;
 
-      // 點任何位置 → 唸例字(TTS 沒辦法精準唸單一字母音,讓小朋友從例字裡聽出來)
+      // 圖載不到 → fallback emoji
+      const imgEl = card.querySelector(".pc-img");
+      if (imgEl) {
+        imgEl.addEventListener("error", () => {
+          const span = document.createElement("span");
+          span.className = "pc-emoji";
+          span.textContent = it.emoji || "🔠";
+          imgEl.replaceWith(span);
+        }, { once: true });
+      }
+
+      // 點任何位置 → 唸例字
       card.addEventListener("click", () => phonicsPlay(card, it));
 
       frag.appendChild(card);
@@ -4535,6 +4704,120 @@
     renderPhonicsCards($("phonicsBlends"), PHONICS_BLENDS, "blend");
   };
   renderAllPhonics();
+
+  // ===== ABC 字母歌 =====
+  let abcAudio = null;
+  const abcSongBtn = $("abcSongBtn");
+  abcSongBtn.addEventListener("click", () => {
+    if (abcAudio && !abcAudio.paused) {
+      abcAudio.pause(); abcAudio.currentTime = 0;
+      abcSongBtn.classList.remove("playing");
+      abcSongBtn.textContent = "🎵 ABC 字母歌";
+      return;
+    }
+    abcAudio = new Audio("data/audio/phonics/abc_song.mp3");
+    abcAudio.playbackRate = 0.95;
+    abcSongBtn.classList.add("playing");
+    abcSongBtn.textContent = "⏹ 停止";
+    const restore = () => {
+      abcSongBtn.classList.remove("playing");
+      abcSongBtn.textContent = "🎵 ABC 字母歌";
+    };
+    abcAudio.addEventListener("ended", restore, { once: true });
+    abcAudio.addEventListener("error", restore, { once: true });
+    abcAudio.play().catch(restore);
+  });
+
+  // ===== 聽音選字 quiz =====
+  const phonicsQuizModal = $("phonicsQuizModal");
+  const phonicsQuizOptions = $("phonicsQuizOptions");
+  const phonicsQuizFeedback = $("phonicsQuizFeedback");
+  const phonicsQuizNext = $("phonicsQuizNext");
+  const phonicsQuizScoreEl = $("phonicsQuizScore");
+  const phonicsQuizReplay = $("phonicsQuizReplay");
+  let pqScore = 0, pqTotal = 0, pqCurrentExample = "";
+
+  // 從 PHONICS_* 抽出所有例字當題庫
+  const pqPool = () => {
+    return [
+      ...PHONICS_LETTERS, ...PHONICS_DIGRAPHS, ...PHONICS_MAGIC_E,
+      ...PHONICS_VOWEL_TEAMS, ...PHONICS_BLENDS,
+    ].map(it => it.example).filter(Boolean);
+  };
+
+  const playWordAudio = (word) => {
+    const safe = word.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+    const path = "data/audio/phonics/word_" + safe + ".mp3";
+    const audio = new Audio(path);
+    audio.addEventListener("error", () => {
+      // 退到瀏覽器 TTS
+      speakText(word, "en-US", 0.85);
+    }, { once: true });
+    audio.play().catch(() => speakText(word, "en-US", 0.85));
+  };
+
+  const pqNextQuestion = () => {
+    const pool = pqPool();
+    if (pool.length < 4) {
+      phonicsQuizOptions.innerHTML = '<div style="color:#94a3b8;grid-column:1/-1">題庫不足</div>';
+      return;
+    }
+    // 隨機挑 1 個答案 + 3 個 distractor
+    const correctIdx = Math.floor(Math.random() * pool.length);
+    pqCurrentExample = pool[correctIdx];
+    const distractors = [];
+    while (distractors.length < 3) {
+      const cand = pool[Math.floor(Math.random() * pool.length)];
+      if (cand !== pqCurrentExample && !distractors.includes(cand)) distractors.push(cand);
+    }
+    const opts = [pqCurrentExample, ...distractors];
+    for (let i = opts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [opts[i], opts[j]] = [opts[j], opts[i]];
+    }
+    phonicsQuizOptions.innerHTML = opts.map(o =>
+      '<button data-word="' + escapeHtml(o) + '">' + escapeHtml(o) + '</button>'
+    ).join("");
+    phonicsQuizOptions.querySelectorAll("button").forEach((b) => {
+      b.addEventListener("click", () => {
+        const all = phonicsQuizOptions.querySelectorAll("button");
+        all.forEach(x => { x.disabled = true; });
+        const isRight = b.dataset.word === pqCurrentExample;
+        all.forEach(x => {
+          if (x.dataset.word === pqCurrentExample) x.classList.add("right");
+          else if (x === b && !isRight) x.classList.add("wrong");
+        });
+        pqTotal++;
+        if (isRight) pqScore++;
+        phonicsQuizScoreEl.textContent = pqScore + " / " + pqTotal;
+        phonicsQuizFeedback.textContent = isRight ? "✓ 答對!" : "✗ 答案是 " + pqCurrentExample;
+        phonicsQuizFeedback.className = "pq-feedback " + (isRight ? "right" : "wrong");
+        phonicsQuizNext.classList.add("show");
+      });
+    });
+    phonicsQuizFeedback.textContent = "";
+    phonicsQuizFeedback.className = "pq-feedback";
+    phonicsQuizNext.classList.remove("show");
+    // 立刻播一次
+    setTimeout(() => playWordAudio(pqCurrentExample), 200);
+  };
+
+  $("phonicsQuizBtn").addEventListener("click", () => {
+    pqScore = 0; pqTotal = 0;
+    phonicsQuizScoreEl.textContent = "0 / 0";
+    phonicsQuizModal.classList.add("show");
+    pqNextQuestion();
+  });
+  $("phonicsQuizClose").addEventListener("click", () => {
+    phonicsQuizModal.classList.remove("show");
+  });
+  phonicsQuizModal.addEventListener("click", (e) => {
+    if (e.target === phonicsQuizModal) phonicsQuizModal.classList.remove("show");
+  });
+  phonicsQuizReplay.addEventListener("click", () => {
+    if (pqCurrentExample) playWordAudio(pqCurrentExample);
+  });
+  phonicsQuizNext.addEventListener("click", pqNextQuestion);
 
   // ===== 每日英文 =====
   let dailyArticles = null;
@@ -4570,15 +4853,17 @@
   };
 
   // 把文章 text 中的 key_vocab 字標成可點選 (大小寫不分,word boundary)
+  // 注意:必須一次 replace 完所有字,不能一個個 replace,否則第 N 輪會把
+  //      第 N-1 輪生出的 HTML attribute (像 class="kv") 當作 vocab 又包一次,炸開
   const renderTextWithVocab = (text, keyVocab) => {
     let html = escapeHtml(text);
+    if (!keyVocab || !keyVocab.length) return html;
     const sorted = [...new Set(keyVocab)].sort((a,b) => b.length - a.length);
-    for (const w of sorted) {
-      // 有 word boundary 的全字匹配,大小寫不敏感
-      const re = new RegExp("\\b(" + w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")\\b", "gi");
-      html = html.replace(re, (m) => `<span class="kv" data-word="${escapeHtml(w.toLowerCase())}">${m}</span>`);
-    }
-    return html;
+    const escaped = sorted.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+    const re = new RegExp("\\b(" + escaped.join("|") + ")\\b", "gi");
+    return html.replace(re, (m) =>
+      `<span class="kv" data-word="${escapeHtml(m.toLowerCase())}">${m}</span>`
+    );
   };
 
   const dailyDateEl = $("dailyDate");
